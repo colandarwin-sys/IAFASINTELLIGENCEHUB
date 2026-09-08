@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>IAFAS HUB v4.2.104 | GUIA RAPIDA EN PORTADA | 26AGO2026</title>
+  <link rel="stylesheet" href="static/styles.css?v=kairos-wizard-42105"><link rel="stylesheet" href="static/v42-decision-engine.css?v=darbot-2456-0820-1018">
+</head>
+<body>
+<section id="loginScreen" class="login-screen">
+  <form id="loginForm" class="login-box">
+    <div class="section-label">Acceso al panel</div>
+    <h1>IAFAS Intelligence Hub</h1>
+    <p>Gerencia de Auditoría Médica y Convenios</p>
+    <label>Usuario</label>
+    <input id="loginUser" autocomplete="username" required>
+    <label>Contraseña</label>
+    <input id="loginPass" type="password" autocomplete="current-password" required>
+    <button class="pill blue action-pill" type="submit">Ingresar</button>
+    <div class="login-help">Usuarios base: <b>dcolan/dcolan</b> · <b>ctejada/ctejada</b></div>
+  </form>
+</section>
+<div class="layout app-hidden" id="appLayout">
+<aside class="sidebar">
+<div class="brand">
+<div class="eyebrow">Panel institucional</div>
+<h1>IAFAS Intelligence Hub</h1>
+<p>Gerencia de Auditoría Médica y Convenios</p>
+</div>
+<nav class="menu">
+<div class="menu-group-label">Inicio</div>
+<button class="active" data-module="inicio" onclick="go('inicio',this)" title="Inicio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg><span>Inicio</span></button>
+<div class="menu-group-label">Coberturas</div>
+<button data-module="buscador" onclick="go('buscador',this)" title="Listas AB"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 6h12"/><path d="M8 12h12"/><path d="M8 18h12"/><path d="M4 6h.01"/><path d="M4 12h.01"/><path d="M4 18h.01"/></svg><span>Listas AB</span></button>
+<button data-module="exclusiones" onclick="go('exclusiones',this)" title="Exclusiones IAFAS"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3 4 6v6c0 5 3.4 7.6 8 9 4.6-1.4 8-4 8-9V6z"/><path d="M12 8v5"/><path d="M12 17h.01"/></svg><span>Exclusiones IAFAS</span></button>
+<button data-module="factores" onclick="go('factores',this)" title="Factores IAFAS"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V9"/><path d="M10 19V5"/><path d="M16 19v-7"/><path d="M22 19H2"/><path d="m5 6 5-3 5 5 6-4"/></svg><span>Factores IAFAS</span></button>
+<button data-module="honorarios" onclick="go('honorarios',this)" title="Calculadora de Honorarios"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h3M14 12h2M8 16h2M13 16h3"/></svg><span>Calculadora de Honorarios</span></button>
+<button data-module="kairos" onclick="go('kairos',this)" title="Calculadora Kairos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M8 8h8"/><path d="M8 12h2M14 12h2"/><path d="M8 16h8"/><path d="m17 6 2-2"/></svg><span>Calculadora Kairos</span></button>
+<div class="menu-group-label">Biblioteca inteligente</div>
+<button data-module="manual" onclick="go('manual',this)" title="Manual de Normas de Facturación"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4h12v16H6z"/><path d="M9 8h6M9 12h6M9 16h4"/></svg><span>Manual de Normas de Facturación</span></button>
+<button data-module="peas" onclick="go('peas',this)" title="PEAS"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h8M8 17h5"/><path d="M6 3v4M18 3v4"/></svg><span>PEAS</span></button>
+<button data-module="capacitaciones" onclick="go('capacitaciones',this)" title="Capacitaciones IAFAS"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16"/><path d="M4 12h10"/><path d="M4 18h16"/><path d="M17 10l3 2-3 2z"/></svg><span>Capacitaciones IAFAS</span></button>
+<div class="menu-group-label">Operación</div>
+<a class="external-module" href="https://validadorcartasdegarantia.pages.dev/" target="_blank" rel="noopener noreferrer" title="Abrir Validador de cartas de garantía (Pacífico) en una pestaña nueva"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v5h5"/><path d="m10 14 2 2 4-4"/><path d="M17 11h4v4"/><path d="m21 11-5 5"/></svg><span>Validador de cartas de garantía (Pacífico)</span><svg class="external-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h6"/></svg></a>
+<button data-module="central" onclick="go('central',this)" title="Central de consultas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/></svg><span>Central de consultas</span></button>
+<button data-module="contactos" onclick="go('contactos',this)" title="Contactos y emergencias"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.8 19.8 0 0 1 3 5.18 2 2 0 0 1 5 3h3a2 2 0 0 1 2 1.72c.12.86.31 1.7.57 2.5a2 2 0 0 1-.45 2.11L9 10.5a16 16 0 0 0 4.5 4.5l1.17-1.12a2 2 0 0 1 2.11-.45c.8.26 1.64.45 2.5.57A2 2 0 0 1 22 16.92z"/></svg><span>Contactos y emergencias</span></button>
+<button data-module="glosario" onclick="go('glosario',this)" title="Glosario / Terminología"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h5"/></svg><span>Glosario / Terminología</span></button>
+<div class="menu-group-label">Administración</div>
+<button data-module="usuarios" onclick="go('usuarios',this)" title="Gestión de usuarios"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6"/><path d="M22 11h-6"/></svg><span>Gestión de usuarios</span></button>
+<button data-module="fuentes" onclick="go('fuentes',this)" title="Gestión de fuentes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg><span>Gestión de fuentes</span></button>
+</nav>
+<div class="sidebar-footer">
+<p class="meta app-version">IAFAS HUB v4.2.104 · GUIA RAPIDA EN PORTADA · 26 AGO 2026</p>
+<p class="meta app-credit">Desarrollado por Darwen Colan</p>
+<div class="footer-user"><b id="userName">Usuario</b></div>
+<button class="logout-btn" onclick="logout()">Cerrar sesión</button>
+</div>
+</aside>
+<main class="main">
+<section id="inicio" class="page show">
+<div class="home-shell">
+  <div class="home-hero">
+    <div>
+      <div class="section-label">Gerencia de Auditoría Médica y Convenios</div>
+      <h2>IAFAS Intelligence Hub</h2>
+      <p>Un centro donde se concentra información clave sobre coberturas, consultas, manuales, capacitaciones, normas y criterios operativos de IAFAS para tomar mejores decisiones.</p>
+      <div class="home-guide-cta">
+        <button class="home-guide-btn" onclick="openGuide()">Guía rápida</button>
+      </div>
+    </div>
+    <div class="portal-side">
+    <div class="portal-panel">
+      <span>Elige una consulta</span>
+      <div class="portal-actions">
+        <button onclick="go('buscador',menuBtn('buscador'))"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 6h12"/><path d="M8 12h12"/><path d="M8 18h12"/><path d="M4 6h.01"/><path d="M4 12h.01"/><path d="M4 18h.01"/></svg><b>Listas AB</b></button>
+        <button onclick="go('exclusiones',menuBtn('exclusiones'))"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 4 6v6c0 5 3.4 7.6 8 9 4.6-1.4 8-4 8-9V6z"/><path d="M12 8v5"/><path d="M12 17h.01"/></svg><b>Exclusiones</b></button>
+        <button onclick="go('capacitaciones',menuBtn('capacitaciones'))"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16"/><path d="M4 12h10"/><path d="M4 18h16"/><path d="M17 10l3 2-3 2z"/></svg><b>Capacitaciones</b></button>
+        <button onclick="go('manual',menuBtn('manual'))"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 4h12v16H6z"/><path d="M9 8h6M9 12h6M9 16h4"/></svg><b>Normas de facturación</b></button>
+        <button onclick="go('peas',menuBtn('peas'))"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg><b>PEAS versión 2021</b></button>
+      </div>
+      <p>Ultima actualización- Mayo 2026</p>
+    </div>
+    </div>
+  </div>
+  <div class="company-strip">
+    <div class="company active"><b>Pacífico</b><span>Listas AB</span></div>
+    <div class="company active"><b>Rímac</b><span>Capacitaciones</span></div>
+    <div class="company active"><b>Mapfre</b><span>Exclusiones</span></div>
+    <div class="company active"><b>Sanitas</b><span>Exclusiones</span></div>
+    <div class="company active"><b>Positiva</b><span>Exclusiones</span></div>
+  </div>
+  <div class="home-grid">
+    <div class="home-module" data-module="miniia" onclick="openDarwenChat()"><span>AI</span><b>Darbot</b><p>Chat virtual para orientar consultas, ubicar sustento documental y ordenar validaciones operativas.</p></div>
+    <div class="home-module" data-module="buscador" onclick="go('buscador',menuBtn('buscador'))"><span>01</span><b>Listas AB</b><p>Búsqueda central para ubicar prestaciones, coberturas y condiciones operativas.</p></div>
+    <div class="home-module" data-module="exclusiones" onclick="go('exclusiones',menuBtn('exclusiones'))"><span>02</span><b>Exclusiones IAFAS</b><p>Matriz consolidada con exclusiones comunes, reglas particulares y palabras clave por IAFA.</p></div>
+    <div class="home-module" data-module="capacitaciones" onclick="go('capacitaciones',menuBtn('capacitaciones'))"><span>03</span><b>Capacitaciones IAFAS</b><p>Boletines y fichas rápidas por aseguradora, empezando con RIMAC.</p></div>
+    <div class="home-module" data-module="manual" onclick="go('manual',menuBtn('manual'))"><span>04</span><b>Normas de facturación</b><p>Manual interactivo con criterios, sustentos y enlace directo a la página fuente del PDF.</p></div><div class="home-module" data-module="peas" onclick="go('peas',menuBtn('peas'))"><span>05</span><b>PEAS versión 2021</b><p>Consulta estructurada del Plan Esencial de Aseguramiento en Salud: condiciones, CIE-10, prestaciones y tablas.</p></div>
+  </div>
+  <div class="kpis compact-kpis"><div class="kpi"><span>Total tecnologías</span><strong id="kTotal">0</strong><div class="meter"><i id="mTotal" style="width:100%"></i></div></div><div class="kpi"><span>Lista A</span><strong id="kA">0</strong><div class="meter"><i id="mA"></i></div></div><div class="kpi"><span>Lista B / AB</span><strong id="kB">0</strong><div class="meter"><i id="mB" class="teal"></i></div></div><div class="kpi"><span>Requieren CG</span><strong id="kCG">0</strong><div class="meter"><i id="mCG"></i></div></div></div>
+</div>
+</section>
+
+<section id="miniia" class="page">
+  <div class="topbar search-topbar">
+    <div class="titleblock">
+      <div class="section-label">Chat virtual</div>
+      <h2>Darbot</h2>
+      <p>Chat conversacional para orientar consultas operativas usando fuentes cargadas del Hub. No reemplaza convenio, póliza, tarifario ni validación humana.</p>
+    </div>
+    <div class="toolbar"><span id="miniAiCount" class="pill blue">0 fuentes</span></div>
+  </div>
+  <div class="panel mini-ai-hero">
+    <div>
+      <span>Describe el caso o pregunta</span>
+      <textarea id="mini_ai_q" class="search main-search mini-ai-input" placeholder="Ejemplo: paciente con apendicitis, validar si corresponde PEAS y qué documento revisar..."></textarea>
+    </div>
+    <div class="mini-ai-actions">
+      <button class="pill blue action-pill" onclick="renderMiniAI()">Analizar</button>
+      <button class="pill action-pill" onclick="clearMiniAI()">Limpiar</button>
+    </div>
+  </div>
+  <div class="mini-ai-layout">
+    <section id="miniAiAnswer" class="panel mini-ai-answer">
+      <div class="empty-state">Escribe una consulta para que el asistente priorice fuentes, riesgos y próximos pasos.</div>
+    </section>
+    <aside id="miniAiChecklist" class="panel mini-ai-checklist">
+      <div class="panel-head"><div><h3>Checklist operativo</h3><p>Validaciones mínimas antes de responder.</p></div></div>
+      <div class="empty-state">Pendiente de análisis.</div>
+    </aside>
+  </div>
+  <section class="panel mini-ai-sources-panel">
+    <div class="panel-head"><div><h3>Fuentes encontradas</h3><p>Abre el documento o registro para revisar el sustento.</p></div></div>
+    <div id="miniAiSources" class="source-results-grid"></div>
+  </section>
+</section>
+
+
+<section id="buscador" class="page"><div class="topbar search-topbar"><div class="titleblock"><div class="section-label">Listas AB</div><h2>Búsqueda principal de Listas AB</h2><p>Busca por prestación, tecnología, palabra clave, cobertura o ID. La pantalla mostrará resultados solo después de consultar.</p></div><div class="toolbar"><span id="dataUpdateStatus" class="pill">Datos locales</span><span id="cnt" class="pill blue">0 registros</span><button class="pill action-pill" onclick="exportarCSV()">Exportar CSV</button></div></div><div class="panel ab-decision-search"><div><span>Consulta operativa</span><div class="manual-query-row"><input id="q" class="search main-search" placeholder="Ejemplo: ablación, TAVI, B-069, carta de garantía, no cubierto..." onkeyup="buscar()" onkeydown="if(event.key==='Enter')buscar()"><button class="pill blue action-pill" onclick="buscar()">Buscar</button></div></div><button class="pill action-pill" onclick="clearListasABSearch()">Limpiar</button></div><div class="ab-quick-filters"><div id="abCompanyFilters" class="company-filter"></div><div class="filter ab-type-filter"><button class="active" onclick="filtro('ALL',this)">Todo</button><button onclick="filtro('A',this)">Lista A</button><button onclick="filtro('B',this)">Lista B</button><button onclick="filtro('AB',this)">Lista AB</button><button onclick="filtro('CG',this)">Requiere CG</button><button onclick="filtro('NO',this)">No cubierto</button></div></div><div class="ab-decision-layout"><div class="ab-center"><section class="panel ab-main-panel"><div class="panel-head"><div><h3>Información adicional</h3><p id="detailHint">Busca una prestación para ver coincidencias y detalle sustentado.</p></div><span id="l" class="badgeA">-</span></div><div class="tablebox ab-results-table"><table><thead><tr><th>ID</th><th>Lista</th><th>Tecnología</th><th>Estado</th></tr></thead><tbody id="tb"></tbody></table></div></section><section class="panel ab-detail-panel"><div class="panel-head"><div><h3>Detalle de la prestación</h3><p>Descripción, detalles y palabras clave del registro seleccionado.</p></div></div><div class="ab-detail-central"><h3 id="tec">Sin búsqueda activa</h3><div class="field"><b>Detalles</b><div id="detalles">-</div></div><div class="field"><b>Palabras clave</b><div id="p" class="chips"></div></div></div></section></div><aside class="ab-side"><section class="panel ab-decision-side"><div class="ab-summary-card"><div class="ab-summary-head"><div><span>Lectura rápida</span><b>Estado de la prestación</b></div><small id="decisionCompany">Todas</small></div><div class="ab-summary-section ab-summary-coverage"><div class="ab-step-head"><span class="ab-step-number">1</span><div><span class="ab-step-label">Cobertura</span><small>Qué señala la fila fuente</small></div></div><div id="c" class="ab-summary-copy">-</div></div><div class="ab-summary-section"><div class="ab-step-head"><span class="ab-step-number">2</span><div><span class="ab-step-label">Condiciones</span><small>Requisitos que deben cumplirse</small></div></div><div class="ab-state-row"><strong id="conditionsState">-</strong><button id="conditionsBtn" class="ab-expand-btn" hidden onclick="toggleAbDetail('conditionsDetail',this,'Ver condiciones','Ocultar condiciones')">Ver condiciones</button></div><div id="conditionsDetail" class="ab-expand-detail" hidden><div id="cond">-</div></div></div><div class="ab-summary-section"><div class="ab-step-head"><span class="ab-step-number">3</span><div><span class="ab-step-label">Excepciones</span><small>Situaciones que cambian la regla</small></div></div><div class="ab-state-row"><strong id="exceptionsState">-</strong><button id="exceptionsBtn" class="ab-expand-btn" hidden onclick="toggleAbDetail('exceptionsDetail',this,'Ver excepciones','Ocultar excepciones')">Ver excepciones</button></div><div id="exceptionsDetail" class="ab-expand-detail" hidden><div id="exc">-</div></div></div><div class="ab-summary-section ab-summary-cg"><div class="ab-step-head"><span class="ab-step-number">4</span><div><span class="ab-step-label">Carta de Garantía</span><small>Decisión administrativa final</small></div></div><div id="cg" class="ab-cg-result">-</div></div></div></section></aside></div></section>
+<section id="exclusiones" class="page"><div class="topbar search-topbar"><div class="titleblock"><div class="section-label">Exclusiones IAFAS</div><h2>Decisión rápida de exclusiones</h2><p>Busca una prestación, diagnóstico, tecnología o IAFA. El módulo prioriza la alerta y muestra qué validar antes de responder.</p></div><div class="toolbar"><span id="excCount" class="pill blue">0 coincidencias</span></div></div><div class="panel exclusion-decision-search"><div><span>Consulta operativa</span><div class="manual-query-row"><input id="exc_q" class="search main-search" placeholder="Ejemplo: CPAP, cirugía robótica, preexistencia, off label, infertilidad..." onkeyup="renderExclusiones()" onkeydown="if(event.key==='Enter')renderExclusiones()"><button class="pill blue action-pill" onclick="renderExclusiones()">Buscar</button></div></div><button class="pill action-pill" onclick="clearExclusiones()">Limpiar</button></div><div class="exclusion-quick-filters"><div class="company-filter exclusion-company-filter"><button class="active" onclick="excCompanyFilter('ALL',this)">Todas</button><button onclick="excCompanyFilter('Rimac',this)">Rímac</button><button onclick="excCompanyFilter('Pacifico',this)">Pacífico</button><button onclick="excCompanyFilter('Sanitas',this)">Sanitas</button><button onclick="excCompanyFilter('Positiva',this)">Positiva</button><button onclick="excCompanyFilter('Mapfre',this)">Mapfre</button><button onclick="excCompanyFilter('Garantia',this)">Garantía</button></div><div class="filter exclusion-type-filter"><button class="active" onclick="excTypeFilter('ALL',this)">Todo</button><button onclick="excTypeFilter('Exclusion comun',this)">Comunes</button><button onclick="excTypeFilter('Regla particular',this)">Reglas particulares</button></div></div><div class="exclusion-decision-layout"><section id="excDecision" class="panel exclusion-decision-card"><div class="empty-state">Busca una prestación o selecciona un filtro para ver la alerta priorizada.</div></section><aside class="exclusion-side"><section id="excSideMeta" class="panel exclusion-side-meta"><div class="empty-state">Selecciona una alerta para ver las IAFAS a las que aplica la exclusión.</div></section><section class="panel exclusion-check-panel"><div class="panel-head"><div><h3>Validación mínima</h3><p>Antes de comunicar una exclusión.</p></div></div><ol id="excChecklist" class="exclusion-checklist"><li>Confirmar IAFA, producto, plan y vigencia.</li><li>Revisar PEAS, continuidad legal, SCTR o programa aplicable.</li><li>Contrastar con póliza, contrato, anexo o regla operativa vigente.</li></ol></section></aside></div></section>
+<section id="factores" class="page">
+  <div class="topbar search-topbar">
+    <div class="titleblock">
+      <div class="section-label">Factores IAFAS</div>
+      <h2>Consulta de factores por compañía</h2>
+      <p>Busca una IAFA, convenio, plan o regla. La respuesta prioriza el Factor Honorario y el Factor Servicios.</p>
+    </div>
+    <div class="toolbar"><span id="factorCount" class="pill blue">119 registros fuente</span></div>
+  </div>
+  <section class="panel factor-search-panel">
+    <div class="factor-search-copy"><span>¿Qué factor necesitas consultar?</span><small>Ejemplo: Pacífico, Rímac, Mapfre, Sanitas, La Positiva o Garantía de Salud.</small></div>
+    <div class="factor-query-row">
+      <input id="factor_q" class="search main-search" placeholder="Escribe la compañía, convenio, plan o regla..." onkeydown="if(event.key==='Enter')renderFactores()">
+      <button class="pill blue action-pill" onclick="renderFactores()">Buscar factor</button>
+      <button class="pill action-pill" onclick="clearFactores()">Limpiar</button>
+    </div>
+    <div class="factor-quick">
+      <button onclick="setFactorQuery('Pacífico')">Pacífico</button><button onclick="setFactorQuery('Rímac')">Rímac</button><button onclick="setFactorQuery('Mapfre')">Mapfre</button><button onclick="setFactorQuery('Sanitas')">Sanitas</button><button onclick="setFactorQuery('La Positiva')">La Positiva</button><button onclick="setFactorQuery('Garantía de Salud')">Garantía de Salud</button>
+    </div>
+  </section>
+  <div id="factorEmpty" class="panel factor-empty"><div class="empty-state"><b>Busca una compañía para ver sus factores.</b><span>Los factores de honorarios y servicios aparecerán como información principal.</span></div></div>
+  <div id="factorResults" class="factor-results" hidden>
+    <section class="factor-hero-grid">
+      <article class="factor-main-card factor-honorario"><span>FACTOR HONORARIO</span><strong id="factorHonorario">-</strong><small id="factorHonorarioNote">Según la regla aplicable</small></article>
+      <article class="factor-main-card factor-servicios"><span>FACTOR SERVICIOS</span><strong id="factorServicios">-</strong><small id="factorServiciosNote">Según la regla aplicable</small></article>
+      <article class="factor-company-card"><span>COMPAÑÍA / IAFA</span><strong id="factorCompany">-</strong><small id="factorCompanyNote">-</small></article>
+    </section>
+    <section class="panel factor-detail-panel">
+      <div class="panel-head"><div><h3>Reglas y planes encontrados</h3><p id="factorResultHint">Revisa el detalle cuando el factor dependa de una regla o plan específico.</p></div><span id="factorMatchCount" class="pill blue">0 coincidencias</span></div>
+      <div class="tablebox factor-table"><table><thead><tr><th>IAFA</th><th>Regla / convenio</th><th>Plan</th><th>Estado</th><th class="factor-priority-head">Factor Honorario</th><th class="factor-priority-head">Factor Servicios</th></tr></thead><tbody id="factorTableBody"></tbody></table></div>
+      <div class="factor-source-note">Fuente: <b>Factor.xlsx</b> · Hoja “Factores IAFAS”. Cuando figure “Por validar”, consultar con Convenios antes de comunicar el factor.</div>
+    </section>
+  </div>
+</section>
+
+<section id="honorarios" class="page">
+  <div class="topbar honorarios-topbar compact">
+    <div class="titleblock">
+      <div class="section-label">Herramienta financiera operativa</div>
+      <h2>Calculadora Profesional de Honorarios</h2>
+      <p>Selecciona procedimiento e IAFA para visualizar rápidamente el pago honorario, primer ayudante, anestesiólogo, instrumentista y sala de operaciones, con base en el tarifario de unidades y el Manual de Normas de Facturación.</p>
+    </div>
+    <div class="toolbar"><span class="pill blue">MNF · Honorarios quirúrgicos</span></div>
+  </div>
+
+  <section class="honorarios-intro-card">
+    <div>
+      <b>Vista operativa resumida</b>
+      <span>Se priorizan los importes clave para una validación rápida y confiable.</span>
+    </div>
+    <div class="hon-intro-tags">
+      <span id="honProcCountTag">0 procedimientos cargados</span>
+      <span id="honIntroFactorTag">Factor honorario: -</span>
+      <span id="honIntroServTag">Factor servicios: -</span>
+    </div>
+  </section>
+
+  <div class="honorarios-workspace">
+    <section class="panel honorarios-form-card">
+      <div class="hon-section-head"><span class="step">1</span><div><h3>Datos principales</h3><p>Solo completa la información indispensable.</p></div></div>
+
+      <div class="honorarios-form-grid compact-grid">
+        <label class="hon-field honor-wide">
+          <span>Procedimiento</span>
+          <div class="hon-search-shell">
+            <input id="honProcedimiento" class="search" placeholder="Escribe el procedimiento..." oninput="honProcedureChanged()" onfocus="honProcedureChanged()" onblur="honHideProcedureResults()" autocomplete="off">
+            <div id="honProcedureResults" class="hon-procedure-results" hidden></div>
+          </div>
+          <small id="honCatalogoMeta" class="hon-catalog-meta">Tarifario de unidades</small>
+        </label>
+        <label class="hon-field">
+          <span>Compañía / IAFA</span>
+          <select id="honIaFA" class="search" onchange="honFactorChanged()">
+            <option value="">Seleccionar...</option>
+            <option>Pacífico</option>
+            <option>Rímac</option>
+            <option>Mapfre</option>
+            <option>Sanitas</option>
+            <option>La Positiva</option>
+            <option>Garantía de Salud</option>
+          </select>
+        </label>
+        <label class="hon-field hon-short-field">
+          <span>Unidades</span>
+          <input id="honUnidades" class="search" type="number" min="0" step="0.01" readonly>
+        </label>
+      </div>
+
+      <div id="honManualUnitWrap" class="hon-inline-alert" hidden>
+        <span>El procedimiento no fue encontrado en el tarifario cargado. Si necesitas una simulación puntual, ingresa manualmente las unidades.</span>
+        <label>Unidad del tarifario <input id="honUnidadManual" type="number" min="0" step="0.01" oninput="honCalculate()"></label>
+      </div>
+
+      <div class="hon-factor-strip">
+        <article><span>Factor honorario</span><strong id="honFactor">-</strong></article>
+        <article><span>Factor servicios</span><strong id="honFactorServicios">-</strong></article>
+        <article class="wide"><span>Lectura rápida</span><small id="honFactorNote">Selecciona una IAFA para cargar los factores vigentes.</small></article>
+      </div>
+
+      <details class="hon-conditions-box">
+        <summary>Condiciones especiales del caso <small>(opcional)</small></summary>
+        <div class="hon-condition-grid compact-cond-grid">
+          <label class="hon-toggle mini"><input id="honNocturno" type="checkbox" onchange="honCalculate()"><span><b>Nocturno / feriado</b><small>Aplicable solo si existe sustento documentado.</small></span></label>
+          <label class="hon-toggle mini"><input id="honEmergencia" type="checkbox" onchange="honCalculate()"><span><b>Emergencia comprobada</b><small>Se registra como referencia del caso.</small></span></label>
+          <label class="hon-toggle mini"><input id="honLaparoscopia" type="checkbox" onchange="honCalculate()"><span><b>Laparoscópica / videoendoscópica</b><small>Recargo de 50% al equipo quirúrgico.</small></span></label>
+          <label class="hon-toggle mini"><input id="honLuxo" type="checkbox" onchange="honCalculate()"><span><b>Luxo-fractura</b><small>+30% al honorario del cirujano.</small></span></label>
+          <label class="hon-toggle mini"><input id="honInjerto" type="checkbox" onchange="honCalculate()"><span><b>Obtención de injerto óseo</b><small>+50% al honorario del cirujano.</small></span></label>
+          <label class="hon-field hon-inline-select"><span>Complejidad adicional</span><select id="honComplejidad" class="search" onchange="honCalculate()"><option value="0">No aplica</option><option value="10">10%</option><option value="15">15%</option><option value="20">20%</option><option value="25">25% máximo MNF</option></select></label>
+          <label class="hon-field hon-inline-select"><span>Reintervención mismo cirujano</span><select id="honReintervencion" class="search" onchange="honCalculate()"><option value="1">No aplica</option><option value="0">Dentro de 10 días · 0%</option><option value="0.5">11 a 30 días · 50%</option><option value="1">Más de 30 días · 100%</option></select></label>
+          <label class="hon-field hon-inline-select"><span>Número de ayudantes</span><select id="honAyudantes" class="search" onchange="honCalculate()"><option value="1">1 ayudante</option><option value="2">2 ayudantes</option><option value="3">3 ayudantes</option><option value="0">Sin ayudante</option></select></label>
+        </div>
+      </details>
+
+      <div class="hon-action-row compact-actions">
+        <button class="pill blue action-pill hon-calc-btn" onclick="honCalculate()">Calcular</button>
+        <button class="pill action-pill" onclick="honReset()">Limpiar</button>
+      </div>
+    </section>
+
+    <section class="panel honorarios-results-card refined">
+      <div class="hon-section-head no-margin"><span class="step">2</span><div><h3>Resultados principales</h3><p id="honProcedureMeta">Selecciona un procedimiento para calcular.</p></div></div>
+
+      <div class="hon-results-context">
+        <span id="honContextIaFA">IAFA: -</span>
+        <span id="honContextUnits">Unidades: -</span>
+        <span id="honContextFactorH">Factor honorario: -</span>
+        <span id="honContextFactorS">Factor servicios: -</span>
+      </div>
+
+      <div class="hon-main-grid refined-grid">
+        <article class="hon-result-card primary hero"><span>Pago honorario</span><strong id="honCirujano">S/ 0.00</strong><small id="honFormula">Unidades × factor honorario</small></article>
+        <article class="hon-result-card accent hero-alt"><span>Sala de operaciones</span><strong id="honSalaDecision">S/ 0.00</strong><small id="honSalaFormula">Unidades × factor servicios</small></article>
+        <article class="hon-result-card"><span>Primer ayudante</span><strong id="honAyudante1">S/ 0.00</strong><small>25% del honorario del cirujano</small></article>
+        <article class="hon-result-card"><span>Anestesiólogo</span><strong id="honAnestesia">S/ 0.00</strong><small>30% del cirujano · mínimo 15 unidades</small></article>
+        <article class="hon-result-card"><span>Instrumentista</span><strong id="honInstrumentista">S/ 0.00</strong><small>6% del honorario del cirujano</small></article>
+        <article class="hon-result-card total full"><span>Total equipo quirúrgico</span><strong id="honTotalEquipo">S/ 0.00</strong><small id="honOtherHelpText">Incluye cirujano, ayudantía, anestesia e instrumentista.</small></article>
+      </div>
+
+      <div id="honOtherHelpWrap" class="hon-secondary-line refined-line" hidden>
+        <span>Otros ayudantes</span>
+        <b id="honAyudantesOtros">S/ 0.00</b>
+      </div>
+
+      <div class="hon-secondary-summary refined-summary">
+        <div><span>Total referencial global</span><strong id="honTotalGeneral">S/ 0.00</strong></div>
+        <div><span>Sala de operaciones base</span><strong id="honSalaHero">S/ 0.00</strong></div>
+      </div>
+
+      <div id="honAppliedRules" class="hon-applied-rules"></div>
+    </section>
+  </div>
+
+  <details class="panel hon-rules-compact">
+    <summary>Ver reglas aplicadas del Manual de Normas de Facturación</summary>
+    <div class="hon-rule-grid compact-rule-grid">
+      <article><b>Anestesiólogo</b><p>30% del honorario del cirujano principal. Nunca menor a 15 unidades del tarifario.</p></article>
+      <article><b>Ayudantes</b><p>Primer ayudante 25%. Otros ayudantes 15% cada uno, según sustento y necesidad del caso.</p></article>
+      <article><b>Instrumentista</b><p>Honorario rutinario equivalente al 6% del honorario del cirujano.</p></article>
+      <article><b>Reintervención</b><p>0% hasta 10 días, 50% de 11 a 30 días y 100% después de 30 días.</p></article>
+      <article><b>Complejidad</b><p>Puede adicionarse hasta 25% cuando exista informe médico sustentado.</p></article>
+      <article><b>Sala de operaciones</b><p>Se muestra como cálculo base según unidades × factor servicios. El manual revisado describe inclusiones y condiciones de facturación, no un recargo porcentual específico.</p></article>
+    </div>
+  </details>
+</section>
+
+
+<section id="kairos" class="page">
+  <div class="topbar kh-topbar">
+    <div class="titleblock">
+      <div class="section-label">Validación tarifaria operativa</div>
+      <h2>Calculadora Kairos</h2>
+      <p>Compara el valor liquidado en MV con la regla tarifaria aplicable por IAFA y muestra la diferencia económica con una lectura rápida.</p>
+    </div>
+    <div class="toolbar kh-toolbar">
+      <a class="pill action-pill" href="https://per.kairosweb.com/" target="_blank" rel="noopener">Abrir Kairos Perú</a>
+      <span class="pill blue">Lógica Kairos v2.3.3</span>
+    </div>
+  </div>
+
+  <nav class="kh-flow" aria-label="Pasos de la Calculadora Kairos">
+    <button id="khFlow1" class="active" type="button" onclick="khGoStep(1)"><span>1</span><b>Datos Kairos</b><small>Medicamento, presentación y precios</small></button>
+    <button id="khFlow2" type="button" onclick="khGoStep(2)"><span>2</span><b>Datos MV</b><small>Cantidad y total liquidado</small></button>
+    <button id="khFlow3" type="button" onclick="khGoStep(3)"><span>3</span><b>Resultado</b><small>Compara y decide</small></button>
+  </nav>
+
+  <div id="khStepMessage" class="kh-step-message" hidden></div>
+
+  <section id="khStep1" class="panel kh-wizard-card kh-step-panel show">
+    <div class="kh-card-head">
+      <div><span class="kh-kicker">PASO 1 DE 3</span><h3>Datos visibles en Kairos</h3><p>Primero identifica la IAFA y transcribe los datos de la ficha abierta en Kairos.</p></div>
+      <span class="kh-source-chip">Fuente: Kairos Perú</span>
+    </div>
+
+    <div class="kh-source-note"><b>Medicamento</b><span>En esta versión se transcribe exactamente como aparece en Kairos. No se autocompletan nombres sin una fuente maestra.</span></div>
+
+    <div class="kh-grid kh-grid-main kh-step1-grid">
+      <label class="kh-field"><span>IAFA</span><select id="khInsurer" onchange="khCalculate()"><option value="">Seleccionar...</option><option value="pacifico">Pacífico</option><option value="rimac">Rímac</option><option value="mapfre">MAPFRE EPS / Seguros</option><option value="sanitas">Sanitas EPS</option><option value="positiva">La Positiva EPS / Seguros</option></select></label>
+      <label class="kh-field kh-wide"><span>Medicamento</span><input id="khMedication" placeholder="Transcribe el nombre tal como aparece en Kairos" oninput="khCalculate()"></label>
+      <label class="kh-field kh-wide"><span>Presentación Kairos</span><input id="khPresentation" placeholder="Ej. Caja Sol. Vial x 1" oninput="khPresentationChanged()"><small>Se detectarán automáticamente las unidades cuando la presentación lo permita.</small></label>
+      <label class="kh-field"><span>PVF Kairos</span><div class="kh-money-input"><b>S/</b><input id="khPvf" inputmode="decimal" placeholder="0.00" oninput="khCalculate()"></div></label>
+      <label class="kh-field"><span>PPS Kairos</span><div class="kh-money-input"><b>S/</b><input id="khPps" inputmode="decimal" placeholder="0.00" oninput="khCalculate()"></div></label>
+      <label class="kh-field"><span>Unidades por presentación</span><input id="khUnits" type="number" min="0.0001" step="any" value="1" oninput="khCalculate()"><small id="khUnitHint">1 unidad detectada</small></label>
+    </div>
+
+    <div class="kh-step-actions end">
+      <button class="pill blue action-pill kh-next-btn" type="button" onclick="khContinueToMv()">Continuar a Datos MV →</button>
+    </div>
+  </section>
+
+  <section id="khStep2" class="panel kh-wizard-card kh-step-panel" hidden>
+    <div class="kh-card-head">
+      <div><span class="kh-kicker">PASO 2 DE 3</span><h3>Datos de liquidación MV</h3><p>Indica cuánto se liquidó y confirma la equivalencia entre la unidad MV y la presentación Kairos.</p></div>
+      <div id="khStep2Context" class="kh-step-context">Consulta cargada</div>
+    </div>
+
+    <div class="kh-grid kh-mv-grid kh-step2-grid">
+      <label class="kh-field"><span>Cantidad liquidada</span><input id="khQuantity" type="number" min="0.0001" step="any" value="1" oninput="khCalculate()"></label>
+      <label class="kh-field"><span>Total MV</span><div class="kh-money-input"><b>S/</b><input id="khTotalMv" inputmode="decimal" placeholder="0.00" oninput="khCalculate()"></div></label>
+      <label class="kh-field kh-wide"><span>¿Qué representa la cantidad en MV?</span><select id="khBasis" onchange="khCalculate()"><option value="auto">AUTO — detectar por escala de precio</option><option value="inner">Unidad interna</option><option value="presentation">Presentación completa Kairos</option></select><small>Si la escala es ambigua, el sistema te pedirá confirmarla antes de calcular.</small></label>
+    </div>
+
+    <div id="khUnitDiagnostic" class="kh-unit-diagnostic neutral">Completa el Total MV para validar la equivalencia de unidad.</div>
+
+    <div id="khRimacFallback" class="kh-fallback" hidden>
+      <div><b>Rímac · ruta alternativa</b><span>Si Kairos no muestra PPS ni PVF, ingresa el precio de compra sin IGV.</span></div>
+      <label class="kh-field"><span>Precio de compra sin IGV</span><div class="kh-money-input"><b>S/</b><input id="khPurchase" inputmode="decimal" placeholder="0.00" oninput="khCalculate()"></div></label>
+    </div>
+
+    <details class="kh-advanced"><summary>Opciones adicionales</summary><label class="kh-check"><input id="khExempt" type="checkbox" onchange="khCalculate()"><span><b>Medicamento inafecto / caso tributario especial</b><small>El resultado pasará a Zona gris hasta validar la regla específica.</small></span></label></details>
+
+    <div class="kh-step-actions split">
+      <button class="pill action-pill" type="button" onclick="khGoStep(1)">← Volver</button>
+      <button class="pill blue action-pill kh-next-btn" type="button" onclick="khFinishCalculation()">Calcular resultado →</button>
+    </div>
+  </section>
+
+  <section id="khStep3" class="kh-step-panel" hidden>
+    <div class="kh-result-layout">
+      <section class="panel kh-result-card kh-result-main">
+        <div class="kh-result-head"><div><span class="kh-kicker">PASO 3 DE 3</span><h3>Resultado de validación</h3><p id="khResultContext">Consulta calculada</p></div><span id="khStatus" class="kh-status pending">PENDIENTE</span></div>
+        <div id="khResultIntro" class="kh-result-intro">El resultado aparecerá después de completar los pasos anteriores.</div>
+        <div class="kh-metrics"><article class="primary"><span>Precio convenio / validado por unidad MV</span><strong id="khAllowedUnit">S/ 0.00</strong><small id="khBasisLabel">Base pendiente</small></article><article><span>Total convenio / referencia</span><strong id="khAllowedTotal">S/ 0.00</strong></article><article><span>Total MV</span><strong id="khMvTotal">S/ 0.00</strong></article><article><span>Diferencia total</span><strong id="khDifference">S/ 0.00</strong><small id="khDifferencePct">0.00%</small></article></div>
+        <div class="kh-impact-row"><div><span>Oportunidad económica</span><strong id="khOpportunity">S/ 0.00</strong></div><div><span>Sobrevaloración</span><strong id="khOvervaluation">S/ 0.00</strong></div></div>
+        <div class="kh-method-box"><div><span>Método aplicado</span><strong id="khMethod">-</strong></div><div><span>Validación</span><strong id="khValidation">-</strong></div><p id="khMethodNote">La regla utilizada aparecerá aquí.</p></div>
+        <details class="kh-calc-details"><summary>Ver cálculo matemático</summary><div id="khCalcBreakdown" class="kh-breakdown">Sin cálculo disponible.</div></details>
+        <div class="kh-result-actions"><button class="pill action-pill" onclick="khGoStep(2)">← Editar Datos MV</button><button class="kh-copy-btn" onclick="khCopyResult()">Copiar resultado</button><button class="pill blue action-pill" onclick="khReset()">Nueva consulta</button></div>
+      </section>
+
+      <aside class="kh-result-side">
+        <section class="panel kh-register-card compact">
+          <div class="kh-register-head"><div><span class="kh-kicker">TRAZABILIDAD</span><h3>Registrar resultado</h3><p>Opcional: guarda el caso para el resumen mensual.</p></div></div>
+          <div class="kh-register-grid compact"><label class="kh-field"><span>Número de cuenta</span><input id="khAccount" placeholder="Cuenta del paciente"></label><label class="kh-field"><span>Código PROFAT</span><input id="khProfat" placeholder="Código PROFAT"></label><button class="pill blue action-pill kh-register-btn" onclick="khRegister()">Registrar</button></div>
+          <div id="khRegisterMessage" class="kh-register-message"></div>
+          <details class="kh-monthly"><summary>Resumen mensual</summary><div id="khMonthlySummary" class="kh-monthly-grid"></div><button class="pill action-pill kh-export-btn" onclick="khExportCsv()">Exportar CSV</button></details>
+        </section>
+
+        <details class="panel kh-rules-card compact"><summary>Regla tarifaria aplicada</summary><div class="kh-rules-grid"><article><b>Pacífico</b><p>PPS −40%. Sin PPS y con PVF: PVF ×1.33, regla operativa validada por liderazgo.</p></article><article><b>Rímac</b><p>PPS −25%. Sin PPS: PVF ×1.33. Sin PPS/PVF: compra +5%.</p></article><article><b>MAPFRE</b><p>PPS −15%. Sin PPS: Zona gris.</p></article><article><b>Sanitas</b><p>PPS −25%. Sin PPS: Zona gris.</p></article><article><b>La Positiva</b><p>PPS −20%. Sin PPS: Zona gris.</p></article></div></details>
+      </aside>
+    </div>
+  </section>
+</section>
+
+<section id="capacitaciones" class="page">
+  <div class="topbar cap70-topbar">
+    <div class="titleblock">
+      <div class="section-label">Capacitaciones IAFAS</div>
+      <h2>Consulta rápida para resolver casos</h2>
+      <p>Escribe una pregunta o palabra clave. El Hub reúne en una sola vista la respuesta, qué hacer, qué validar, alertas y la fuente documental.</p>
+    </div>
+    <div class="toolbar cap71-toolbar"><button class="pill action-pill cap71-guide-btn" onclick="cap71OpenGuide()" title="Ver guía rápida del módulo">▶ Cómo funciona</button><span id="cap70SourceStatus" class="pill blue">Fuentes cargadas</span></div>
+  </div>
+
+  <section class="panel cap70-search-panel">
+    <div class="cap70-search-label"><span>BUSCAR EN CAPACITACIONES</span><small>Pregunta natural o palabras clave</small></div>
+    <div class="cap70-query-row">
+      <input id="cap70Query" class="search main-search" placeholder="Ejemplo: ¿cuánto dura una emergencia accidental?, SITEDS, carencia, carta de garantía..." oninput="cap70Search()" onkeydown="if(event.key==='Enter')cap70Search(true)">
+      <button class="pill blue action-pill" onclick="cap70Search(true)">Buscar</button>
+      <button class="pill action-pill" onclick="cap70Clear()">Limpiar</button>
+    </div>
+    <div class="cap70-quick-wrap">
+      <span>Consultas frecuentes</span>
+      <div id="cap70Quick" class="cap70-quick"></div>
+    </div>
+    <div class="cap70-filterbar">
+      <div id="cap70IafaFilters" class="cap70-filters"></div>
+      <div id="cap70TopicFilters" class="cap70-filters cap70-topic-filters"></div>
+    </div>
+  </section>
+
+  <div class="cap70-layout">
+    <section class="panel cap70-results-panel">
+      <div class="panel-head cap70-results-head">
+        <div><h3>Resultados</h3><p id="cap70Hint">Empieza escribiendo una pregunta o usa una consulta frecuente.</p></div>
+        <span id="cap70Count" class="pill">0 resultados</span>
+      </div>
+      <div id="cap70Results" class="cap70-results">
+        <div class="cap70-empty"><b>Todo en una sola consulta</b><p>No necesitas entrar por IAFA, concepto o caso. Busca y revisa el contenido relacionado aquí mismo.</p></div>
+      </div>
+    </section>
+
+    <aside id="cap70Detail" class="panel cap70-detail-panel">
+      <div class="cap70-empty-detail"><span>Selecciona un resultado</span><p>La respuesta completa aparecerá aquí, con sus validaciones y fuente.</p></div>
+    </aside>
+  </div>
+</section>
+
+<div id="cap71Guide" class="cap71-guide" hidden aria-hidden="true">
+  <div class="cap71-guide-backdrop" onclick="cap71CloseGuide()"></div>
+  <div class="cap71-guide-shell" role="dialog" aria-modal="true" aria-label="Guía rápida de Capacitaciones IAFAS">
+    <div class="cap71-guide-top">
+      <div>
+        <span>CAPACITACIONES IAFAS</span>
+        <b>Guía rápida del módulo</b>
+      </div>
+      <div class="cap71-guide-actions">
+        <button id="cap71PlayBtn" class="cap71-icon-btn" onclick="cap71TogglePlay()" title="Pausar o reproducir">❚❚</button>
+        <button class="cap71-icon-btn" onclick="cap71CloseGuide()" title="Cerrar">×</button>
+      </div>
+    </div>
+    <div class="cap71-stage">
+      <div id="cap71Slides" class="cap71-slides">
+        <figure class="cap71-slide active" data-step="0"><img src="static/tutorial/capacitaciones/01-bienvenida.jpg" alt="Bienvenida a Capacitaciones IAFAS"></figure>
+        <figure class="cap71-slide" data-step="1"><img src="static/tutorial/capacitaciones/02-escribe-consulta.jpg" alt="Escribe una consulta por pregunta o palabra clave"></figure>
+        <figure class="cap71-slide" data-step="2"><img src="static/tutorial/capacitaciones/03-fuentes-conectadas.jpg" alt="El Hub encuentra información en las fuentes conectadas"></figure>
+        <figure class="cap71-slide" data-step="3"><img src="static/tutorial/capacitaciones/04-respuesta-completa.jpg" alt="Revisa la respuesta completa y su fuente"></figure>
+        <figure class="cap71-slide" data-step="4"><img src="static/tutorial/capacitaciones/05-temas.jpg" alt="Temas que puedes consultar"></figure>
+      </div>
+      <div class="cap71-motion-layer" aria-hidden="true"><i></i><i></i><i></i></div>
+      <button class="cap71-nav prev" onclick="cap71Prev()" aria-label="Lámina anterior">‹</button>
+      <button class="cap71-nav next" onclick="cap71Next()" aria-label="Siguiente lámina">›</button>
+    </div>
+    <div class="cap71-guide-bottom">
+      <div id="cap71Dots" class="cap71-dots"></div>
+      <div class="cap71-progress"><span id="cap71Progress"></span></div>
+      <div class="cap71-guide-foot-actions">
+        <label><input id="cap71DontShow" type="checkbox"> No mostrar automáticamente otra vez</label>
+        <button class="cap71-finish" onclick="cap71Finish()">Entendido</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="manual" class="page"><div class="topbar search-topbar"><div class="titleblock"><div class="section-label">Manual de Normas de Facturación</div><h2>Buscador textual del manual</h2><p>Escribe una palabra clave o pregunta. El sistema muestra solo las coincidencias necesarias con cita de página.</p></div><div class="toolbar"><span id="manualCount" class="pill blue">0 resultados</span><a class="pill action-pill manual-pdf-link" href="static/docs/manual-normas-facturacion.pdf" target="_blank" rel="noopener">Abrir PDF completo</a></div></div><div class="manual-search-hero panel"><div><span>Pregunta o búsqueda rápida</span><div class="manual-query-row"><input id="manual_q" class="search main-search" placeholder="Ejemplo: ¿cómo se factura una reintervención?, UCI, farmacia al alta, sala de reposo..." oninput="renderManual()" onkeydown="if(event.key==='Enter')renderManual()"><button class="pill blue action-pill" onclick="renderManual()">Buscar</button></div></div><button class="pill action-pill" onclick="clearManualSearch()">Limpiar</button></div><div class="manual-layout"><div class="manual-results-shell"><div id="manualAnswer" class="panel manual-answer"></div><div class="panel manual-list-panel"><div class="panel-head"><div><h3>Coincidencias textuales</h3><p>Fragmentos ordenados por relevancia.</p></div></div><div id="manualResults" class="manual-results"></div></div></div></div></section>
+<section id="peas" class="page"><div class="topbar search-topbar"><div class="titleblock"><div class="section-label">PEAS</div><h2>Plan Esencial de Aseguramiento en Salud</h2><p>Consulta por pregunta, condición asegurable, CIE-10, procedimiento o palabra clave. Los resultados muestran texto fuente, tablas relacionadas y página del PDF.</p></div><div class="toolbar"><span id="peasCount" class="pill blue">0 resultados</span><a class="pill action-pill" href="static/docs/peas.pdf" target="_blank" rel="noopener">Abrir PDF completo</a></div></div><div class="manual-search-hero panel peas-hero"><div><span>Pregunta o búsqueda rápida</span><div class="manual-query-row"><input id="peas_q" class="search main-search" placeholder="Ejemplo: apendicitis, K35, recién nacido sano, tamizaje neonatal, teleconsulta..." onkeydown="if(event.key==='Enter')renderPeas()"><button class="pill blue action-pill" onclick="renderPeas()">Buscar</button></div></div><button class="pill action-pill" onclick="clearPeasSearch()">Limpiar</button></div><div class="peas-summary-grid"><div class="kpi"><span>Páginas PEAS</span><strong id="peasPagesKpi">922</strong><div class="meter"><i style="width:100%"></i></div></div><div class="kpi"><span>Condiciones indexadas</span><strong id="peasCondKpi">0</strong><div class="meter"><i id="peasCondMeter" style="width:100%"></i></div></div><div class="kpi"><span>Prestaciones / códigos</span><strong id="peasProcKpi">0</strong><div class="meter"><i id="peasProcMeter" class="teal" style="width:100%"></i></div></div></div><div class="manual-layout peas-layout"><aside class="panel manual-chapters"><div class="panel-head"><div><h3>Capítulos PEAS</h3><p id="peasChapterHint">Selecciona un capítulo o revisa todos.</p></div></div><div id="peasChapterList" class="manual-chapter-list"></div></aside><div class="manual-results-shell"><div id="peasAnswer" class="panel manual-answer peas-answer"></div><div class="panel manual-list-panel"><div class="panel-head"><div><h3>Coincidencias y tablas relacionadas</h3><p>Se priorizan condiciones, CIE-10 y procedimientos con sus páginas de origen.</p></div><div class="filter peas-type-filter"><button class="active" onclick="peasTypeFilter('ALL',this)">Todo</button><button onclick="peasTypeFilter('COND',this)">Condiciones</button><button onclick="peasTypeFilter('PROC',this)">Prestaciones</button><button onclick="peasTypeFilter('TEXT',this)">Texto PDF</button></div></div><div id="peasResults" class="manual-results peas-results"></div></div></div></div></section>
+<section id="central" class="page"><div class="topbar"><div class="titleblock"><div class="section-label">Central de consultas</div><h2>Canales operativos RIMAC</h2><p>Selecciona la central según el motivo. Verifica siempre que el producto y la atención correspondan al canal.</p></div></div><div class="rimac-directory-grid"><article class="panel rimac-directory-card"><span class="directory-kicker">CLÍNICAS Y AUTORIZACIONES</span><h3>Central de Consultas RIMAC</h3><a class="directory-phone" href="tel:4113003">411-3003</a><dl><div><dt>Opción 1</dt><dd>Reportar accidentes</dd></div><div><dt>Opción 2</dt><dd>Consultas de deducibles</dd></div><div><dt>Opción 3</dt><dd>Autorizaciones médicas o de farmacia</dd></div></dl><a class="source-link" href="static/docs/rimac/rimac-central-consultas.pdf" target="_blank" rel="noopener">Abrir fuente</a></article><article class="panel rimac-directory-card"><span class="directory-kicker">ACCIDENTES · SUBMENÚ</span><h3>Tipo de póliza</h3><div class="directory-list"><p><b>1</b> Accidentes Personales</p><p><b>2</b> SCTR</p><p><b>3</b> Accidentes de Estudiantes</p></div><div class="directory-note">Ten a la mano póliza, paciente, fecha, lugar y descripción del evento.</div></article><article class="panel rimac-directory-card"><span class="directory-kicker">CARTAS DE GARANTÍA</span><h3>Proveedores de Salud RIMAC</h3><p>La plataforma REL quedó inactiva desde el 10 de julio de 2025.</p><a class="directory-action" href="https://proveedoressalud.rimac.com/cuenta/inicio-sesion" target="_blank" rel="noopener noreferrer">Abrir plataforma</a><a class="source-link" href="static/docs/rimac/rimac-preguntas-frecuentes-2025.pdf#page=8" target="_blank" rel="noopener">Ver instrucciones y acceso</a></article></div></section>
+<section id="contactos" class="page"><div class="topbar"><div class="titleblock"><div class="section-label">Contactos y emergencias</div><h2>Directorio operativo RIMAC</h2><p>Canales documentados para emergencias, traslados, cartas de garantía y la póliza Salud a tu Alcance BBVA.</p></div></div><div class="rimac-directory-grid"><article class="panel rimac-directory-card critical"><span class="directory-kicker">EMERGENCIAS Y TRASLADOS</span><h3>Central de Emergencias</h3><a class="directory-phone" href="tel:4111111">411-1111</a><dl><div><dt>Opción 0</dt><dd>Ambulancia</dd></div><div><dt>Opción 2</dt><dd>Médico a domicilio y traslados</dd></div><div><dt>Opción 1</dt><dd>Choques, SOAT y auxilio mecánico</dd></div></dl><a class="source-link" href="static/docs/rimac/rimac-central-emergencias.pdf" target="_blank" rel="noopener">Abrir fuente</a></article><article class="panel rimac-directory-card"><span class="directory-kicker">CARTAS DE GARANTÍA</span><h3>Consultas del proceso</h3><a class="directory-email" href="mailto:cartagarantia@rimac.com.pe">cartagarantia@rimac.com.pe</a><p>Canal indicado en la Circular N.° 008-2024-GS/CG.</p><a class="source-link" href="static/docs/rimac/rimac-cartas-garantia-circular-008-2024.pdf" target="_blank" rel="noopener">Abrir circular</a></article><article class="panel rimac-directory-card"><span class="directory-kicker">SALUD A TU ALCANCE BBVA</span><h3>Atención previa</h3><a class="directory-phone" href="tel:5959000">595-9000</a><dl><div><dt>Opción 1</dt><dd>Citas o emergencias</dd></div><div><dt>Opción 3</dt><dd>Consultas</dd></div></dl><div class="directory-note">Lunes a viernes, 9:00 a. m. a 6:00 p. m.</div><a class="source-link" href="static/docs/rimac/rimac-salud-bbva.pdf" target="_blank" rel="noopener">Abrir fuente</a></article></div></section>
+<section id="glosario" class="page"><div class="topbar"><div class="titleblock"><div class="section-label">Glosario / Terminología</div><h2>Terminología de seguros y convenios</h2><p>Conceptos rápidos para lectura operativa: PEAS, AMI, AMC, carta de garantía, exclusión, carencia, continuidad y más.</p></div></div><div class="panel placeholder-panel"><div class="empty-state">Primera carga sugerida: Boletín RIMAC 01 - Terminología en Seguros.</div></div></section>
+<section id="usuarios" class="page admin-module-page">
+  <div class="topbar">
+    <div class="titleblock"><div class="section-label">Administración · Acceso administrador</div><h2>Gestión de usuarios</h2><p>Crea y administra usuarios, perfiles y permisos del Intelligence Hub desde un espacio independiente.</p></div>
+    <div class="toolbar"><span id="userCount" class="pill blue">0 usuarios</span><button class="pill blue action-pill" onclick="resetUserForm();document.getElementById('adminUserName')?.focus()">Nuevo usuario</button></div>
+  </div>
+  <div class="users-admin-layout"><form id="userForm" class="panel user-form" onsubmit="saveUserFromForm(event)"><div class="panel-head"><div><h3 id="userFormTitle">Nuevo usuario</h3><p>Define credenciales, perfil y módulos habilitados.</p></div></div><div class="user-form-body"><label>Usuario</label><input id="adminUserName" class="search" oninput="renderPermissionEditor(selectedPermissions())" placeholder="Ejemplo: auditoria.medica" required><label>Nombre visible</label><input id="adminDisplayName" class="search" placeholder="Ejemplo: Auditoría Médica"><label>Contraseña</label><input id="adminPassword" class="search" type="password" placeholder="Contraseña de acceso"><label>Perfil</label><select id="adminRole" class="search" onchange="syncRolePermissions()"><option>Consulta rápida</option><option>Operativo</option><option>Superadmin</option></select><label class="user-check-row"><input id="adminActive" type="checkbox" checked> Usuario activo</label><div class="field"><b>Permisos por módulo</b><div id="adminPermissions" class="permission-grid"></div></div><div id="userFormMessage" class="form-message"></div><div class="user-form-actions"><button id="adminSubmitBtn" class="pill blue action-pill" type="submit">Crear usuario</button><button class="pill action-pill" type="button" onclick="resetUserForm()">Limpiar</button></div></div></form><section class="panel users-list-panel"><div class="panel-head"><div><h3>Usuarios registrados</h3><p>Activa, edita o retira accesos creados para el equipo.</p></div></div><div class="tablebox users-table"><table><thead><tr><th>Usuario</th><th>Perfil</th><th>Estado</th><th>Permisos</th><th>Acciones</th></tr></thead><tbody id="usersTable"></tbody></table></div></section></div>
+</section>
+
+<section id="fuentes" class="page admin-module-page">
+  <div class="topbar">
+    <div class="titleblock"><div class="section-label">Administración · Acceso administrador</div><h2>Gestión de fuentes</h2><p>Actualiza, valida y publica las fuentes del Intelligence Hub sin mezclar esta operación con la gestión de usuarios.</p></div>
+    <div class="toolbar"><span id="sourceSyncState" class="pill blue">Fuentes protegidas</span><button class="pill action-pill" onclick="loadSourceCenter()">Actualizar estado</button></div>
+  </div>
+  <section class="panel source-center">
+    <div class="source-center-head">
+      <div><span class="source-eyebrow">CENTRO DE FUENTES</span><h3>Subir → revisar → publicar</h3><p>El archivo nuevo se procesa primero en borrador. La fuente vigente solo cambia después de tu confirmación y siempre se conserva un respaldo.</p></div>
+      <button class="pill action-pill" onclick="loadSourceCenter()">Actualizar estado</button>
+    </div>
+    <div id="sourceCards" class="source-status-grid"></div>
+
+    <div class="source-upload-shell">
+      <div class="source-dropzone" id="sourceDropzone" onclick="document.getElementById('sourceFileInput').click()" ondragover="sourceDrag(event,true)" ondragleave="sourceDrag(event,false)" ondrop="sourceDrop(event)">
+        <input id="sourceFileInput" type="file" accept=".xlsx,.pdf" hidden onchange="sourceFileSelected(this.files[0])">
+        <div class="source-drop-icon">↥</div>
+        <div><b>Arrastra aquí el Excel o PDF</b><span>LISTAS AB · PEAS · Manual de Normas · Capacitaciones / documentos IAFA</span></div>
+        <button type="button" class="pill blue action-pill">Seleccionar archivo</button>
+      </div>
+      <div class="source-upload-options">
+        <label>Tipo de fuente<select id="sourceType" class="search"><option value="auto">Detectar automáticamente</option><option value="listas_ab">LISTAS AB</option><option value="peas">PEAS</option><option value="manual">Manual de Normas</option><option value="capacitacion">Capacitación / documento IAFA</option></select></label>
+        <label>Título / versión visible<input id="sourceTitle" class="search" placeholder="Ejemplo: PEAS 2027"></label>
+        <label>IAFA / entidad<input id="sourceCompany" class="search" placeholder="Ejemplo: Pacífico, Rímac, MINSA"></label>
+        <label>Versión<input id="sourceVersion" class="search" placeholder="Ejemplo: 2027 o v2"></label>
+        <label>Vigencia desde<input id="sourceValidFrom" class="search" type="date"></label>
+        <label class="source-notes">Notas<input id="sourceNotes" class="search" placeholder="Opcional: circular, alcance, observaciones"></label>
+      </div>
+      <div id="sourceUploadMessage" class="form-message">Selecciona un archivo para generar la vista previa.</div>
+    </div>
+
+    <div id="sourcePreview" class="source-preview app-hidden"></div>
+  </section>
+
+  <section class="panel source-history-panel">
+    <div class="panel-head"><div><h3>Últimas publicaciones</h3><p>Trazabilidad de fuentes publicadas desde este Centro.</p></div></div>
+    <div class="tablebox"><table><thead><tr><th>Fecha</th><th>Fuente</th><th>Archivo</th><th>Versión</th><th>Resultado</th></tr></thead><tbody id="sourceHistory"><tr><td colspan="5"><div class="empty-state">Cargando historial...</div></td></tr></tbody></table></div>
+  </section>
+
+  <details class="legacy-update-wrap"><summary>Actualización manual de respaldo</summary><section class="panel local-update-panel"><div><span>PLAN B LOCAL</span><h3>Validar archivos de la carpeta local</h3><p>Se conserva el mecanismo anterior para contingencias. El Excel <b>LISTAS-AB.xlsx</b> también se sincroniza automáticamente cuando el servidor local detecta que fue guardado.</p><div id="localUpdateMessage" class="form-message">Disponible como respaldo.</div></div><div class="local-update-actions"><button class="pill blue action-pill" onclick="runLocalUpdate()">Validar y aplicar</button><a class="pill action-pill" href="GUIA-ACTUALIZACIONES.txt" target="_blank" rel="noopener">Abrir guía</a></div></section></details>
+</section>
+<button id="darwenLauncher" class="darwen-launcher" onclick="openDarwenChat()" aria-label="Abrir chat Darbot">
+  <img src="static/assets/darbot-avatar.png" alt="Darbot">
+</button>
+<section id="darwenChat" class="darwen-chat" aria-live="polite">
+  <div class="darwen-head">
+    <div class="darwen-avatar">
+      <img src="static/assets/darbot-avatar.png" alt="Darbot">
+    </div>
+    <div>
+      <span>Intelligence Hub</span>
+      <h3>Darbot</h3>
+    </div>
+    <button onclick="resetDarwenChat()" aria-label="Reiniciar chat">↺</button>
+    <button onclick="minimizeDarwenChat()" aria-label="Minimizar chat">_</button>
+  </div>
+  <div id="darwenMessages" class="darwen-messages"></div>
+  <form class="darwen-compose" onsubmit="sendDarwenMessage(event)">
+    <textarea id="darwenInput" placeholder="Escribe tu consulta para Darbot..." rows="1"></textarea>
+    <button class="darwen-voice" type="button" onclick="toggleDarwenVoice()" aria-label="Dictar mensaje">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><path d="M12 19v3"/></svg>
+    </button>
+    <button class="darwen-speak" type="button" onclick="toggleDarwenSpeech()" aria-label="Activar respuesta por voz">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+    </button>
+    <button type="submit">Enviar</button>
+  </form>
+</section>
+</main>
+</div>
+<div id="guideOverlay" class="guide-overlay app-hidden" role="dialog" aria-modal="true" aria-labelledby="guideTitle">
+  <div id="guideShell" class="guide-shell welcome-mode">
+    <button class="guide-close" onclick="closeGuide(true)" aria-label="Cerrar guía">×</button>
+    <section class="guide-welcome">
+      <div class="guide-welcome-copy">
+        <div class="section-label">Bienvenida al portal</div>
+        <h2>Hola, bienvenido al IAFAS Intelligence Hub</h2>
+        <p>Este portal reúne las principales fuentes de consulta para ayudarte a validar coberturas, normas de facturación, PEAS, capacitaciones y criterios operativos de IAFAS con mayor rapidez y sustento documental.</p>
+        <div class="guide-welcome-actions">
+          <button class="pill blue action-pill" onclick="startGuide()">Empezar recorrido</button>
+          <button class="pill action-pill" onclick="closeGuide(true)">Saltar guía</button>
+        </div>
+      </div>
+      <div class="guide-welcome-video" aria-label="Animación del portal Intelligence Hub">
+        <div class="welcome-screen">
+          <div class="welcome-top"><i></i><i></i><i></i><span>IAFAS Intelligence Hub</span></div>
+          <div class="welcome-search"><b></b><span>¿Qué necesito validar?</span><i></i></div>
+          <div class="welcome-modules">
+            <div><b>PEAS</b><span>CIE-10 y condiciones</span></div>
+            <div><b>Manual</b><span>Normas de facturación</span></div>
+            <div><b>Listas AB</b><span>Coberturas y CG</span></div>
+            <div><b>Darbot</b><span>Chat virtual</span></div>
+          </div>
+          <div class="welcome-orbit"><span></span><span></span><span></span></div>
+        </div>
+      </div>
+    </section>
+    <aside class="guide-steps" aria-label="Pasos de la guía">
+      <div class="guide-brand">
+        <span>Manual interactivo</span>
+        <b>IAFAS Intelligence Hub</b>
+      </div>
+      <button class="active" data-guide-step="0" onclick="setGuideStep(0)"><span>01</span>Primer ingreso</button>
+      <button data-guide-step="1" onclick="setGuideStep(1)"><span>02</span>Darbot</button>
+      <button data-guide-step="2" onclick="setGuideStep(2)"><span>03</span>Listas AB</button>
+      <button data-guide-step="3" onclick="setGuideStep(3)"><span>04</span>Manual y PEAS</button>
+      <button data-guide-step="4" onclick="setGuideStep(4)"><span>05</span>Capacitaciones y operación</button>
+    </aside>
+    <section class="guide-stage">
+      <div class="guide-top">
+        <div>
+          <div id="guideKicker" class="section-label">Bienvenida</div>
+          <h2 id="guideTitle">Empieza por el inicio</h2>
+          <p id="guideText">El portal concentra búsquedas, normas, PEAS, listas y fuentes operativas para responder con sustento.</p>
+        </div>
+        <div class="guide-progress"><i id="guideProgress"></i></div>
+      </div>
+      <div class="guide-content">
+        <div id="guideVisual" class="guide-visual"></div>
+        <div class="guide-notes">
+          <h3 id="guideNoteTitle">Qué hacer</h3>
+          <ul id="guideBullets"></ul>
+          <div class="guide-actions">
+            <button id="guidePrimary" class="pill blue action-pill" onclick="guidePrimaryAction()">Ir al módulo</button>
+            <button class="pill action-pill" onclick="nextGuideStep()">Siguiente</button>
+            <button class="pill action-pill" onclick="closeGuide(true)">Terminar guía</button>
+          </div>
+        </div>
+      </div>
+      <div class="guide-filmstrip">
+        <span>Recorrido visual</span>
+        <div><i></i><i></i><i></i><i></i><i></i></div>
+      </div>
+    </section>
+</div>
+</div>
+<script src="static/manual-data.js?v=darwen-exclusiones-decision-lateral-0817"></script>
+<script src="static/peas-core.js"></script><script src="static/peas-procedures-1.js"></script><script src="static/peas-procedures-2.js"></script><script src="static/peas-procedures-3.js"></script><script src="static/peas-procedures-4.js"></script><script src="static/peas-procedures-5.js"></script><script src="static/peas-procedures-6.js"></script><script src="static/peas-pages.js"></script>
+<script src="static/exclusiones-data.js?v=darwen-exclusiones-decision-lateral-0817"></script>
+<script src="static/capacitaciones-data.js?v=cap-lineamientos-2026-0819"></script>
+<script src="static/capacitaciones-qa.js?v=cap-rimac-4262"></script>
+<script src="static/capacitaciones-locales.js?v=actualizacion-local-4263"></script>
+<script src="static/listas-ab-data.js?v=actualizacion-local-4263"></script>
+<script src="static/update-status.js?v=admin-modular-4267"></script>
+<script src="static/capacitaciones-documentos.js?v=admin-modular-4267"></script>
+<script src="static/db-users.js?v=admin-modular-4267"></script>
+<script src="static/factores-data.js?v=factores-4292"></script>
+<script src="static/honorarios-data.js?v=honorarios-42103"></script>
+<script>try{localStorage.setItem("iafas_hub_theme_v4275","light")}catch(e){}</script>
+<script src="static/kairos-hub.js?v=kairos-42105"></script>
+<script src="static/app.js?v=honorarios-42103"></script>
+<script src="static/v42-decision-engine.js?v=darbot-capacitaciones-full-2457-0820-1114"></script>
+</body>
+</html>

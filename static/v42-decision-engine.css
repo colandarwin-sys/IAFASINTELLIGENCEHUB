@@ -1,0 +1,50 @@
+/* IAFAS Intelligence Hub v4.2 - decision oriented screens */
+.decision-search{padding:18px;display:flex;justify-content:space-between;gap:16px;align-items:end;margin-bottom:16px;background:linear-gradient(135deg,rgba(33,87,197,.14),rgba(15,118,110,.08));}
+.decision-search span{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:800;margin-bottom:8px}
+.peas-decision-output{display:grid;gap:14px}.decision-header-card{display:flex;justify-content:space-between;gap:18px;align-items:center;padding:18px}.decision-header-card h3{font-size:30px;margin:4px 0 6px;color:#101828}.decision-header-card p{margin:0;color:var(--muted)}
+.coverage-verdict{background:#EDF2FF;border:1px solid #D2DCFB;border-radius:14px;padding:13px 16px;min-width:230px;color:#123499}.coverage-verdict span{font-size:11px;text-transform:uppercase;font-weight:800;letter-spacing:.08em}.coverage-verdict strong{display:block;font-size:22px;margin:5px 0}.coverage-verdict small{color:#123499}
+.peas-decision-grid{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:14px}.decision-main,.decision-side{padding:16px}.decision-block{border-radius:14px;padding:14px;margin-bottom:12px;border:1px solid var(--line);background:#fff}.decision-block b{display:block;margin-bottom:8px;color:#101828}.decision-block p{margin:0;line-height:1.55;color:#344054}.decision-block.blue{border-color:#C7D7FE;background:#F4F7FF}.decision-block.slate{background:#F8FAFC}.decision-block.green{border-color:#D2DCFB;background:#F4F7FF}.muted-note{font-size:12px;color:var(--muted);line-height:1.45;margin-top:8px}.cie-grid{display:grid;gap:8px}.cie-chip{display:grid;grid-template-columns:84px minmax(0,1fr);gap:8px;border:1px solid #E4E7EC;background:#fff;border-radius:10px;padding:9px}.cie-chip b{font-size:13px;color:#123499}.cie-chip span{font-size:12px;color:#344054;line-height:1.35}.category-strip{display:flex;flex-wrap:wrap;gap:8px}.category-strip span{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid #D0D5DD;border-radius:999px;padding:8px 10px;font-size:12px;color:#344054}.category-strip b{margin:0;color:#123499}.mini-metric{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding:10px 0}.mini-metric span{font-size:12px;color:var(--muted)}.mini-metric b{text-align:right;color:#101828}.peas-table-panel{overflow:hidden}.decision-table-wrap{padding:0 14px 14px}.proc-group{border:1px solid var(--line);border-radius:12px;margin-top:10px;background:#fff;overflow:hidden}.proc-group summary{list-style:none;cursor:pointer;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;background:#F8FAFC;border-bottom:1px solid var(--line);font-weight:800;color:#101828}.proc-group summary::-webkit-details-marker{display:none}.proc-group summary b{font-size:12px;color:#123499}.proc-table-scroll{overflow:auto;max-height:360px}.decision-table th{font-size:10px}.decision-table td{font-size:12px;line-height:1.35}.alternatives-panel{margin-top:14px}.alt-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;padding:14px}.alt-list button{text-align:left;border:1px solid var(--line);background:#fff;border-radius:12px;padding:12px;cursor:pointer}.alt-list button:hover{border-color:#123499;background:#F4F7FF}.alt-list b{display:block;color:#101828}.alt-list span{font-size:12px;color:var(--muted)}.answer-verdict{padding:18px}.answer-verdict span{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:800}.answer-verdict h3{font-size:24px;margin:6px 0 8px;color:#101828}.answer-verdict p{color:#344054;line-height:1.55}.source-pills{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}.source-pills span{background:#F2F4F7;border:1px solid #E4E7EC;border-radius:999px;padding:7px 10px;font-size:12px;color:#344054;text-transform:none;letter-spacing:0}.source-results-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}.source-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px}.source-card span{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#123499;font-weight:800}.source-card h4{margin:6px 0 8px;color:#101828}.source-card p{font-size:12.5px;color:#344054;line-height:1.45}.source-card small{color:var(--muted)}
+body:not(.light-theme) .decision-header-card h3, body:not(.light-theme) .decision-block b, body:not(.light-theme) .mini-metric b, body:not(.light-theme) .answer-verdict h3, body:not(.light-theme) .source-card h4{color:#fff}body:not(.light-theme) .decision-block, body:not(.light-theme) .source-card, body:not(.light-theme) .proc-group, body:not(.light-theme) .cie-chip, body:not(.light-theme) .category-strip span, body:not(.light-theme) .alt-list button{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.12)}body:not(.light-theme) .decision-block p, body:not(.light-theme) .cie-chip span, body:not(.light-theme) .answer-verdict p, body:not(.light-theme) .source-card p{color:rgba(255,255,255,.78)}body:not(.light-theme) .proc-group summary{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.12);color:#fff}body:not(.light-theme) .decision-block.blue{background:rgba(33,87,197,.18)}body:not(.light-theme) .decision-block.green{background:rgba(18,52,153,.12)}
+@media(max-width:980px){.peas-decision-grid{grid-template-columns:1fr}.decision-header-card{display:block}.coverage-verdict{margin-top:12px}.decision-search{display:block}.decision-search button{margin-top:10px}}
+
+/* v4.2.1: contraste final para tarjetas claras dentro del modo oscuro */
+body:not(.light-theme) .intelligence-answer,
+body:not(.light-theme) .answer-verdict,
+body:not(.light-theme) .source-card,
+body:not(.light-theme) .decision-header-card,
+body:not(.light-theme) .decision-main,
+body:not(.light-theme) .decision-side,
+body:not(.light-theme) .peas-table-panel,
+body:not(.light-theme) .decision-block,
+body:not(.light-theme) .cie-chip,
+body:not(.light-theme) .category-strip span,
+body:not(.light-theme) .proc-group,
+body:not(.light-theme) .alt-list button,
+body:not(.light-theme) .citation-panel{background:#fff;border-color:#D8DEE8;color:#111827}
+body:not(.light-theme) .answer-verdict h3,
+body:not(.light-theme) .answer-verdict p,
+body:not(.light-theme) .answer-verdict b,
+body:not(.light-theme) .source-card h4,
+body:not(.light-theme) .source-card p,
+body:not(.light-theme) .source-card small,
+body:not(.light-theme) .decision-header-card h3,
+body:not(.light-theme) .decision-header-card p,
+body:not(.light-theme) .decision-block b,
+body:not(.light-theme) .decision-block p,
+body:not(.light-theme) .cie-chip span,
+body:not(.light-theme) .mini-metric b,
+body:not(.light-theme) .category-strip span,
+body:not(.light-theme) .alt-list b,
+body:not(.light-theme) .alt-list span,
+body:not(.light-theme) .citation-panel p{color:#111827}
+body:not(.light-theme) .answer-verdict span,
+body:not(.light-theme) .source-card span,
+body:not(.light-theme) .citation-panel b,
+body:not(.light-theme) .mini-metric span{color:#667085}
+body:not(.light-theme) .source-card span,
+body:not(.light-theme) .cie-chip b{color:#123499}
+body:not(.light-theme) .source-pills span{background:#F2F4F7;border-color:#E4E7EC;color:#344054}
+body:not(.light-theme) .decision-block.blue{background:#F4F7FF;border-color:#C7D7FE}
+body:not(.light-theme) .decision-block.slate{background:#F8FAFC}
+body:not(.light-theme) .decision-block.green{background:#F4F7FF;border-color:#D2DCFB}
+body:not(.light-theme) .proc-group summary{background:#F8FAFC;border-color:#D8DEE8;color:#101828}

@@ -1,0 +1,13 @@
+IAFAS INTELLIGENCE HUB - VERSION COMPLETA PARA NETLIFY
+
+1. Descomprime este ZIP.
+2. NO abras ni selecciones los archivos uno por uno.
+3. En Netlify Drop, ARRASTRA LA CARPETA COMPLETA llamada:
+   IAFAS-INTELLIGENCE-HUB-NETLIFY-COMPLETO
+4. Espera a que termine la carga.
+5. Abre el enlace generado por Netlify.
+
+IMPORTANTE:
+- index.html debe estar en la raiz de la carpeta.
+- La carpeta static debe estar completa junto a index.html.
+- No subas solamente index.html.

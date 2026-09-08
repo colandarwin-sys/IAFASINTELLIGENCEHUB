@@ -1,0 +1,48 @@
+IAFAS INTELLIGENCE HUB v4.2.64 - CENTRO DE FUENTES
+
+FORMA RECOMENDADA
+1. Abra el Hub con abrir-portal-local.cmd.
+2. Ingrese con usuario administrador.
+3. Entre a Administracion > Centro de Fuentes.
+4. Presione Actualizar en la fuente deseada o arrastre directamente un archivo .xlsx o .pdf.
+5. Revise la vista previa. El archivo aun NO esta publicado en este punto.
+6. Complete, si corresponde, titulo, entidad/IAFA, version y fecha de vigencia.
+7. Presione Publicar actualizacion.
+8. El Hub crea respaldo, publica la nueva fuente y recarga la informacion.
+
+LISTAS AB
+- Puede subir el Excel desde Centro de Fuentes.
+- Tambien puede editar directamente actualizaciones/entrada/LISTAS-AB.xlsx.
+- Mientras server.py este abierto, el Hub detecta que el Excel fue guardado y ejecuta la sincronizacion automaticamente.
+- Si el Excel no cumple la estructura requerida, la actualizacion no se aplica.
+
+PEAS
+- Suba el PDF nuevo y seleccione PEAS, o deje Detectar automaticamente si el nombre contiene PEAS.
+- Antes de publicar, el Hub valida que el PDF tenga paginas y texto extraible.
+- Al publicar: respalda el PDF e indice anteriores, copia el PDF nuevo y regenera la busqueda.
+- La indexacion se hace por contenido de pagina y capitulos/marcadores cuando existen. Por eso un cambio completo de estructura no deja inutilizable la busqueda.
+- Si el PDF es solo imagen y no permite extraer texto, el sistema NO reemplaza la busqueda vigente.
+
+MANUAL DE NORMAS DE FACTURACION
+- El flujo es igual que PEAS: vista previa > publicar > respaldo > reindexacion.
+- Los capitulos se toman de marcadores del PDF cuando existen; si no existen se crean bloques de paginas para mantener navegacion y busqueda.
+
+CAPACITACIONES / DOCUMENTOS IAFA
+- Puede agregar nuevos PDF sin reemplazar los anteriores.
+- Complete de preferencia titulo e IAFA/entidad.
+- El documento se conserva y su texto por pagina se incorpora a .
+- El esquema antiguo CAPACITACIONES.csv sigue disponible para fichas pregunta-respuesta estructuradas.
+
+HISTORICO Y RESTAURACION
+- Cada publicacion del Centro queda registrada en Ultimas publicaciones.
+- Para LISTAS AB, PEAS y Manual, cuando existe respaldo aparece Restaurar anterior.
+- Antes de restaurar, el Hub vuelve a respaldar el estado actual.
+
+PLAN B MANUAL
+- Se conserva la seccion Actualizacion manual de respaldo dentro de Administracion.
+- Tambien siguen disponibles actualizar-datos.cmd y actualizar-datos.sh.
+
+IMPORTANTE
+- Use abrir-portal-local.cmd. Si abre index.html directamente, las funciones de carga y publicacion no pueden acceder al servidor local.
+- Los cambios son locales. Si el Hub se publica en Netlify/Vercel, debe desplegarse nuevamente la carpeta resultante para reflejar cambios en internet.
+- Mantenga siempre una copia externa del ZIP estable antes de publicar cambios relevantes.
