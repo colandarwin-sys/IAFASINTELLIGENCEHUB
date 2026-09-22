@@ -6380,3 +6380,13 @@ body .login-input-wrap input::selection{
 #capacitaciones .cap136-trust-note{margin-top:14px;border-left:3px solid #123499;background:#f7f9fd;padding:10px 12px;color:#5f7187;font-size:10px}
 @media(max-width:1180px){#capacitaciones .cap136-route-grid{grid-template-columns:repeat(2,1fr)}#capacitaciones .cap136-iafa-list{grid-template-columns:repeat(2,1fr)}#capacitaciones .cap136-results-layout{grid-template-columns:1fr}.cap136-detail{position:relative;top:auto}#capacitaciones .cap136-topic-grid,#capacitaciones .cap136-docs{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:720px){#capacitaciones .cap136-search-row{grid-template-columns:1fr}#capacitaciones .cap136-route-grid,#capacitaciones .cap136-iafa-list,#capacitaciones .cap136-topic-grid,#capacitaciones .cap136-docs{grid-template-columns:1fr}#capacitaciones .cap136-explore-head,#capacitaciones .cap136-results-head,#capacitaciones .cap136-doc-head{flex-direction:column;align-items:stretch}.cap136-doc-search{width:100%}}
+
+/* v4.2.137 - DARbot lower clearance: closer to Netlify badge without overlap */
+@media (min-width:641px){
+  .darwen-launcher{bottom:72px!important;right:22px!important}
+  .darwen-chat,.darwen-chat.open,body.darwen-voice-mode .darwen-chat.open,body.darwen-listening .darwen-chat.open,body.darwen-speaking .darwen-chat.open{bottom:72px!important;right:22px!important;max-height:calc(100vh - 100px)!important}
+}
+@media (max-width:640px){
+  .darwen-launcher{bottom:72px!important;right:16px!important}
+  .darwen-chat,.darwen-chat.open,body.darwen-voice-mode .darwen-chat.open,body.darwen-listening .darwen-chat.open,body.darwen-speaking .darwen-chat.open{bottom:72px!important;right:12px!important;max-height:calc(100vh - 96px)!important}
+}

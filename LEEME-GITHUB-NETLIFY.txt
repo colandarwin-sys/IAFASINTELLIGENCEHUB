@@ -1,17 +1,25 @@
-IAFAS INTELLIGENCE HUB v4.2.136
+IAFAS INTELLIGENCE HUB v4.2.137
 
 PUBLICACION EN GITHUB
 1. Sube TODO el contenido de esta carpeta a la raiz del repositorio.
-2. Deben quedar index.html, netlify.toml y la carpeta static/ directamente en la raiz.
-3. No subas solamente index.html: el portal necesita static/ y sus archivos de datos.
+2. Deben quedar directamente en la raiz: index.html, netlify.toml, package.json, static/ y netlify/functions/.
+3. No subas solamente index.html: los datos y la actualizacion web dependen de esos archivos.
 
 PUBLICACION EN NETLIFY
 - Si Netlify ya esta conectado al repositorio, al actualizar GitHub se generara el nuevo deploy.
 - Build command: dejar vacio.
 - Publish directory: .
-- El archivo netlify.toml ya esta configurado con publish = ".".
+- Netlify instalara las dependencias declaradas en package.json y publicara la funcion source-center.
+
+LISTAS AB
+- Esta version ya incorpora LISTAS-AB (Autoguardado).xlsx como base inicial.
+- Base inicial publicada: 1,142 registros / 5 companias.
+- Desde Gestion de fuentes puedes volver a subir un Excel de LISTAS AB en el portal publicado.
+- La version web guarda las actualizaciones en Netlify Blobs para que se mantengan entre deploys y sean visibles para los usuarios del mismo sitio.
 
 CAPACITACIONES
-- La base publicada esta en static/capacitaciones-maestro.js/json.
-- El Excel maestro esta incluido como MAESTRO-CAPACITACIONES-IAFAS.xlsx.
-- Para actualizar el maestro desde Excel y regenerar la base, usar primero abrir-portal-local.cmd y Centro de Fuentes. Luego publicar los archivos actualizados en GitHub/Netlify.
+- La carga del Maestro de Capacitaciones tambien queda habilitada desde Gestion de fuentes en Netlify.
+- El portal local sigue soportando el mismo flujo mediante abrir-portal-local.cmd.
+
+IMPORTANTE
+- Para que la actualizacion web funcione, publica tambien package.json y la carpeta netlify/functions.

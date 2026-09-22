@@ -1,4 +1,4 @@
-const data=window.LISTAS_AB_DATA||[];
+let data=window.LISTAS_AB_DATA||[];
 const MODULES={
   inicio:{name:'Inicio',group:'Inicio'},
   miniia:{name:'Darbot',group:'Inicio'},
@@ -125,7 +125,7 @@ function renderFactores(){
 function setListasABEmpty(title='Sin búsqueda activa',hint='Busca una prestación para ver coincidencias y detalle sustentado.',state='Sin búsqueda'){$('cnt').innerText='0 registros';$('tb').innerHTML='<tr><td colspan="4"><div class="empty-state">Ingresa una búsqueda para mostrar las coincidencias de Listas AB.</div></td></tr>';$('tec').innerText=title;$('detailHint').innerText=hint;$('l').innerText='-';$('l').className='badgeA';$('c').innerText='-';if($('conditionsState'))$('conditionsState').innerText='-';if($('exceptionsState'))$('exceptionsState').innerText='-';if($('cond'))$('cond').innerText='-';if($('exc'))$('exc').innerText='-';if($('detalles'))$('detalles').innerText='-';$('p').innerHTML='';$('cg').innerText='-';if($('conditionsBtn'))$('conditionsBtn').hidden=true;if($('exceptionsBtn'))$('exceptionsBtn').hidden=true;if($('decisionCompany'))$('decisionCompany').innerText=activeCompanyFilter==='ALL'?'Todas':activeCompanyFilter;resetAbExpandable();}
 function renderListasABIdle(){if(!listasAbHasSearched)setListasABEmpty();else render(filtered());}
 function clearListasABSearch(){listasAbHasSearched=false;activeFilter='ALL';if($('q'))$('q').value='';document.querySelectorAll('#buscador .filter button').forEach((x,i)=>x.classList.toggle('active',i===0));setListasABEmpty();}
-function filtered(){let arr=data;if(activeCompanyFilter!=='ALL')arr=arr.filter(r=>r['COMPAÑÍA']===activeCompanyFilter);if(['A','B','AB'].includes(activeFilter))arr=arr.filter(r=>r.LISTA===activeFilter);if(activeFilter==='CG')arr=arr.filter(r=>(r['REQUIERE CG']||'').toLowerCase().startsWith('s'));if(activeFilter==='NO')arr=arr.filter(r=>/no cobert/.test((r['COBERTURA']||'').toLowerCase()));const q=($('q')?.value||'').toLowerCase().trim();if(q)arr=arr.filter(r=>JSON.stringify(r).toLowerCase().includes(q));return listasAbHasSearched?arr:[];}
+function filtered(){let arr=data;if(activeCompanyFilter!=='ALL')arr=arr.filter(r=>r['COMPAÑÍA']===activeCompanyFilter);if(!['ALL','CG','NO'].includes(activeFilter))arr=arr.filter(r=>r.LISTA===activeFilter);if(activeFilter==='CG')arr=arr.filter(r=>(r['REQUIERE CG']||'').toLowerCase().startsWith('s'));if(activeFilter==='NO')arr=arr.filter(r=>/no cobert/.test((r['COBERTURA']||'').toLowerCase()));const q=($('q')?.value||'').toLowerCase().trim();if(q)arr=arr.filter(r=>JSON.stringify(r).toLowerCase().includes(q));return listasAbHasSearched?arr:[];}
 function render(arr){current=arr;$('cnt').innerText=arr.length+' registros';if(!listasAbHasSearched){setListasABEmpty();return;}if(!arr.length){$('tb').innerHTML='<tr><td colspan="4"><div class="empty-state">No se encontraron registros con los filtros actuales.</div></td></tr>';$('tec').innerText='Sin resultados';$('detailHint').innerText='Ajusta la búsqueda o cambia el filtro.';$('l').innerText='-';$('c').innerText='-';if($('conditionsState'))$('conditionsState').innerText='-';if($('exceptionsState'))$('exceptionsState').innerText='-';if($('cond'))$('cond').innerText='-';if($('exc'))$('exc').innerText='-';if($('detalles'))$('detalles').innerText='-';$('p').innerHTML='';$('cg').innerText='-';if($('conditionsBtn'))$('conditionsBtn').hidden=true;if($('exceptionsBtn'))$('exceptionsBtn').hidden=true;resetAbExpandable();return;}$('tb').innerHTML=arr.map((r,i)=>{const st=statusOf(r),badge=r.LISTA==='A'?'badgeA':r.LISTA==='B'?'badgeB':'badgeAB';return `<tr data-i="${i}"><td class="code">${esc(r.ID)}</td><td><span class="${badge}">Lista ${esc(r.LISTA)}</span></td><td><div class="tech">${esc(r['TECNOLOGÍA'])}</div><div class="sub">${esc([r['COMPAÑÍA'],r['SUB CIA']].filter(Boolean).join(' · '))}</div><div class="sub">${esc(r['COBERTURA']||'Cobertura no especificada')}</div></td><td><span class="status ${st[0]}">${st[1]}</span></td></tr>`}).join('');document.querySelectorAll('#tb tr').forEach(tr=>tr.onclick=()=>det(parseInt(tr.dataset.i),tr));det(0,document.querySelector('#tb tr'));}
 function det(i,tr){
   document.querySelectorAll('#tb tr').forEach(x=>x.classList.remove('sel'));
@@ -152,7 +152,8 @@ function det(i,tr){
   $('detailHint').innerText=[r.ID,[r['COMPAÑÍA'],r['SUB CIA']].filter(Boolean).join(' · ')].filter(Boolean).join(' · ')+' seleccionado';
   if($('decisionCompany'))$('decisionCompany').innerText=[r['COMPAÑÍA'],r['SUB CIA']].filter(Boolean).join(' · ')||'Pacífico';
 }
-function renderCompanyFilters(){const host=$('abCompanyFilters');if(!host)return;const companies=[...new Set(data.map(r=>r['COMPAÑÍA']).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'es'));host.innerHTML=['ALL',...companies].map(c=>`<button class="${c===activeCompanyFilter?'active':''}" onclick="companyFilter('${esc(c).replace(/'/g,'&#39;')}',this)">${c==='ALL'?'Todas las IAFAS':esc(c)}</button>`).join('');}
+function renderCompanyFilters(){const host=$('abCompanyFilters');if(!host)return;const companies=[...new Set(data.map(r=>r['COMPAÑÍA']).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'es'));host.innerHTML=['ALL',...companies].map(c=>`<button class="${c===activeCompanyFilter?'active':''}" onclick="companyFilter('${esc(c).replace(/'/g,'&#39;')}',this)">${c==='ALL'?'Todas las IAFAS':esc(c)}</button>`).join('');renderListTypeFilters();}
+function renderListTypeFilters(){const host=$('abTypeFilters');if(!host)return;const lists=[...new Set(data.map(r=>String(r.LISTA||'').trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'es',{numeric:true}));host.innerHTML=`<button class="${activeFilter==='ALL'?'active':''}" onclick="filtro('ALL',this)">Todo</button>`+lists.map(l=>`<button class="${activeFilter===l?'active':''}" onclick="filtro('${esc(l).replace(/'/g,'&#39;')}',this)">Lista ${esc(l)}</button>`).join('')+`<button class="${activeFilter==='CG'?'active':''}" onclick="filtro('CG',this)">Requiere CG</button><button class="${activeFilter==='NO'?'active':''}" onclick="filtro('NO',this)">No cubierto</button>`;}
 function renderUpdateStatus(){const s=window.DATA_UPDATE_STATUS||{};if($('dataUpdateStatus'))$('dataUpdateStatus').innerText=`${s.registros||data.length} registros · ${Object.keys(s.companias||{}).length||new Set(data.map(r=>r['COMPAÑÍA'])).size} IAFAS`;}
 function init(){const total=data.length,a=data.filter(r=>r.LISTA==='A').length,b=data.filter(r=>r.LISTA==='B').length,ab=data.filter(r=>r.LISTA==='AB').length,cg=data.filter(r=>(r['REQUIERE CG']||'').toLowerCase().startsWith('s')).length;$('kTotal').innerText=total;$('kA').innerText=a;$('kB').innerText=b+ab;$('kCG').innerText=cg;$('mA').style.width=Math.round(a*100/total)+'%';$('mB').style.width=Math.round((b+ab)*100/total)+'%';$('mCG').style.width=Math.round(cg*100/total)+'%';if($('quickView'))$('quickView').innerHTML=bar('Lista A',a,total)+bar('Lista B / AB',b+ab,total,'teal')+bar('Requieren CG',cg,total,'amber')+data.slice(0,5).map(itemHtml).join('');renderCompanyFilters();renderUpdateStatus();renderListasABIdle();renderExclusiones();renderCapacitaciones();renderManual();renderPeas();}
 function buscar(){listasAbHasSearched=true;render(filtered());}
@@ -441,28 +442,41 @@ $('loginForm').addEventListener('submit',login);
 applyTheme();
 restoreSession();
 syncVersion();
+syncCloudPublishedSources();
 
 
 /* v4.2.66 · Administración modular · API local independiente */
+function hubIsNetlifyCloud(){return location.protocol.startsWith('http')&&!['localhost','127.0.0.1'].includes(location.hostname);}
+function cloudSourceAction(path){return ({'/api/sources':'sources','/api/source/preview':'preview','/api/source/publish':'publish','/api/source/restore':'restore'})[path]||'';}
 async function sourceHubApi(path, options={}){
-  if(typeof window.hubApi==='function'){
-    return window.hubApi(path, options);
-  }
+  if(typeof window.hubApi==='function')return window.hubApi(path, options);
   const headers={'Content-Type':'application/json', ...(options.headers||{})};
   const token=sessionStorage.getItem('iafas_hub_api_token_v1');
   if(token)headers['X-Session-Token']=token;
+  let target=path;
+  if(hubIsNetlifyCloud()){
+    const action=cloudSourceAction(path);
+    if(!action)throw new Error('Esta operación no está habilitada en la publicación web.');
+    target='/.netlify/functions/source-center?action='+encodeURIComponent(action);
+  }
   let res;
-  try{
-    res=await fetch(path,{...options,headers,cache:'no-store'});
-  }catch(_err){
-    throw new Error('No se pudo conectar con el servidor local del Hub. Mantén abierta la ventana CMD e intenta nuevamente.');
-  }
+  try{res=await fetch(target,{...options,headers,cache:'no-store'});}catch(_err){throw new Error(hubIsNetlifyCloud()?'No se pudo conectar con el Centro de Fuentes publicado en Netlify.':'No se pudo conectar con el servidor local del Hub. Mantén abierta la ventana CMD e intenta nuevamente.');}
   const payload=await res.json().catch(()=>({ok:false,error:'El servidor devolvió una respuesta no válida.'}));
-  if(!res.ok||payload.ok===false){
-    if(res.status===401||res.status===403)throw new Error('La sesión de administrador no está disponible. Cierra sesión, vuelve a ingresar y repite la carga.');
-    throw new Error(payload.error||'No se pudo completar la operación.');
-  }
+  if(!res.ok||payload.ok===false){if(res.status===401||res.status===403)throw new Error('La sesión de administrador no está disponible. Cierra sesión, vuelve a ingresar y repite la carga.');throw new Error(payload.error||'No se pudo completar la operación.');}
   return payload;
+}
+async function syncCloudPublishedSources(){
+  if(!hubIsNetlifyCloud())return;
+  try{
+    const r=await fetch('/.netlify/functions/source-center?action=data&type=listas_ab',{cache:'no-store'});
+    const j=await r.json();
+    if(j?.ok&&j.payload?.records?.length){data=j.payload.records;window.LISTAS_AB_DATA=data;window.DATA_UPDATE_STATUS={...(window.DATA_UPDATE_STATUS||{}),fecha:j.payload.published_at||'',archivo:j.payload.filename||'LISTAS AB',registros:data.length,companias:Object.fromEntries([...new Set(data.map(x=>x['COMPAÑÍA']).filter(Boolean))].map(c=>[c,data.filter(x=>x['COMPAÑÍA']===c).length]))};if(sessionUser)init();}
+  }catch(_e){}
+  try{
+    const r=await fetch('/.netlify/functions/source-center?action=data&type=capacitaciones_master',{cache:'no-store'});
+    const j=await r.json();
+    if(j?.ok&&j.payload?.records?.length){window.CAPACITACIONES_MAESTRO=j.payload.records;if(sessionUser)renderCapacitaciones();}
+  }catch(_e){}
 }
 
 /* v4.2.64 · Centro de Fuentes */
