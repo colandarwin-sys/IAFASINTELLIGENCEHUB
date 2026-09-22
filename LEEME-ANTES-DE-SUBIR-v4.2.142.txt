@@ -1,0 +1,19 @@
+IAFAS INTELLIGENCE HUB v4.2.142 - CHECKLIST ANTES DE SUBIR
+
+NO CAMBIES NADA MAS EN SUPABASE NI NETLIFY.
+
+Validado antes de entregar:
+- Netlify Function users.mjs presente.
+- El frontend publicado llama directamente a /.netlify/functions/users.
+- Ya no existe migracion automatica import-local.
+- El login directo de v4.2.140 ya fue comprobado por el usuario con status 200.
+- Variables requeridas en Netlify: SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, SUPABASE_SECRET_KEY.
+- Tabla public.hub_users y grant a service_role ya ejecutados por el usuario.
+- No se ejecuta npm run build:data en Netlify.
+
+Prueba posterior al unico deploy:
+1. Ingresar con dcolan.
+2. Ir a Gestion de usuarios.
+3. Crear usuario auditoria.
+4. Confirmar que aparece en Supabase > Table Editor > hub_users y Authentication > Users.
+5. Probar auditoria en ventana incognito u otro equipo.

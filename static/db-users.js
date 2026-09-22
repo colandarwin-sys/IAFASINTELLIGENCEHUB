@@ -1,14 +1,29 @@
 (function(){
   const TOKEN_KEY='iafas_hub_api_token_v1';
   const SESSION_KEY='panel_ab_user';
-  const LEGACY_USER_KEYS=['iafas_hub_users_v423','iafas_hub_users_v421'];
   let apiReady=false;
+
+  function isHosted(){
+    return !['localhost','127.0.0.1','::1'].includes(location.hostname);
+  }
+
+  function apiEndpoint(path){
+    if(!isHosted())return path;
+    if(path==='/api/health')return '/.netlify/functions/users?route=health';
+    if(path==='/api/login')return '/.netlify/functions/users?route=login';
+    if(path==='/api/users')return '/.netlify/functions/users?route=users';
+    if(path.startsWith('/api/users/')){
+      const route=path.slice('/api/'.length);
+      return '/.netlify/functions/users?route='+encodeURIComponent(route).replace(/%2F/g,'/');
+    }
+    return path;
+  }
 
   async function api(path, options={}){
     const headers={'Content-Type':'application/json', ...(options.headers||{})};
     const token=sessionStorage.getItem(TOKEN_KEY);
     if(token)headers['X-Session-Token']=token;
-    const res=await fetch(path,{...options,headers});
+    const res=await fetch(apiEndpoint(path),{...options,headers});
     const payload=await res.json().catch(()=>({ok:false,error:'Respuesta inválida del servidor'}));
     if(!res.ok||payload.ok===false)throw new Error(payload.error||'No se pudo completar la operación.');
     return payload;
@@ -23,20 +38,6 @@
       apiReady=false;
     }
     return apiReady;
-  }
-
-  async function migrateLegacyUsers(){
-    if(!apiReady)return;
-    for(const key of LEGACY_USER_KEYS){
-      try{
-        const raw=localStorage.getItem(key);
-        if(!raw)continue;
-        const users=JSON.parse(raw);
-        if(users&&Object.keys(users).length){
-          await api('/api/users/import-local',{method:'POST',body:JSON.stringify({users})});
-        }
-      }catch(_e){}
-    }
   }
 
   function modules(){
@@ -152,7 +153,7 @@
     $('adminRole').value=user.role||'Consulta rápida';
     $('adminActive').checked=user.active!==false;
     renderPermissionEditor(user.allowed||userModulesForRole(user.role));
-    if($('userFormMessage'))$('userFormMessage').innerText='Base SQLite activa. Deja la contraseña vacía si no deseas cambiarla.';
+    if($('userFormMessage'))$('userFormMessage').innerText='Usuario centralizado. Deja la contraseña vacía si no deseas cambiarla.';
   };
 
   window.toggleUserActive=async function(name){
@@ -177,10 +178,9 @@
   async function dbLogin(event){
     event.preventDefault();
     if(!apiReady){
-      alert('Para guardar usuarios en base de datos, abre el portal con abrir-portal-local.cmd.');
+      alert('No se pudo conectar con la base central de usuarios. Intenta nuevamente en unos minutos o contacta al administrador.');
       return;
     }
-    await migrateLegacyUsers();
     try{
       const payload=await api('/api/login',{method:'POST',body:JSON.stringify({username:$('loginUser').value,password:$('loginPass').value})});
       sessionStorage.setItem(TOKEN_KEY,payload.token);
@@ -201,7 +201,7 @@
 
   async function initDatabaseMode(){
     await detectApi();
-    const hosted=!['localhost','127.0.0.1','::1'].includes(location.hostname);
+    const hosted=isHosted();
     if(!apiReady){
       if(hosted){
         const oldForm=$('loginForm');
@@ -221,7 +221,6 @@
       }
       return;
     }
-    await migrateLegacyUsers();
     const oldForm=$('loginForm');
     if(oldForm){
       const newForm=oldForm.cloneNode(true);

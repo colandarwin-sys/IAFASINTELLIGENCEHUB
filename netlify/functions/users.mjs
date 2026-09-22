@@ -212,7 +212,7 @@ export default async (req) => {
     const route = url.searchParams.get('route') || 'health';
 
     if (route === 'health' && req.method === 'GET') {
-      return json({ ok: true, service: 'hub-users', version: '4.2.140' });
+      return json({ ok: true, service: 'hub-users', version: '4.2.142' });
     }
 
     if (route === 'login' && req.method === 'POST') {

@@ -5,30 +5,6 @@
 [functions]
   node_bundler = "esbuild"
 
-[[redirects]]
-  from = "/api/health"
-  to = "/.netlify/functions/users?route=health"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/api/login"
-  to = "/.netlify/functions/users?route=login"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/api/users"
-  to = "/.netlify/functions/users?route=users"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/api/users/*"
-  to = "/.netlify/functions/users?route=users/:splat"
-  status = 200
-  force = true
-
 [[headers]]
   for = "/LISTAS-AB-ACTUALIZADO.xlsx"
   [headers.values]

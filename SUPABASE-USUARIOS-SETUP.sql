@@ -1,4 +1,4 @@
--- IAFAS Intelligence Hub v4.2.140
+-- IAFAS Intelligence Hub v4.2.142
 -- Ejecutar en Supabase > SQL Editor del proyecto IAFAS Intelligence Hub.
 
 create table if not exists public.hub_users (

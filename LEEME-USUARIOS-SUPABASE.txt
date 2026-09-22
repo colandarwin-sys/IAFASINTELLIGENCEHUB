@@ -1,4 +1,4 @@
-IAFAS INTELLIGENCE HUB v4.2.140 - USUARIOS CENTRALIZADOS
+IAFAS INTELLIGENCE HUB v4.2.142 - USUARIOS CENTRALIZADOS
 
 OBJETIVO
 Los usuarios creados/editados desde Gestión de usuarios quedan almacenados centralmente en Supabase y pueden iniciar sesión desde cualquier equipo usando el mismo enlace de Netlify.
