@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>IAFAS HUB v4.2.133 | LOGIN POLISH | 09SEP2026</title>
+  <title>IAFAS HUB v4.2.138 | LOGIN POLISH | 09SEP2026</title>
   <link rel="stylesheet" href="static/styles.css?v=layout-42122"><link rel="stylesheet" href="static/v42-decision-engine.css?v=darbot-2456-0820-1018">
 </head>
 <body>
@@ -85,7 +85,7 @@
 <button data-module="fuentes" onclick="go('fuentes',this)" title="Gestión de fuentes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg><span>Gestión de fuentes</span></button>
 </nav>
 <div class="sidebar-footer">
-<p class="meta app-version">IAFAS HUB v4.2.133 · LOGIN POLISH · 09 SEP 2026</p>
+<p class="meta app-version">IAFAS HUB v4.2.138 · LOGIN POLISH · 09 SEP 2026</p>
 <p class="meta app-credit">Desarrollado por Darwen Colan</p>
 <div class="footer-user"><b id="userName">Usuario</b></div>
 <button class="logout-btn" onclick="logout()">Cerrar sesión</button>
@@ -484,7 +484,7 @@
       <div class="source-dropzone" id="sourceDropzone" onclick="document.getElementById('sourceFileInput').click()" ondragover="sourceDrag(event,true)" ondragleave="sourceDrag(event,false)" ondrop="sourceDrop(event)">
         <input id="sourceFileInput" type="file" accept=".xlsx,.pdf" hidden onchange="sourceFileSelected(this.files[0])">
         <div class="source-drop-icon">↥</div>
-        <div><b>Arrastra aquí el Excel maestro</b><span>Para Capacitaciones: selecciona “Maestro de Capacitaciones IAFAS” y carga el .xlsx. El Hub valida antes de publicar.</span></div>
+        <div><b>Sube una fuente o actualiza el Excel maestro</b><span>Para LISTAS AB puedes cargar cualquier .xlsx con la estructura válida. Además, si reemplazas LISTAS-AB-ACTUALIZADO.xlsx en GitHub, Netlify reconstruirá automáticamente la base al publicar.</span></div>
         <button type="button" class="pill blue action-pill">Seleccionar archivo</button>
       </div>
       <div class="source-upload-options">
@@ -610,15 +610,15 @@
 <script src="static/capacitaciones-qa.js?v=cap-rimac-4262"></script>
 <script src="static/capacitaciones-locales.js?v=actualizacion-local-4263"></script>
 <script src="static/capacitaciones-maestro.js?v=cap-master-42134"></script>
-<script src="static/listas-ab-data.js?v=actualizacion-local-4263"></script>
-<script src="static/update-status.js?v=admin-modular-4267"></script>
+<script src="static/listas-ab-data.js?v=final-ab-42138"></script>
+<script src="static/update-status.js?v=final-ab-42138"></script>
 <script src="static/capacitaciones-documentos.js?v=admin-modular-4267"></script>
 <script src="static/db-users.js?v=admin-modular-4267"></script>
 <script src="static/factores-data.js?v=factores-4292"></script>
 <script src="static/honorarios-data.js?v=honorarios-42103"></script>
 <script>try{localStorage.setItem("iafas_hub_theme_v4275","light")}catch(e){}</script>
 
-<script src="static/app.js?v=cap137-cloud-sources"></script>
+<script src="static/app.js?v=42138-github-auto-ab"></script>
 <script src="static/v42-decision-engine.js?v=darbot-capacitaciones-full-2457-0820-1114"></script>
 </body>
 </html>

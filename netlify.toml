@@ -1,9 +1,20 @@
 [build]
+  command = "npm run build:data"
   publish = "."
   functions = "netlify/functions"
 
 [functions]
   node_bundler = "esbuild"
+
+[[headers]]
+  for = "/LISTAS-AB-ACTUALIZADO.xlsx"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+
+[[headers]]
+  for = "/static/listas-ab-data.js"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
 
 [[headers]]
   for = "/*"

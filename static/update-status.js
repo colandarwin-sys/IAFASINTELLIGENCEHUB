@@ -1,1 +1,1 @@
-window.DATA_UPDATE_STATUS={"fecha":"2026-09-22T15:28:39-05:00","archivo":"LISTAS-AB (Autoguardado).xlsx","registros":1142,"companias":{"Pacífico":371,"Rímac":305,"Mapfre":161,"Sanitas":75,"Positiva":230}};
+window.DATA_UPDATE_STATUS={"fecha":"2026-09-22T15:49:00-05:00","archivo":"LISTAS-AB (Autoguardado)(1).xlsx","registros":1142,"companias":{"Pacífico":371,"Rímac":305,"Mapfre":161,"Sanitas":75,"Positiva":230}};

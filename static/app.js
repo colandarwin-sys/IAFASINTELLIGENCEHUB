@@ -460,9 +460,11 @@ async function sourceHubApi(path, options={}){
     target='/.netlify/functions/source-center?action='+encodeURIComponent(action);
   }
   let res;
-  try{res=await fetch(target,{...options,headers,cache:'no-store'});}catch(_err){throw new Error(hubIsNetlifyCloud()?'No se pudo conectar con el Centro de Fuentes publicado en Netlify.':'No se pudo conectar con el servidor local del Hub. Mantén abierta la ventana CMD e intenta nuevamente.');}
-  const payload=await res.json().catch(()=>({ok:false,error:'El servidor devolvió una respuesta no válida.'}));
-  if(!res.ok||payload.ok===false){if(res.status===401||res.status===403)throw new Error('La sesión de administrador no está disponible. Cierra sesión, vuelve a ingresar y repite la carga.');throw new Error(payload.error||'No se pudo completar la operación.');}
+  try{res=await fetch(target,{...options,headers,cache:'no-store'});}catch(_err){throw new Error(hubIsNetlifyCloud()?'No se pudo conectar con el Centro de Fuentes publicado en Netlify. La base LISTAS AB del despliegue sigue disponible.':'No se pudo conectar con el servidor local del Hub. Mantén abierta la ventana CMD e intenta nuevamente.');}
+  const raw=await res.text();
+  let payload=null;
+  try{payload=raw?JSON.parse(raw):{};}catch(_e){payload={ok:false,error:`Respuesta no válida del servidor (HTTP ${res.status}). ${raw.slice(0,180)}`};}
+  if(!res.ok||payload.ok===false){if(res.status===401||res.status===403)throw new Error('La sesión de administrador no está disponible. Cierra sesión, vuelve a ingresar y repite la carga.');throw new Error(payload.error||`No se pudo completar la operación (HTTP ${res.status}).`);}
   return payload;
 }
 async function syncCloudPublishedSources(){
@@ -491,7 +493,7 @@ async function sourceFileSelected(file){
   if(!file)return;
   const msg=$('sourceUploadMessage'),preview=$('sourcePreview');
   if(preview)preview.classList.add('app-hidden');sourcePendingPreview=null;
-  if(msg)msg.innerText=`Procesando ${file.name}...`;
+  if(msg)msg.innerText=`Procesando ${file.name}... El nombre del archivo no necesita ser LISTAS-AB-ACTUALIZADO.xlsx.`;
   try{
     const content=await sourceReadBase64(file);
     const result=await sourceHubApi('/api/source/preview',{method:'POST',body:JSON.stringify({filename:file.name,type:$('sourceType')?.value||'auto',content})});
@@ -545,7 +547,10 @@ async function loadSourceCenter(){
     const history=result.history||[];
     $('sourceHistory').innerHTML=history.length?history.map(h=>`<tr><td>${esc(sourceFmtDate(h.published_at))}</td><td><b>${esc(h.label||sourceTypeLabel(h.type))}</b></td><td>${esc(h.filename||'-')}</td><td>${esc(h.version||'-')}</td><td><div class="source-history-action"><span class="status ${h.status==='restored'?'rest':'ok'}">${h.status==='restored'?'Restaurado':'Publicado'}</span>${h.type!=='capacitacion'&&h.backup?`<button onclick="restoreSourceVersion('${esc(h.id)}','${esc(h.label||sourceTypeLabel(h.type))}')">Restaurar anterior</button>`:''}</div></td></tr>`).join(''):'<tr><td colspan="5"><div class="empty-state">Aún no hay publicaciones realizadas desde el Centro de Fuentes.</div></td></tr>';
     if($('sourceSyncState'))$('sourceSyncState').innerText='Fuentes listas · '+(result.sources||[]).length;
-  }catch(err){if($('sourceSyncState'))$('sourceSyncState').innerText='Centro no disponible';if($('sourceCards'))$('sourceCards').innerHTML=`<div class="empty-state">${esc(err.message||'No se pudo consultar el estado de fuentes.')}</div>`;}
+  }catch(err){
+    if($('sourceSyncState'))$('sourceSyncState').innerText='Base publicada disponible';
+    if($('sourceCards'))$('sourceCards').innerHTML=`<article class="source-status-card"><div class="source-status-top"><span>LISTAS AB</span><i class="source-dot"></i></div><b>${data.length||0} registros cargados</b><p>Fuente base: LISTAS-AB-ACTUALIZADO.xlsx. Para una actualización global, reemplaza ese archivo en GitHub; Netlify reconstruirá los datos automáticamente.</p><button onclick="sourcePrepareType('listas_ab')">Probar carga manual</button></article><div class="empty-state">Centro de publicación avanzada no disponible: ${esc(err.message||'sin respuesta')}. Esto no afecta la base LISTAS AB publicada.</div>`;
+  }
 }
 
 
@@ -1114,3 +1119,5 @@ function cap136RenderDocs(){
 }
 function cap136Init(){cap136RenderRoutes();cap136RenderIafas();cap136RenderDocs();cap136RenderActiveFilters();if($('cap136Home'))$('cap136Home').hidden=false;if($('cap136Explore'))$('cap136Explore').hidden=true;if($('cap136ResultsArea'))$('cap136ResultsArea').hidden=true;}
 renderCapacitaciones=function(){if(!$('cap136Query'))return;cap136Init();};
+
+/* v4.2.138 · LISTAS AB: Excel final 22SEP2026 + build automático GitHub/Netlify */

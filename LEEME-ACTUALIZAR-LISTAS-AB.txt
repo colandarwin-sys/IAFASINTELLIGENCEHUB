@@ -1,0 +1,22 @@
+IAFAS Intelligence Hub v4.2.138 - Actualizar LISTAS AB
+
+OPCION RECOMENDADA (GitHub + Netlify)
+1. En GitHub abre el archivo LISTAS-AB-ACTUALIZADO.xlsx.
+2. Reemplázalo por tu Excel nuevo, conservando exactamente ese nombre en el repositorio.
+3. Confirma el Commit en main.
+4. Netlify detectará el cambio y ejecutará el build automáticamente.
+5. Durante el build, scripts/build-data.mjs lee el Excel y reconstruye static/listas-ab-data.js.
+6. Al terminar el deploy, el Hub mostrará la nueva base.
+
+IMPORTANTE
+- Tu archivo de trabajo puede llamarse LISTAS-AB (Autoguardado).xlsx o de cualquier otra forma.
+- Solo al subirlo como fuente automática a GitHub debe quedar guardado con el nombre LISTAS-AB-ACTUALIZADO.xlsx.
+- La carga manual del Centro de Fuentes no exige ese nombre; valida la estructura interna.
+
+BASE INCLUIDA EN ESTA VERSION
+- 1,142 registros
+- Pacífico: 371
+- Rímac: 305
+- Positiva: 230
+- Mapfre: 161
+- Sanitas: 75
