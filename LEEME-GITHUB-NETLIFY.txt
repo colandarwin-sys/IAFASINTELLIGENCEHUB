@@ -1,4 +1,4 @@
-IAFAS INTELLIGENCE HUB v4.2.138
+IAFAS INTELLIGENCE HUB v4.2.139
 
 PUBLICACION EN GITHUB
 1. Sube TODO el contenido de esta carpeta a la raiz del repositorio.

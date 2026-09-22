@@ -1,4 +1,4 @@
-# IAFAS Intelligence Hub v4.2.138
+# IAFAS Intelligence Hub v4.2.139
 
 ## LISTAS AB vigentes
 La versión incluye como base oficial `LISTAS-AB-ACTUALIZADO.xlsx`, con 1,142 registros del archivo final recibido el 22/09/2026.
@@ -17,3 +17,7 @@ La hoja puede llamarse libremente. Debe contener encabezados equivalentes a: COM
 
 ## Netlify
 `netlify.toml` ejecuta el generador de datos antes de publicar y conserva las Functions para la carga avanzada desde Gestión de fuentes.
+
+
+## Corrección Netlify v4.2.139
+Se retiró el build previo `npm run build:data`. La base vigente de LISTAS AB ya se incluye preprocesada en `static/listas-ab-data.js` con 1,142 registros, evitando el fallo de deploy por `scripts/build-data.mjs`. Las Netlify Functions se conservan para Gestión de fuentes.

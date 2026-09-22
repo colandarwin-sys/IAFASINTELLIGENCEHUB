@@ -1,11 +1,8 @@
 {
   "name": "iafas-intelligence-hub",
   "private": true,
-  "version": "4.2.138",
+  "version": "4.2.139",
   "type": "module",
-  "scripts": {
-    "build:data": "node scripts/build-data.mjs"
-  },
   "dependencies": {
     "@netlify/blobs": "^11.1.0",
     "xlsx": "^0.18.5"
