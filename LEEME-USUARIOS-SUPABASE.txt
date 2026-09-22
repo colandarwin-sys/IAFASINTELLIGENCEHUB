@@ -1,0 +1,53 @@
+IAFAS INTELLIGENCE HUB v4.2.140 - USUARIOS CENTRALIZADOS
+
+OBJETIVO
+Los usuarios creados/editados desde Gestión de usuarios quedan almacenados centralmente en Supabase y pueden iniciar sesión desde cualquier equipo usando el mismo enlace de Netlify.
+
+YA REALIZADO POR EL USUARIO
+- Proyecto Supabase: IAFAS Intelligence Hub.
+- Tabla public.hub_users creada mediante SQL.
+- Variables creadas en Netlify:
+  SUPABASE_URL
+  SUPABASE_PUBLISHABLE_KEY
+  SUPABASE_SECRET_KEY
+
+QUE DEBES HACER AHORA
+1. Descomprime este ZIP.
+2. Sube/reemplaza TODO el contenido de esta carpeta en la raíz del repositorio GitHub IAFASINTELLIGENCEHUB.
+3. Confirma el commit en main.
+4. Netlify detectará el cambio y hará un nuevo deploy.
+5. Espera a que el deploy quede Published/verde.
+6. Abre el Hub publicado en una ventana de incógnito.
+7. Inicia sesión con dcolan y su contraseña habitual. En el primer ingreso el sistema crea el usuario base en Supabase automáticamente si aún no existe.
+8. En Gestión de usuarios crea un usuario de prueba, por ejemplo auditoria.
+9. Cierra sesión y prueba auditoria en una ventana de incógnito u otro equipo.
+
+COMPORTAMIENTO DESDE ESTA VERSIÓN
+- Crear usuario -> Supabase Auth + public.hub_users.
+- Editar usuario/permisos -> Supabase.
+- Cambiar contraseña desde Editar usuario -> Supabase Auth.
+- Activar/desactivar -> Supabase.
+- Eliminar -> elimina Auth + perfil central.
+- El portal publicado ya NO depende de localStorage para los usuarios cuando la API central está disponible.
+- Si Supabase/Netlify no responde, el portal muestra error; no guarda silenciosamente un usuario solo en el navegador.
+
+USUARIOS BASE
+Los usuarios base existentes del Hub se aprovisionan automáticamente en Supabase la primera vez que inician sesión con sus credenciales habituales. Esto evita tener que crearlos manualmente uno por uno.
+
+SEGURIDAD
+- La SUPABASE_SECRET_KEY solo existe como variable de entorno en Netlify.
+- No está incluida en ningún archivo del ZIP.
+- El navegador nunca recibe esa clave.
+- La tabla hub_users mantiene RLS y no otorga acceso directo a anon/authenticated.
+
+VALIDACIÓN EN SUPABASE
+Luego de ingresar con dcolan, ve a Table Editor > hub_users. Debe aparecer dcolan.
+Luego de crear auditoria desde el Hub, debe aparecer una segunda fila con username = auditoria.
+También puedes revisar Authentication > Users para confirmar que ambos usuarios tienen su cuenta de autenticación.
+
+PASO ADICIONAL IMPORTANTE EN SUPABASE
+Como al crear el proyecto desactivaste la exposición automática de tablas, ejecuta también en SQL Editor:
+
+grant select, insert, update, delete on table public.hub_users to service_role;
+
+Debe responder Success. Esto permite que la función segura de Netlify use la tabla con la SUPABASE_SECRET_KEY. No da acceso a usuarios anónimos ni a usuarios autenticados del navegador.

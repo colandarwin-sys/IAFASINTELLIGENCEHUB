@@ -111,7 +111,7 @@
   window.saveUserFromForm=async function(event){
     event.preventDefault();
     if(!apiReady){
-      alert('Abre el portal con abrir-portal-local.cmd para guardar usuarios en la base de datos.');
+      alert('No se pudo conectar con la base central de usuarios. El cambio no fue guardado.');
       return;
     }
     const name=normalizeUserName($('adminUserName')?.value);
@@ -156,7 +156,7 @@
   };
 
   window.toggleUserActive=async function(name){
-    if(!apiReady){alert('Abre el portal con abrir-portal-local.cmd para guardar cambios.');return;}
+    if(!apiReady){alert('No se pudo conectar con la base central de usuarios. El cambio no fue guardado.');return;}
     try{
       await api('/api/users/'+encodeURIComponent(name)+'/toggle',{method:'POST'});
       await renderUsersAdmin();
@@ -164,7 +164,7 @@
   };
 
   window.deleteUser=async function(name){
-    if(!apiReady){alert('Abre el portal con abrir-portal-local.cmd para guardar cambios.');return;}
+    if(!apiReady){alert('No se pudo conectar con la base central de usuarios. El cambio no fue guardado.');return;}
     if(sessionUser?.name===name){alert('No puedes eliminar el usuario con el que estás conectado.');return;}
     if(!confirm('¿Eliminar este usuario de la base de datos?'))return;
     try{
@@ -201,7 +201,26 @@
 
   async function initDatabaseMode(){
     await detectApi();
-    if(!apiReady)return;
+    const hosted=!['localhost','127.0.0.1','::1'].includes(location.hostname);
+    if(!apiReady){
+      if(hosted){
+        const oldForm=$('loginForm');
+        if(oldForm){
+          const newForm=oldForm.cloneNode(true);
+          oldForm.replaceWith(newForm);
+          newForm.addEventListener('submit',event=>{
+            event.preventDefault();
+            alert('No se pudo conectar con la base central de usuarios. Intenta nuevamente en unos minutos o contacta al administrador.');
+          });
+        }
+        sessionStorage.removeItem(SESSION_KEY);
+        sessionStorage.removeItem(TOKEN_KEY);
+        sessionUser=null;
+        $('appLayout')?.classList.add('app-hidden');
+        $('loginScreen')?.classList.remove('app-hidden');
+      }
+      return;
+    }
     await migrateLegacyUsers();
     const oldForm=$('loginForm');
     if(oldForm){
