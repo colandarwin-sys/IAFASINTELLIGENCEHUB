@@ -3,22 +3,57 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>IAFAS HUB v4.2.104 | GUIA RAPIDA EN PORTADA | 26AGO2026</title>
-  <link rel="stylesheet" href="static/styles.css?v=kairos-wizard-42105"><link rel="stylesheet" href="static/v42-decision-engine.css?v=darbot-2456-0820-1018">
+  <title>IAFAS HUB v4.2.133 | LOGIN POLISH | 09SEP2026</title>
+  <link rel="stylesheet" href="static/styles.css?v=layout-42122"><link rel="stylesheet" href="static/v42-decision-engine.css?v=darbot-2456-0820-1018">
 </head>
 <body>
 <section id="loginScreen" class="login-screen">
-  <form id="loginForm" class="login-box">
-    <div class="section-label">Acceso al panel</div>
-    <h1>IAFAS Intelligence Hub</h1>
-    <p>Gerencia de Auditoría Médica y Convenios</p>
-    <label>Usuario</label>
-    <input id="loginUser" autocomplete="username" required>
-    <label>Contraseña</label>
-    <input id="loginPass" type="password" autocomplete="current-password" required>
-    <button class="pill blue action-pill" type="submit">Ingresar</button>
-    <div class="login-help">Usuarios base: <b>dcolan/dcolan</b> · <b>ctejada/ctejada</b></div>
-  </form>
+  <div class="login-ambient" aria-hidden="true">
+    <span class="ambient-pane pane-a"></span>
+    <span class="ambient-pane pane-b"></span>
+    <span class="ambient-pane pane-c"></span>
+    <span class="ambient-glow glow-a"></span>
+    <span class="ambient-glow glow-b"></span>
+  </div>
+  <div class="login-layout">
+    <section class="login-intro" aria-label="Presentación del portal">
+      <div class="login-kicker">Gerencia de Auditoría Médica y Convenios</div>
+      <h1>IAFAS<br>Intelligence Hub</h1>
+      <div class="login-accent"></div>
+      <p>Información, análisis y conocimiento para una gestión en salud más eficiente.</p>
+      <div class="login-benefits">
+        <div><span class="login-benefit-icon">▥</span><b>Datos<br>confiables</b></div>
+        <div><span class="login-benefit-icon">▤</span><b>Mejores<br>decisiones</b></div>
+        <div><span class="login-benefit-icon">◈</span><b>Gestión en salud<br>con transparencia</b></div>
+      </div>
+      <div class="login-purpose"><span>Salud con datos,</span><b>mayores oportunidades</b></div>
+    </section>
+
+    <form id="loginForm" class="login-box">
+      <div class="login-shield" aria-hidden="true">◈</div>
+      <h2>IAFAS Intelligence Hub</h2>
+      <div class="login-subbrand">Gerencia de Auditoría Médica y Convenios</div>
+      <div class="login-box-accent"></div>
+      <h3>Bienvenido(a)</h3>
+      <p>Accede al portal para continuar</p>
+
+      <label for="loginUser">Usuario</label>
+      <div class="login-input-wrap">
+        <span aria-hidden="true">◎</span>
+        <input id="loginUser" autocomplete="username" placeholder="Ingresa tu usuario" required>
+      </div>
+
+      <label for="loginPass">Contraseña</label>
+      <div class="login-input-wrap">
+        <span aria-hidden="true">▣</span>
+        <input id="loginPass" type="password" autocomplete="current-password" placeholder="Ingresa tu contraseña" required>
+      </div>
+
+      <button class="login-submit" type="submit">Iniciar sesión <span aria-hidden="true">→</span></button>
+      <div class="login-separator"><i></i><span>Acceso institucional</span><i></i></div>
+      <div class="login-help">Usuarios base: <b>dcolan/dcolan</b> · <b>ctejada/ctejada</b></div>
+    </form>
+  </div>
 </section>
 <div class="layout app-hidden" id="appLayout">
 <aside class="sidebar">
@@ -35,7 +70,7 @@
 <button data-module="exclusiones" onclick="go('exclusiones',this)" title="Exclusiones IAFAS"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3 4 6v6c0 5 3.4 7.6 8 9 4.6-1.4 8-4 8-9V6z"/><path d="M12 8v5"/><path d="M12 17h.01"/></svg><span>Exclusiones IAFAS</span></button>
 <button data-module="factores" onclick="go('factores',this)" title="Factores IAFAS"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V9"/><path d="M10 19V5"/><path d="M16 19v-7"/><path d="M22 19H2"/><path d="m5 6 5-3 5 5 6-4"/></svg><span>Factores IAFAS</span></button>
 <button data-module="honorarios" onclick="go('honorarios',this)" title="Calculadora de Honorarios"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h3M14 12h2M8 16h2M13 16h3"/></svg><span>Calculadora de Honorarios</span></button>
-<button data-module="kairos" onclick="go('kairos',this)" title="Calculadora Kairos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M8 8h8"/><path d="M8 12h2M14 12h2"/><path d="M8 16h8"/><path d="m17 6 2-2"/></svg><span>Calculadora Kairos</span></button>
+<a class="external-module" href="https://per.kairosweb.com/" target="_blank" rel="noopener noreferrer" title="Abrir Kairos Perú en una pestaña nueva. La validación tarifaria automática requiere la extensión Kairos instalada en este equipo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M8 8h8"/><path d="M8 12h2M14 12h2"/><path d="M8 16h8"/><path d="m17 6 2-2"/></svg><span>Kairos · Validación tarifaria</span><svg class="external-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h6"/></svg></a>
 <div class="menu-group-label">Biblioteca inteligente</div>
 <button data-module="manual" onclick="go('manual',this)" title="Manual de Normas de Facturación"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4h12v16H6z"/><path d="M9 8h6M9 12h6M9 16h4"/></svg><span>Manual de Normas de Facturación</span></button>
 <button data-module="peas" onclick="go('peas',this)" title="PEAS"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h8M8 17h5"/><path d="M6 3v4M18 3v4"/></svg><span>PEAS</span></button>
@@ -50,7 +85,7 @@
 <button data-module="fuentes" onclick="go('fuentes',this)" title="Gestión de fuentes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg><span>Gestión de fuentes</span></button>
 </nav>
 <div class="sidebar-footer">
-<p class="meta app-version">IAFAS HUB v4.2.104 · GUIA RAPIDA EN PORTADA · 26 AGO 2026</p>
+<p class="meta app-version">IAFAS HUB v4.2.133 · LOGIN POLISH · 09 SEP 2026</p>
 <p class="meta app-credit">Desarrollado por Darwen Colan</p>
 <div class="footer-user"><b id="userName">Usuario</b></div>
 <button class="logout-btn" onclick="logout()">Cerrar sesión</button>
@@ -93,7 +128,7 @@
     <div class="home-module" data-module="miniia" onclick="openDarwenChat()"><span>AI</span><b>Darbot</b><p>Chat virtual para orientar consultas, ubicar sustento documental y ordenar validaciones operativas.</p></div>
     <div class="home-module" data-module="buscador" onclick="go('buscador',menuBtn('buscador'))"><span>01</span><b>Listas AB</b><p>Búsqueda central para ubicar prestaciones, coberturas y condiciones operativas.</p></div>
     <div class="home-module" data-module="exclusiones" onclick="go('exclusiones',menuBtn('exclusiones'))"><span>02</span><b>Exclusiones IAFAS</b><p>Matriz consolidada con exclusiones comunes, reglas particulares y palabras clave por IAFA.</p></div>
-    <div class="home-module" data-module="capacitaciones" onclick="go('capacitaciones',menuBtn('capacitaciones'))"><span>03</span><b>Capacitaciones IAFAS</b><p>Boletines y fichas rápidas por aseguradora, empezando con RIMAC.</p></div>
+    <div class="home-module" data-module="capacitaciones" onclick="go('capacitaciones',menuBtn('capacitaciones'))"><span>03</span><b>Capacitaciones IAFAS</b><p>Consulta operativa por IAFA con respuestas, acciones y fuente documental.</p></div>
     <div class="home-module" data-module="manual" onclick="go('manual',menuBtn('manual'))"><span>04</span><b>Normas de facturación</b><p>Manual interactivo con criterios, sustentos y enlace directo a la página fuente del PDF.</p></div><div class="home-module" data-module="peas" onclick="go('peas',menuBtn('peas'))"><span>05</span><b>PEAS versión 2021</b><p>Consulta estructurada del Plan Esencial de Aseguramiento en Salud: condiciones, CIE-10, prestaciones y tablas.</p></div>
   </div>
   <div class="kpis compact-kpis"><div class="kpi"><span>Total tecnologías</span><strong id="kTotal">0</strong><div class="meter"><i id="mTotal" style="width:100%"></i></div></div><div class="kpi"><span>Lista A</span><strong id="kA">0</strong><div class="meter"><i id="mA"></i></div></div><div class="kpi"><span>Lista B / AB</span><strong id="kB">0</strong><div class="meter"><i id="mB" class="teal"></i></div></div><div class="kpi"><span>Requieren CG</span><strong id="kCG">0</strong><div class="meter"><i id="mCG"></i></div></div></div>
@@ -303,144 +338,85 @@
 </section>
 
 
-<section id="kairos" class="page">
-  <div class="topbar kh-topbar">
-    <div class="titleblock">
-      <div class="section-label">Validación tarifaria operativa</div>
-      <h2>Calculadora Kairos</h2>
-      <p>Compara el valor liquidado en MV con la regla tarifaria aplicable por IAFA y muestra la diferencia económica con una lectura rápida.</p>
-    </div>
-    <div class="toolbar kh-toolbar">
-      <a class="pill action-pill" href="https://per.kairosweb.com/" target="_blank" rel="noopener">Abrir Kairos Perú</a>
-      <span class="pill blue">Lógica Kairos v2.3.3</span>
-    </div>
-  </div>
 
-  <nav class="kh-flow" aria-label="Pasos de la Calculadora Kairos">
-    <button id="khFlow1" class="active" type="button" onclick="khGoStep(1)"><span>1</span><b>Datos Kairos</b><small>Medicamento, presentación y precios</small></button>
-    <button id="khFlow2" type="button" onclick="khGoStep(2)"><span>2</span><b>Datos MV</b><small>Cantidad y total liquidado</small></button>
-    <button id="khFlow3" type="button" onclick="khGoStep(3)"><span>3</span><b>Resultado</b><small>Compara y decide</small></button>
-  </nav>
 
-  <div id="khStepMessage" class="kh-step-message" hidden></div>
-
-  <section id="khStep1" class="panel kh-wizard-card kh-step-panel show">
-    <div class="kh-card-head">
-      <div><span class="kh-kicker">PASO 1 DE 3</span><h3>Datos visibles en Kairos</h3><p>Primero identifica la IAFA y transcribe los datos de la ficha abierta en Kairos.</p></div>
-      <span class="kh-source-chip">Fuente: Kairos Perú</span>
-    </div>
-
-    <div class="kh-source-note"><b>Medicamento</b><span>En esta versión se transcribe exactamente como aparece en Kairos. No se autocompletan nombres sin una fuente maestra.</span></div>
-
-    <div class="kh-grid kh-grid-main kh-step1-grid">
-      <label class="kh-field"><span>IAFA</span><select id="khInsurer" onchange="khCalculate()"><option value="">Seleccionar...</option><option value="pacifico">Pacífico</option><option value="rimac">Rímac</option><option value="mapfre">MAPFRE EPS / Seguros</option><option value="sanitas">Sanitas EPS</option><option value="positiva">La Positiva EPS / Seguros</option></select></label>
-      <label class="kh-field kh-wide"><span>Medicamento</span><input id="khMedication" placeholder="Transcribe el nombre tal como aparece en Kairos" oninput="khCalculate()"></label>
-      <label class="kh-field kh-wide"><span>Presentación Kairos</span><input id="khPresentation" placeholder="Ej. Caja Sol. Vial x 1" oninput="khPresentationChanged()"><small>Se detectarán automáticamente las unidades cuando la presentación lo permita.</small></label>
-      <label class="kh-field"><span>PVF Kairos</span><div class="kh-money-input"><b>S/</b><input id="khPvf" inputmode="decimal" placeholder="0.00" oninput="khCalculate()"></div></label>
-      <label class="kh-field"><span>PPS Kairos</span><div class="kh-money-input"><b>S/</b><input id="khPps" inputmode="decimal" placeholder="0.00" oninput="khCalculate()"></div></label>
-      <label class="kh-field"><span>Unidades por presentación</span><input id="khUnits" type="number" min="0.0001" step="any" value="1" oninput="khCalculate()"><small id="khUnitHint">1 unidad detectada</small></label>
-    </div>
-
-    <div class="kh-step-actions end">
-      <button class="pill blue action-pill kh-next-btn" type="button" onclick="khContinueToMv()">Continuar a Datos MV →</button>
-    </div>
-  </section>
-
-  <section id="khStep2" class="panel kh-wizard-card kh-step-panel" hidden>
-    <div class="kh-card-head">
-      <div><span class="kh-kicker">PASO 2 DE 3</span><h3>Datos de liquidación MV</h3><p>Indica cuánto se liquidó y confirma la equivalencia entre la unidad MV y la presentación Kairos.</p></div>
-      <div id="khStep2Context" class="kh-step-context">Consulta cargada</div>
-    </div>
-
-    <div class="kh-grid kh-mv-grid kh-step2-grid">
-      <label class="kh-field"><span>Cantidad liquidada</span><input id="khQuantity" type="number" min="0.0001" step="any" value="1" oninput="khCalculate()"></label>
-      <label class="kh-field"><span>Total MV</span><div class="kh-money-input"><b>S/</b><input id="khTotalMv" inputmode="decimal" placeholder="0.00" oninput="khCalculate()"></div></label>
-      <label class="kh-field kh-wide"><span>¿Qué representa la cantidad en MV?</span><select id="khBasis" onchange="khCalculate()"><option value="auto">AUTO — detectar por escala de precio</option><option value="inner">Unidad interna</option><option value="presentation">Presentación completa Kairos</option></select><small>Si la escala es ambigua, el sistema te pedirá confirmarla antes de calcular.</small></label>
-    </div>
-
-    <div id="khUnitDiagnostic" class="kh-unit-diagnostic neutral">Completa el Total MV para validar la equivalencia de unidad.</div>
-
-    <div id="khRimacFallback" class="kh-fallback" hidden>
-      <div><b>Rímac · ruta alternativa</b><span>Si Kairos no muestra PPS ni PVF, ingresa el precio de compra sin IGV.</span></div>
-      <label class="kh-field"><span>Precio de compra sin IGV</span><div class="kh-money-input"><b>S/</b><input id="khPurchase" inputmode="decimal" placeholder="0.00" oninput="khCalculate()"></div></label>
-    </div>
-
-    <details class="kh-advanced"><summary>Opciones adicionales</summary><label class="kh-check"><input id="khExempt" type="checkbox" onchange="khCalculate()"><span><b>Medicamento inafecto / caso tributario especial</b><small>El resultado pasará a Zona gris hasta validar la regla específica.</small></span></label></details>
-
-    <div class="kh-step-actions split">
-      <button class="pill action-pill" type="button" onclick="khGoStep(1)">← Volver</button>
-      <button class="pill blue action-pill kh-next-btn" type="button" onclick="khFinishCalculation()">Calcular resultado →</button>
-    </div>
-  </section>
-
-  <section id="khStep3" class="kh-step-panel" hidden>
-    <div class="kh-result-layout">
-      <section class="panel kh-result-card kh-result-main">
-        <div class="kh-result-head"><div><span class="kh-kicker">PASO 3 DE 3</span><h3>Resultado de validación</h3><p id="khResultContext">Consulta calculada</p></div><span id="khStatus" class="kh-status pending">PENDIENTE</span></div>
-        <div id="khResultIntro" class="kh-result-intro">El resultado aparecerá después de completar los pasos anteriores.</div>
-        <div class="kh-metrics"><article class="primary"><span>Precio convenio / validado por unidad MV</span><strong id="khAllowedUnit">S/ 0.00</strong><small id="khBasisLabel">Base pendiente</small></article><article><span>Total convenio / referencia</span><strong id="khAllowedTotal">S/ 0.00</strong></article><article><span>Total MV</span><strong id="khMvTotal">S/ 0.00</strong></article><article><span>Diferencia total</span><strong id="khDifference">S/ 0.00</strong><small id="khDifferencePct">0.00%</small></article></div>
-        <div class="kh-impact-row"><div><span>Oportunidad económica</span><strong id="khOpportunity">S/ 0.00</strong></div><div><span>Sobrevaloración</span><strong id="khOvervaluation">S/ 0.00</strong></div></div>
-        <div class="kh-method-box"><div><span>Método aplicado</span><strong id="khMethod">-</strong></div><div><span>Validación</span><strong id="khValidation">-</strong></div><p id="khMethodNote">La regla utilizada aparecerá aquí.</p></div>
-        <details class="kh-calc-details"><summary>Ver cálculo matemático</summary><div id="khCalcBreakdown" class="kh-breakdown">Sin cálculo disponible.</div></details>
-        <div class="kh-result-actions"><button class="pill action-pill" onclick="khGoStep(2)">← Editar Datos MV</button><button class="kh-copy-btn" onclick="khCopyResult()">Copiar resultado</button><button class="pill blue action-pill" onclick="khReset()">Nueva consulta</button></div>
-      </section>
-
-      <aside class="kh-result-side">
-        <section class="panel kh-register-card compact">
-          <div class="kh-register-head"><div><span class="kh-kicker">TRAZABILIDAD</span><h3>Registrar resultado</h3><p>Opcional: guarda el caso para el resumen mensual.</p></div></div>
-          <div class="kh-register-grid compact"><label class="kh-field"><span>Número de cuenta</span><input id="khAccount" placeholder="Cuenta del paciente"></label><label class="kh-field"><span>Código PROFAT</span><input id="khProfat" placeholder="Código PROFAT"></label><button class="pill blue action-pill kh-register-btn" onclick="khRegister()">Registrar</button></div>
-          <div id="khRegisterMessage" class="kh-register-message"></div>
-          <details class="kh-monthly"><summary>Resumen mensual</summary><div id="khMonthlySummary" class="kh-monthly-grid"></div><button class="pill action-pill kh-export-btn" onclick="khExportCsv()">Exportar CSV</button></details>
-        </section>
-
-        <details class="panel kh-rules-card compact"><summary>Regla tarifaria aplicada</summary><div class="kh-rules-grid"><article><b>Pacífico</b><p>PPS −40%. Sin PPS y con PVF: PVF ×1.33, regla operativa validada por liderazgo.</p></article><article><b>Rímac</b><p>PPS −25%. Sin PPS: PVF ×1.33. Sin PPS/PVF: compra +5%.</p></article><article><b>MAPFRE</b><p>PPS −15%. Sin PPS: Zona gris.</p></article><article><b>Sanitas</b><p>PPS −25%. Sin PPS: Zona gris.</p></article><article><b>La Positiva</b><p>PPS −20%. Sin PPS: Zona gris.</p></article></div></details>
-      </aside>
-    </div>
-  </section>
-</section>
-
-<section id="capacitaciones" class="page">
-  <div class="topbar cap70-topbar">
+<section id="capacitaciones" class="page cap136-page">
+  <div class="topbar cap136-topbar">
     <div class="titleblock">
       <div class="section-label">Capacitaciones IAFAS</div>
-      <h2>Consulta rápida para resolver casos</h2>
-      <p>Escribe una pregunta o palabra clave. El Hub reúne en una sola vista la respuesta, qué hacer, qué validar, alertas y la fuente documental.</p>
+      <h2>Centro de consulta operativa</h2>
+      <p>Busca una situación real y revisa la respuesta, la acción sugerida por la capacitación y la fuente que la sustenta.</p>
     </div>
-    <div class="toolbar cap71-toolbar"><button class="pill action-pill cap71-guide-btn" onclick="cap71OpenGuide()" title="Ver guía rápida del módulo">▶ Cómo funciona</button><span id="cap70SourceStatus" class="pill blue">Fuentes cargadas</span></div>
+    <div class="toolbar cap136-actions">
+      <button class="pill blue action-pill" onclick="cap135GoUpdate()">Actualizar base</button>
+    </div>
   </div>
 
-  <section class="panel cap70-search-panel">
-    <div class="cap70-search-label"><span>BUSCAR EN CAPACITACIONES</span><small>Pregunta natural o palabras clave</small></div>
-    <div class="cap70-query-row">
-      <input id="cap70Query" class="search main-search" placeholder="Ejemplo: ¿cuánto dura una emergencia accidental?, SITEDS, carencia, carta de garantía..." oninput="cap70Search()" onkeydown="if(event.key==='Enter')cap70Search(true)">
-      <button class="pill blue action-pill" onclick="cap70Search(true)">Buscar</button>
-      <button class="pill action-pill" onclick="cap70Clear()">Limpiar</button>
-    </div>
-    <div class="cap70-quick-wrap">
-      <span>Consultas frecuentes</span>
-      <div id="cap70Quick" class="cap70-quick"></div>
-    </div>
-    <div class="cap70-filterbar">
-      <div id="cap70IafaFilters" class="cap70-filters"></div>
-      <div id="cap70TopicFilters" class="cap70-filters cap70-topic-filters"></div>
-    </div>
-  </section>
+  <nav class="cap136-tabs" aria-label="Vistas de capacitaciones">
+    <button class="active" data-cap136-view="consulta" onclick="cap136SetView('consulta',this)">Consulta operativa</button>
+    <button data-cap136-view="documentos" onclick="cap136SetView('documentos',this)">Fuentes documentales</button>
+  </nav>
 
-  <div class="cap70-layout">
-    <section class="panel cap70-results-panel">
-      <div class="panel-head cap70-results-head">
-        <div><h3>Resultados</h3><p id="cap70Hint">Empieza escribiendo una pregunta o usa una consulta frecuente.</p></div>
-        <span id="cap70Count" class="pill">0 resultados</span>
+  <div id="cap136ViewConsulta" class="cap136-view active">
+    <section class="cap136-search-shell">
+      <div class="cap136-search-copy">
+        <span>CONSULTA DIRECTA</span>
+        <h3>¿Qué necesitas resolver?</h3>
+        <p>Escribe como lo preguntarías en el trabajo. Puedes usar una IAFA, una cobertura, un trámite o una situación clínica/administrativa.</p>
       </div>
-      <div id="cap70Results" class="cap70-results">
-        <div class="cap70-empty"><b>Todo en una sola consulta</b><p>No necesitas entrar por IAFA, concepto o caso. Busca y revisa el contenido relacionado aquí mismo.</p></div>
+      <div class="cap136-search-row">
+        <input id="cap136Query" class="search main-search" autocomplete="off" placeholder="Ej.: ¿RMN MAPFRE requiere carta de garantía?" onkeydown="if(event.key==='Enter')cap136Search(true)">
+        <button class="pill blue action-pill" onclick="cap136Search(true)">Buscar</button>
       </div>
+      <div id="cap136ActiveFilters" class="cap136-active-filters"></div>
     </section>
 
-    <aside id="cap70Detail" class="panel cap70-detail-panel">
-      <div class="cap70-empty-detail"><span>Selecciona un resultado</span><p>La respuesta completa aparecerá aquí, con sus validaciones y fuente.</p></div>
-    </aside>
+    <section id="cap136Home" class="cap136-home">
+      <div class="cap136-block-head">
+        <div><span>RUTAS RÁPIDAS</span><h3>Empieza por el tipo de consulta</h3><p>Estas opciones llevan directamente a los temas más usados por el personal.</p></div>
+      </div>
+      <div id="cap136Routes" class="cap136-route-grid"></div>
+
+      <div class="cap136-block-head cap136-company-head">
+        <div><span>POR COMPAÑÍA</span><h3>O elige una IAFA</h3><p>Verás únicamente los productos y temas que tienen información cargada.</p></div>
+      </div>
+      <div id="cap136Iafas" class="cap136-iafa-list"></div>
+    </section>
+
+    <section id="cap136Explore" class="cap136-explore" hidden>
+      <div class="cap136-explore-head">
+        <div><span id="cap136ExploreKicker">IAFA</span><h3 id="cap136ExploreTitle">Temas disponibles</h3><p id="cap136ExploreDesc">Selecciona un tema para ver la información operativa.</p></div>
+        <button class="pill action-pill" onclick="cap136Reset()">Volver al inicio</button>
+      </div>
+      <div id="cap136Products" class="cap136-product-row"></div>
+      <div id="cap136Topics" class="cap136-topic-grid"></div>
+    </section>
+
+    <section id="cap136ResultsArea" class="cap136-results-area" hidden>
+      <div class="cap136-results-head">
+        <div><span>RESULTADO</span><h3 id="cap136ResultsTitle">Información encontrada</h3><p id="cap136ResultsHint">Selecciona una coincidencia para revisar el detalle.</p></div>
+        <div class="cap136-results-tools"><span id="cap136Count" class="pill blue">0 resultados</span><button class="pill action-pill" onclick="cap136Reset()">Nueva consulta</button></div>
+      </div>
+      <div class="cap136-results-layout">
+        <aside class="panel cap136-list-panel">
+          <div id="cap136Results" class="cap136-results"></div>
+        </aside>
+        <article id="cap136Detail" class="panel cap136-detail">
+          <div class="cap136-empty-detail"><b>Selecciona una respuesta</b><p>Aquí aparecerán la regla, qué hacer y la fuente.</p></div>
+        </article>
+      </div>
+    </section>
   </div>
+
+  <div id="cap136ViewDocumentos" class="cap136-view">
+    <div class="cap136-doc-head">
+      <div><span>TRAZABILIDAD</span><h3>Fuentes documentales</h3><p>Documentos que respaldan la información publicada en Capacitaciones.</p></div>
+      <div class="cap136-doc-search"><input id="cap136DocQuery" class="search" placeholder="Buscar documento o IAFA..." oninput="cap136RenderDocs()"></div>
+    </div>
+    <div id="cap136Docs" class="cap136-docs"></div>
+  </div>
+
+  <div class="cap136-trust-note"><b>Lectura segura:</b> el módulo muestra únicamente información que existe en la base cargada. Cuando falte sustento, la respuesta debe revisarse antes de tomar una decisión.</div>
 </section>
 
 <div id="cap71Guide" class="cap71-guide" hidden aria-hidden="true">
@@ -508,11 +484,11 @@
       <div class="source-dropzone" id="sourceDropzone" onclick="document.getElementById('sourceFileInput').click()" ondragover="sourceDrag(event,true)" ondragleave="sourceDrag(event,false)" ondrop="sourceDrop(event)">
         <input id="sourceFileInput" type="file" accept=".xlsx,.pdf" hidden onchange="sourceFileSelected(this.files[0])">
         <div class="source-drop-icon">↥</div>
-        <div><b>Arrastra aquí el Excel o PDF</b><span>LISTAS AB · PEAS · Manual de Normas · Capacitaciones / documentos IAFA</span></div>
+        <div><b>Arrastra aquí el Excel maestro</b><span>Para Capacitaciones: selecciona “Maestro de Capacitaciones IAFAS” y carga el .xlsx. El Hub valida antes de publicar.</span></div>
         <button type="button" class="pill blue action-pill">Seleccionar archivo</button>
       </div>
       <div class="source-upload-options">
-        <label>Tipo de fuente<select id="sourceType" class="search"><option value="auto">Detectar automáticamente</option><option value="listas_ab">LISTAS AB</option><option value="peas">PEAS</option><option value="manual">Manual de Normas</option><option value="capacitacion">Capacitación / documento IAFA</option></select></label>
+        <label>Tipo de fuente<select id="sourceType" class="search"><option value="auto">Detectar automáticamente</option><option value="listas_ab">LISTAS AB</option><option value="capacitaciones_master">Maestro de Capacitaciones IAFAS</option><option value="peas">PEAS</option><option value="manual">Manual de Normas</option><option value="capacitacion">Capacitación / documento IAFA</option></select></label>
         <label>Título / versión visible<input id="sourceTitle" class="search" placeholder="Ejemplo: PEAS 2027"></label>
         <label>IAFA / entidad<input id="sourceCompany" class="search" placeholder="Ejemplo: Pacífico, Rímac, MINSA"></label>
         <label>Versión<input id="sourceVersion" class="search" placeholder="Ejemplo: 2027 o v2"></label>
@@ -633,6 +609,7 @@
 <script src="static/capacitaciones-data.js?v=cap-lineamientos-2026-0819"></script>
 <script src="static/capacitaciones-qa.js?v=cap-rimac-4262"></script>
 <script src="static/capacitaciones-locales.js?v=actualizacion-local-4263"></script>
+<script src="static/capacitaciones-maestro.js?v=cap-master-42134"></script>
 <script src="static/listas-ab-data.js?v=actualizacion-local-4263"></script>
 <script src="static/update-status.js?v=admin-modular-4267"></script>
 <script src="static/capacitaciones-documentos.js?v=admin-modular-4267"></script>
@@ -640,8 +617,8 @@
 <script src="static/factores-data.js?v=factores-4292"></script>
 <script src="static/honorarios-data.js?v=honorarios-42103"></script>
 <script>try{localStorage.setItem("iafas_hub_theme_v4275","light")}catch(e){}</script>
-<script src="static/kairos-hub.js?v=kairos-42105"></script>
-<script src="static/app.js?v=honorarios-42103"></script>
+
+<script src="static/app.js?v=cap136-honorarios-42103"></script>
 <script src="static/v42-decision-engine.js?v=darbot-capacitaciones-full-2457-0820-1114"></script>
 </body>
 </html>

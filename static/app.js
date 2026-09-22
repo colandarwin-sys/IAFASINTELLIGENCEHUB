@@ -6,7 +6,6 @@ const MODULES={
   exclusiones:{name:'Exclusiones IAFAS',group:'Coberturas'},
   factores:{name:'Factores IAFAS',group:'Coberturas'},
   honorarios:{name:'Calculadora de Honorarios',group:'Operación'},
-  kairos:{name:'Calculadora Kairos',group:'Operación'},
   manual:{name:'Manual de Normas de Facturación',group:'Biblioteca inteligente'},
   peas:{name:'PEAS',group:'Biblioteca inteligente'},
   capacitaciones:{name:'Capacitaciones IAFAS',group:'Biblioteca inteligente'},
@@ -38,7 +37,8 @@ let listasAbHasSearched=false;
 let current=[];
 const CAPACITACIONES=window.CAPACITACIONES||[];
 const CAPACITACIONES_QA=window.CAPACITACIONES_QA||[];
-const capData=CAPACITACIONES_QA.length?CAPACITACIONES_QA:CAPACITACIONES;
+const CAPACITACIONES_MAESTRO=window.CAPACITACIONES_MAESTRO||[];
+const capData=CAPACITACIONES_MAESTRO.length?CAPACITACIONES_MAESTRO:(CAPACITACIONES_QA.length?[...CAPACITACIONES,...CAPACITACIONES_QA]:CAPACITACIONES);
 const THEME_STORAGE_KEY='iafas_hub_theme_v4275';
 function normalizeUserName(value){return String(value||'').trim().toLowerCase();}
 function userModulesForRole(role){return role==='Superadmin'?ALL_ACCESS_MODULES:NON_ADMIN_ACCESS_MODULES;}
@@ -67,7 +67,7 @@ function resetAbExpandable(){['conditionsDetail','exceptionsDetail'].forEach(id=
 function menuBtn(id){return document.querySelector(`[data-module="${id}"]`);}
 function act(b){document.querySelectorAll('.menu button').forEach(x=>x.classList.remove('active')); if(b)b.classList.add('active');}
 function canPage(id){return !!sessionUser && (sessionUser.allowed.includes('*') || sessionUser.allowed.includes(id));}
-function go(id,b){if(!canPage(id)){alert('Este usuario no tiene acceso a esta sección.');return;}if(id==='miniia'&&typeof openDarwenChat==='function'){act(b||menuBtn(id));openDarwenChat();return;}const target=$(id);if(!target){alert('La sección solicitada todavía no está disponible.');return;}act(b||menuBtn(id));document.querySelectorAll('.page').forEach(x=>x.classList.remove('show'));target.classList.add('show'); if(id==='buscador') renderListasABIdle(); if(id==='exclusiones') renderExclusiones(); if(id==='factores') renderFactoresIdle(); if(id==='honorarios') honInit(); if(id==='kairos'&&typeof khInit==='function') khInit(); if(id==='capacitaciones') renderCapacitaciones(); if(id==='manual') renderManual(); if(id==='peas') renderPeas(); if(id==='usuarios')renderUsersAdmin(); if(id==='fuentes')loadSourceCenter();}
+function go(id,b){if(!canPage(id)){alert('Este usuario no tiene acceso a esta sección.');return;}if(id==='miniia'&&typeof openDarwenChat==='function'){act(b||menuBtn(id));openDarwenChat();return;}const target=$(id);if(!target){alert('La sección solicitada todavía no está disponible.');return;}act(b||menuBtn(id));document.querySelectorAll('.page').forEach(x=>x.classList.remove('show'));target.classList.add('show'); if(id==='buscador') renderListasABIdle(); if(id==='exclusiones') renderExclusiones(); if(id==='factores') renderFactoresIdle(); if(id==='honorarios') honInit(); if(id==='capacitaciones') renderCapacitaciones(); if(id==='manual') renderManual(); if(id==='peas') renderPeas(); if(id==='usuarios')renderUsersAdmin(); if(id==='fuentes')loadSourceCenter();}
 
 const FACTORES_IAFAS=window.FACTORES_IAFAS_DATA||[];
 let factoresHasSearched=false;
@@ -292,7 +292,7 @@ function peasProcedureTable(rows){if(!rows||!rows.length)return '<div class="emp
 function peasDetail(i){const r=peasCurrent[i];if(!r)return;let detail='';if(r.type==='COND'){const rows=r.related||peasRelatedProcedures(r.raw, $('peas_q')?.value||'');detail=`<div class="peas-decision-layout"><div class="peas-general-card"><div class="field"><b>Diagnóstico / condición asegurable</b><p>${esc(r.heading)}</p></div><div class="field"><b>Información general del diagnóstico</b><blockquote>${esc(r.text||'El PEAS registra esta condición asegurable. Revisar las prestaciones y precisiones relacionadas en la tabla lateral.')}</blockquote></div>${(r.cie10&&r.cie10.length)?`<div class="field"><b>Diagnósticos CIE-10 relacionados</b><div class="peas-cie-list">${r.cie10.map(x=>`<span>${esc(x)}</span>`).join('')}</div></div>`:''}<div class="manual-citation"><b>Fuente:</b> ${peasCitation(r)}</div></div><div class="peas-related-card"><div class="manual-answer-top compact"><div><span>Tabla relacionada del PEAS</span><h3>Prestaciones asociadas</h3></div><span class="pill blue">${rows.length} filas</span></div>${peasProcedureTable(rows)}</div></div>`;}else if(r.type==='PROC'){const cond=(window.peasConditions||[]).find(c=>peasConditionKey(c.title)===peasConditionKey(r.condition));const rows=cond?peasRelatedProcedures(cond,$('peas_q')?.value||r.code):[];detail=`<div class="peas-decision-layout"><div class="peas-general-card"><div class="field"><b>Condición asegurable</b><p>${esc(r.condition)}</p></div><div class="peas-table-detail"><div><span>Código del procedimiento</span><b>${esc(r.code)}</b></div><div><span>Denominación</span><b>${esc(r.denomination)}</b></div></div><blockquote>${esc(r.text)}</blockquote><div class="manual-citation"><b>Fuente:</b> ${peasCitation(r)}</div></div><div class="peas-related-card"><div class="manual-answer-top compact"><div><span>Tabla relacionada del PEAS</span><h3>Prestaciones de la misma condición</h3></div><span class="pill blue">${rows.length} filas</span></div>${peasProcedureTable(rows)}</div></div>`;}else{detail=`<blockquote>${esc(r.text)}</blockquote><div class="manual-citation"><b>Fuente:</b> ${peasCitation(r)}</div>`;}$('peasAnswer').innerHTML=`<div class="manual-answer-top"><div><span>${peasKindLabel(r.type)}</span><h3>${esc(r.heading)}</h3></div><a class="source-link" href="${peasPdf(r.page)}" target="_blank" rel="noopener">Abrir página ${r.page}</a></div>${detail}`;document.querySelectorAll('.peas-result').forEach((x,idx)=>x.classList.toggle('sel',idx===i));}
 
 
-function syncVersion(){const el=document.querySelector('.app-version');if(el)el.textContent='IAFAS HUB v4.2.64 · CENTRO DE FUENTES · 26AGO2026';}
+function syncVersion(){const el=document.querySelector('.app-version');if(el)el.textContent='IAFAS HUB v4.2.129 · LOGIN RESPONSIVE · 09SEP2026';}
 function initMenuHover(){document.querySelectorAll('.menu button').forEach(btn=>{if(btn.dataset.hoverReady)return;btn.dataset.hoverReady='1';btn.addEventListener('mouseenter',()=>btn.classList.add('menu-hover'));btn.addEventListener('mouseleave',()=>btn.classList.remove('menu-hover'));btn.addEventListener('focus',()=>btn.classList.add('menu-hover'));btn.addEventListener('blur',()=>btn.classList.remove('menu-hover'));});}
 function applyTheme(){const mode=localStorage.getItem(THEME_STORAGE_KEY)||'light';document.body.classList.toggle('light-theme',mode==='light');initMenuHover();const btn=$('themeToggle');if(btn){const label=mode==='light'?'Cambiar a modo oscuro':'Cambiar a modo claro';btn.title=label;btn.setAttribute('aria-label',label);}}
 function toggleTheme(){const next=document.body.classList.contains('light-theme')?'dark':'light';localStorage.setItem(THEME_STORAGE_KEY,next);applyTheme();}
@@ -472,7 +472,7 @@ function sourceFmtDate(v){if(!v)return '-';try{return new Date(v).toLocaleString
 function sourceDrag(e,on){e.preventDefault();e.stopPropagation();document.getElementById('sourceDropzone')?.classList.toggle('dragging',!!on);}
 function sourceDrop(e){sourceDrag(e,false);const file=e.dataTransfer?.files?.[0];if(file)sourceFileSelected(file);}
 function sourceReadBase64(file){return new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(String(r.result||'').split(',')[1]||'');r.onerror=()=>reject(new Error('No se pudo leer el archivo.'));r.readAsDataURL(file);});}
-function sourceTypeLabel(t){return ({listas_ab:'LISTAS AB',peas:'PEAS',manual:'Manual de Normas',capacitacion:'Capacitación / documento IAFA'})[t]||t;}
+function sourceTypeLabel(t){return ({listas_ab:'LISTAS AB',capacitaciones_master:'Maestro de Capacitaciones IAFAS',peas:'PEAS',manual:'Manual de Normas',capacitacion:'Capacitación / documento IAFA'})[t]||t;}
 async function sourceFileSelected(file){
   if(!file)return;
   const msg=$('sourceUploadMessage'),preview=$('sourcePreview');
@@ -489,10 +489,12 @@ async function sourceFileSelected(file){
 function renderSourcePreview(p){
   const host=$('sourcePreview');if(!host||!p)return;
   const d=p.detail||{},cur=p.current||{};
-  const currentText=p.type==='capacitacion'?`${cur.documents||0} documentos publicados`:(cur.name?`${cur.name} · ${sourceFmtBytes(cur.bytes)}`:'Sin fuente vigente registrada');
+  const currentText=p.type==='capacitacion'?`${cur.documents||0} documentos publicados`:p.type==='capacitaciones_master'?`${cur.records||0} contenidos · ${cur.companies||0} entidades`:(cur.name?`${cur.name} · ${sourceFmtBytes(cur.bytes)}`:'Sin fuente vigente registrada');
   let detail='';
   if(p.type==='listas_ab'){
     detail=`<div><span>Registros válidos</span><b>${d.records||0}</b></div><div><span>IAFAS detectadas</span><b>${Object.keys(d.companies||{}).length}</b></div>`;
+  }else if(p.type==='capacitaciones_master'){
+    detail=`<div><span>Contenidos publicables</span><b>${d.records||0}</b></div><div><span>IAFAS / entidades</span><b>${Object.keys(d.companies||{}).length}</b></div><div><span>Detalle documental</span><b>${d.detail_rows||0}</b></div><div><span>Registros curados</span><b>${d.curated_rows||0}</b></div><div><span>Omitidos por estado/acción</span><b>${d.skipped||0}</b></div>`;
   }else{
     detail=`<div><span>Páginas</span><b>${d.pages||0}</b></div><div><span>Texto extraíble</span><b>${d.text_extractable?'Sí':'No'}</b></div><div><span>Índice / marcadores</span><b>${d.outline_items||0}</b></div>`;
   }
@@ -516,6 +518,7 @@ async function publishSourcePreview(){
 function sourceCard(s){
   const c=s.current||{};let main='Sin publicación desde el Centro';let sub='Disponible para recibir una fuente';
   if(s.type==='capacitacion'){main=`${c.documents||0} documentos publicados`;sub=c.latest?`Último: ${c.latest.filename||c.latest.title||'-'}`:'Puedes agregar múltiples documentos';}
+  else if(s.type==='capacitaciones_master'){main=`${c.records||0} contenidos · ${c.companies||0} entidades`;sub=c.modified?`Última actualización: ${sourceFmtDate(c.modified)}`:'Sube el Excel maestro para publicar';}
   else if(c.name||c.filename){main=c.title||c.filename||c.name;sub=[c.version,c.published_at?sourceFmtDate(c.published_at):c.modified?sourceFmtDate(c.modified):''].filter(Boolean).join(' · ');}
   return `<article class="source-status-card"><div class="source-status-top"><span>${esc(s.label)}</span><i class="source-dot"></i></div><b>${esc(main)}</b><p>${esc(sub||'Fuente vigente')}</p><button onclick="sourcePrepareType('${esc(s.type)}')">Actualizar</button></article>`;
 }
@@ -891,3 +894,209 @@ function honReset(){
   honSetText('honIntroServTag','Factor servicios: -');
   honCalculate();
 }
+
+
+/* v4.2.134 - Capacitaciones: centro de consulta operativo por Excel maestro simple */
+let cap134Rows=[];
+function cap134N(v){return capNorm(String(v||''));}
+function cap134Knowledge(){return capData.filter(r=>String(r.tipo_registro||'CAPACITACION').toUpperCase()!=='FUENTE');}
+function cap134Sources(){return capData.filter(r=>String(r.tipo_registro||'').toUpperCase()==='FUENTE');}
+function cap134Unique(rows,key){return [...new Set(rows.map(key).filter(Boolean))].sort((a,b)=>String(a).localeCompare(String(b),'es'));}
+function cap134IafaName(r){return (r.iafas||r.iafa||'General').trim()||'General';}
+function cap134Product(r){return (r.producto||'General').trim()||'General';}
+function cap134Topic(r){return (r.grupo||r.tema||r.categoria||'General').trim()||'General';}
+function cap134Text(r){return [r.iafas,r.producto,r.grupo,r.tema,r.pregunta,r.respuesta,r.accion,r.fuente,r.pagina,r.keywords,r.archivo_fuente].filter(Boolean).join(' ');}
+function cap134Score(r,q){
+  if(!q)return 1;
+  const nq=cap134N(q), title=cap134N([r.pregunta,r.tema].join(' ')), body=cap134N(cap134Text(r)); let s=0;
+  if(title.includes(nq))s+=120;if(body.includes(nq))s+=55;
+  const toks=nq.split(/\s+/).filter(x=>x.length>1);for(const t of toks){if(title.includes(t))s+=13;if(body.includes(t))s+=4;}
+  if(String(r.tipo_registro||'').toUpperCase()!=='FUENTE')s+=12;
+  return s;
+}
+function cap134SetView(v,btn){
+  document.querySelectorAll('#capacitaciones .cap134-view').forEach(x=>x.classList.remove('active'));
+  const el=$('cap134View'+v.charAt(0).toUpperCase()+v.slice(1));if(el)el.classList.add('active');
+  document.querySelectorAll('#capacitaciones .cap135-tabs button').forEach(x=>x.classList.toggle('active',x===btn||x.dataset.capview===v));
+  if(v==='documentos')cap134RenderDocs();
+}
+function cap134FillSelect(id,values,label){const el=$(id);if(!el)return;const old=el.value;el.innerHTML=`<option value="ALL">${label}</option>`+values.map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join('');if(values.includes(old))el.value=old;}
+function cap134Init(){
+  const knowledge=cap134Knowledge(), sources=cap134Sources();
+  cap134FillSelect('cap134Iafa',cap134Unique(capData,cap134IafaName),'Todas las IAFAS');
+  cap134FillSelect('cap134Producto',cap134Unique(knowledge,cap134Product),'Todos los productos');
+  cap134FillSelect('cap134Tema',cap134Unique(knowledge,cap134Topic),'Todos los temas');
+  const docs=new Set(sources.map(r=>`${r.fuente||''}|${r.archivo_fuente||''}`).filter(x=>x!=='|'));
+  if($('cap134KpiKnowledge'))$('cap134KpiKnowledge').innerText=knowledge.length;
+  if($('cap134KpiSources'))$('cap134KpiSources').innerText=sources.length;
+  if($('cap134KpiIafas'))$('cap134KpiIafas').innerText=new Set(capData.map(cap134IafaName)).size;
+  if($('cap134KpiDocs'))$('cap134KpiDocs').innerText=docs.size;
+  if($('cap134SourceStatus'))$('cap134SourceStatus').innerText=`${knowledge.length} contenidos · ${sources.length} fuentes`;
+  const quick=['Carta de garantía','SITEDS','Emergencia accidental','Carencia','Maternidad','Control Niño Sano','SCTR','Oncología'];
+  if($('cap134Quick'))$('cap134Quick').innerHTML=quick.map(q=>`<button onclick="cap134Quick('${q.replace(/'/g,"\\'")}')">${esc(q)}</button>`).join('');
+  cap134RenderIafas();cap134RenderDocs();
+  if($('cap135AnswerArea'))$('cap135AnswerArea').hidden=true;
+  if($('cap135Browse'))$('cap135Browse').hidden=false;
+  if($('cap134IafaCards'))$('cap134IafaCards').style.display='grid';
+}
+function cap134Quick(q){if($('cap134Query'))$('cap134Query').value=q;cap134SetView('consulta',document.querySelector('[data-capview="consulta"]'));cap134Search(true);}
+function cap134Clear(){
+  if($('cap134Query'))$('cap134Query').value='';
+  ['cap134Iafa','cap134Producto','cap134Tema'].forEach(id=>{if($(id))$(id).value='ALL'});
+  cap134Rows=[];
+  if($('cap134Results'))$('cap134Results').innerHTML='';
+  if($('cap134Count'))$('cap134Count').innerText='0';
+  if($('cap134Detail'))$('cap134Detail').innerHTML='<div class="cap134-empty-detail"><b>Selecciona un resultado</b><p>Aquí verás qué aplica, qué debes hacer y la fuente.</p></div>';
+  if($('cap135AnswerArea'))$('cap135AnswerArea').hidden=true;
+  if($('cap135Browse'))$('cap135Browse').hidden=false;
+}
+function cap134Show(i,btn){
+  document.querySelectorAll('#cap134Results .cap134-result').forEach(x=>x.classList.remove('active'));if(btn)btn.classList.add('active');const r=cap134Rows[i];if(!r)return;
+  const isSource=String(r.tipo_registro||'').toUpperCase()==='FUENTE';const source=[r.fuente,r.pagina?`p. ${r.pagina}`:''].filter(Boolean).join(' · ');const action=(r.accion||r.decision||'').trim();
+  $('cap134Detail').innerHTML=`<div class="cap134-detail-head"><div><span>${esc(cap134IafaName(r))}</span><span>${esc(cap134Product(r))}</span><span>${esc(cap134Topic(r))}</span></div><h3>${esc(r.pregunta||r.tema||'Capacitación')}</h3>${isSource?'<small>Contenido textual de la fuente</small>':'<small>Conocimiento operativo publicado</small>'}</div><div class="cap134-detail-body"><section><b>Respuesta / regla</b><p>${esc(r.respuesta||'-')}</p></section>${action?`<section class="action"><b>Qué hacer</b><p>${esc(action)}</p></section>`:''}<section class="meta"><b>Fuente</b><p>${esc(source||'Fuente no identificada')}</p>${r.archivo_fuente?`<small>Archivo: ${esc(r.archivo_fuente)}</small>`:''}</section></div>`;
+}
+function cap134RenderIafas(){const root=$('cap134IafaCards');if(!root)return;const rows=cap134Knowledge();const names=cap134Unique(rows,cap134IafaName);root.innerHTML=names.map(n=>{const rr=rows.filter(r=>cap134IafaName(r)===n);const products=cap134Unique(rr,cap134Product).slice(0,5);const topics=cap134Unique(rr,cap134Topic).slice(0,6);return `<article class="cap134-iafa-card"><span>${esc(n)}</span><strong>${rr.length} contenidos</strong><p>${products.map(esc).join(' · ')||'General'}</p><div>${topics.map(t=>`<i>${esc(t)}</i>`).join('')}</div><button onclick="cap134OpenIafa('${String(n).replace(/'/g,"\\'")}')">Consultar ${esc(n)}</button></article>`}).join('');}
+function cap134OpenIafa(n){cap134SetView('consulta',document.querySelector('[data-capview="consulta"]'));if($('cap134Iafa'))$('cap134Iafa').value=n;cap134Search();}
+
+function cap135SelectIafa(n){
+  if($('cap134Iafa'))$('cap134Iafa').value=n;
+  const rows=cap134Knowledge().filter(r=>cap134IafaName(r)===n);
+  const topics=cap134Unique(rows,cap134Topic);
+  if($('cap135TopicKicker'))$('cap135TopicKicker').innerText=n;
+  if($('cap135TopicTitle'))$('cap135TopicTitle').innerText='¿Qué quieres consultar?';
+  if($('cap135TopicChips'))$('cap135TopicChips').innerHTML=topics.map(t=>`<button onclick="cap135OpenTopic('${String(n).replace(/'/g,"\'")}','${String(t).replace(/'/g,"\'")}')">${esc(t)}</button>`).join('');
+  if($('cap135TopicPanel'))$('cap135TopicPanel').hidden=false;
+  if($('cap134IafaCards'))$('cap134IafaCards').style.display='none';
+  document.getElementById('cap135TopicPanel')?.scrollIntoView({behavior:'smooth',block:'center'});
+}
+function cap135ResetIafa(){
+  if($('cap134Iafa'))$('cap134Iafa').value='ALL';
+  if($('cap134Tema'))$('cap134Tema').value='ALL';
+  if($('cap135TopicPanel'))$('cap135TopicPanel').hidden=true;
+  if($('cap134IafaCards'))$('cap134IafaCards').style.display='grid';
+}
+function cap135OpenTopic(n,t){
+  if($('cap134Iafa'))$('cap134Iafa').value=n;
+  if($('cap134Tema'))$('cap134Tema').value=t;
+  if($('cap134Query'))$('cap134Query').value='';
+  cap134Search(true);
+}
+function cap135GoUpdate(){
+  const b=menuBtn('fuentes');go('fuentes',b);
+  setTimeout(()=>{const s=$('sourceType');if(s){s.value='capacitaciones_master';s.dispatchEvent(new Event('change',{bubbles:true}));}},150);
+}
+function cap134RenderDecisions(){const root=$('cap134DecisionCards');if(!root)return;const keys=['carta de garantia','siteds','carencia','emergencia','hospitaliz','maternidad','nino sano','sctr','soat','oncolog'];const rows=cap134Knowledge().filter(r=>keys.some(k=>cap134N(cap134Text(r)).includes(k))).slice(0,36);root.innerHTML=rows.map(r=>`<button class="cap134-decision-card" onclick="cap134OpenRecord('${String(r.id||'').replace(/'/g,"\\'")}')"><span>${esc(cap134IafaName(r))} · ${esc(cap134Product(r))}</span><strong>${esc(r.pregunta||r.tema)}</strong><p>${esc(String(r.respuesta||'').slice(0,180))}${String(r.respuesta||'').length>180?'…':''}</p></button>`).join('');}
+function cap134OpenRecord(id){const r=capData.find(x=>String(x.id)===String(id));if(!r)return;cap134SetView('consulta',document.querySelector('[data-capview="consulta"]'));if($('cap134Query'))$('cap134Query').value=r.pregunta||r.tema||'';cap134Search(true);}
+function cap134RenderFaq(){const root=$('cap134FaqList');if(!root)return;let rows=cap134Knowledge().filter(r=>/[?¿]/.test(r.pregunta||'')||/^(que|como|cuando|donde|quien|cual|qué|cómo|cuándo|dónde|quién|cuál)\b/i.test((r.pregunta||'').trim())).slice(0,50);if(!rows.length)rows=cap134Knowledge().slice(0,30);root.innerHTML=rows.map(r=>`<button onclick="cap134OpenRecord('${String(r.id||'').replace(/'/g,"\\'")}')"><span>${esc(cap134IafaName(r))}</span><strong>${esc(r.pregunta||r.tema)}</strong><small>${esc(r.fuente||'')}</small></button>`).join('');}
+function cap134RenderDocs(){const root=$('cap134Docs');if(!root)return;const map=new Map();for(const r of cap134Sources()){const k=[r.iafas||'',r.fuente||'',r.archivo_fuente||''].join('|');if(!map.has(k))map.set(k,{iafa:cap134IafaName(r),name:r.fuente||r.archivo_fuente||'Documento',file:r.archivo_fuente||'',year:r.anio||'',pages:new Set(),topics:new Set()});const d=map.get(k);d.pages.add(String(r.pagina||''));d.topics.add(cap134Topic(r));}root.innerHTML=[...map.values()].sort((a,b)=>a.iafa.localeCompare(b.iafa,'es')||a.name.localeCompare(b.name,'es')).map(d=>`<article class="cap134-doc-card"><span>${esc(d.iafa)}${d.year?` · ${esc(d.year)}`:''}</span><strong>${esc(d.name)}</strong><p>${d.pages.size} página${d.pages.size===1?'':'s'}/lámina${d.pages.size===1?'':'s'} indexada${d.pages.size===1?'':'s'}</p><div>${[...d.topics].slice(0,5).map(t=>`<i>${esc(t)}</i>`).join('')}</div>${d.file?`<small>${esc(d.file)}</small>`:''}</article>`).join('');}
+renderCapacitaciones=function(){if(!$('cap134Query'))return;cap134Init();};
+
+
+/* =========================================================
+   v4.2.136 - Capacitaciones IAFAS: centro de consulta práctico
+   ========================================================= */
+const CAP136_ROUTES=[
+  {key:'cg',label:'Carta de garantía',desc:'Requisitos, procedimientos, vigencia y excepciones',icon:'CG',terms:['carta de garantia','garantia','cg']},
+  {key:'emergencia',label:'Emergencia',desc:'Ingreso, continuidad, accidentes y atención inmediata',icon:'EM',terms:['emergencia','accidente','continuidad']},
+  {key:'maternidad',label:'Maternidad',desc:'Prenatal, parto, postnatal y coberturas asociadas',icon:'MA',terms:['maternidad','prenatal','postnatal','gestante','parto']},
+  {key:'nino',label:'Niño sano',desc:'Controles, edades, vacunas y frecuencias',icon:'NS',terms:['nino sano','niño sano','recien nacido','recién nacido','cred']},
+  {key:'oncologia',label:'Oncología',desc:'Activación, autorización y atención oncológica',icon:'ON',terms:['oncolog','quimioterapia','radioterapia']},
+  {key:'sctr',label:'SCTR / Accidentes',desc:'Validación, documentos y continuidad de atención',icon:'SC',terms:['sctr','accidente personal','accidentes personales']},
+  {key:'siteds',label:'SITEDS',desc:'Validación de afiliación, cobertura y códigos',icon:'SI',terms:['siteds','acreditacion','acreditación']},
+  {key:'hospital',label:'Hospitalización',desc:'Ingreso, ampliaciones y control posterior',icon:'HO',terms:['hospitaliz','hospitalario','alta','post hospital']}
+];
+let cap136Rows=[];
+let cap136State={iafa:'ALL',producto:'ALL',tema:'ALL',route:'ALL',query:''};
+function cap136Norm(v){return capNorm(String(v||''));}
+function cap136Knowledge(){return capData.filter(r=>String(r.tipo_registro||'CAPACITACION').toUpperCase()!=='FUENTE');}
+function cap136Sources(){return capData.filter(r=>String(r.tipo_registro||'').toUpperCase()==='FUENTE');}
+function cap136Iafa(r){return (r.iafas||r.iafa||'General').trim()||'General';}
+function cap136Product(r){return (r.producto||'General').trim()||'General';}
+function cap136Topic(r){return (r.tema||r.grupo||r.categoria||'General').trim()||'General';}
+function cap136Unique(rows,fn){return [...new Set(rows.map(fn).filter(Boolean))].sort((a,b)=>String(a).localeCompare(String(b),'es'))}
+function cap136Text(r){return [r.iafas,r.iafa,r.producto,r.grupo,r.categoria,r.tema,r.pregunta,r.respuesta,r.resumen,r.accion,r.decision,r.revisar,r.alerta,r.alertas,r.fuente,r.pagina,r.keywords,r.aliases,r.archivo_fuente].filter(Boolean).join(' ')}
+function cap136RouteMatch(r,key){if(!key||key==='ALL')return true;const route=CAP136_ROUTES.find(x=>x.key===key);if(!route)return true;const t=cap136Norm(cap136Text(r));return route.terms.some(term=>t.includes(cap136Norm(term)));}
+function cap136Score(r,q){
+  const nq=cap136Norm(q); if(!nq)return 1;
+  const title=cap136Norm([r.pregunta,r.tema,r.grupo].join(' '));
+  const answer=cap136Norm([r.respuesta,r.resumen,r.accion,r.decision,r.revisar,r.alerta,r.alertas].join(' '));
+  const meta=cap136Norm([r.iafas,r.producto,r.fuente,r.keywords,r.aliases].join(' '));
+  let s=0;if(title.includes(nq))s+=120;if(answer.includes(nq))s+=70;if(meta.includes(nq))s+=45;
+  const toks=nq.split(/\s+/).filter(x=>x.length>1);
+  for(const t of toks){if(title.includes(t))s+=15;if(answer.includes(t))s+=8;if(meta.includes(t))s+=5;}
+  return s;
+}
+function cap136SetView(v,btn){
+  document.querySelectorAll('#capacitaciones .cap136-view').forEach(x=>x.classList.remove('active'));
+  const el=$('cap136View'+v.charAt(0).toUpperCase()+v.slice(1));if(el)el.classList.add('active');
+  document.querySelectorAll('#capacitaciones .cap136-tabs button').forEach(x=>x.classList.toggle('active',x===btn||x.dataset.cap136View===v));
+  if(v==='documentos')cap136RenderDocs();
+}
+function cap136RenderRoutes(){
+  const root=$('cap136Routes');if(!root)return;
+  root.innerHTML=CAP136_ROUTES.map(r=>{const n=cap136Knowledge().filter(x=>cap136RouteMatch(x,r.key)).length;return `<button class="cap136-route" onclick="cap136OpenRoute('${r.key}')"><span class="cap136-route-icon">${r.icon}</span><div><strong>${esc(r.label)}</strong><p>${esc(r.desc)}</p><small>${n} contenidos disponibles</small></div><i>→</i></button>`}).join('');
+}
+function cap136RenderIafas(){
+  const root=$('cap136Iafas');if(!root)return;const rows=cap136Knowledge();
+  const names=cap136Unique(rows,cap136Iafa).filter(n=>n && n!=='General');
+  root.innerHTML=names.map(n=>{const rr=rows.filter(r=>cap136Iafa(r)===n);const topics=cap136Unique(rr,cap136Topic);return `<button onclick="cap136OpenIafa('${String(n).replace(/'/g,"\\'")}')"><span>${esc(n)}</span><small>${topics.length} temas · ${rr.length} contenidos</small><i>→</i></button>`}).join('');
+}
+function cap136OpenRoute(key){cap136State={iafa:'ALL',producto:'ALL',tema:'ALL',route:key,query:''};if($('cap136Query'))$('cap136Query').value='';cap136Search(true);}
+function cap136OpenIafa(name){
+  cap136State={iafa:name,producto:'ALL',tema:'ALL',route:'ALL',query:''};
+  const rows=cap136Knowledge().filter(r=>cap136Iafa(r)===name);
+  const products=cap136Unique(rows,cap136Product);const topics=cap136Unique(rows,cap136Topic);
+  if($('cap136Home'))$('cap136Home').hidden=true;if($('cap136ResultsArea'))$('cap136ResultsArea').hidden=true;if($('cap136Explore'))$('cap136Explore').hidden=false;
+  if($('cap136ExploreKicker'))$('cap136ExploreKicker').innerText=name;
+  if($('cap136ExploreTitle'))$('cap136ExploreTitle').innerText=`¿Qué quieres consultar de ${name}?`;
+  if($('cap136ExploreDesc'))$('cap136ExploreDesc').innerText='Puedes filtrar primero por producto o entrar directamente a un tema.';
+  if($('cap136Products'))$('cap136Products').innerHTML=products.map(p=>`<button class="${cap136State.producto===p?'active':''}" onclick="cap136SelectProduct('${String(p).replace(/'/g,"\\'")}')">${esc(p)}</button>`).join('');
+  if($('cap136Topics'))$('cap136Topics').innerHTML=topics.map(t=>{const n=rows.filter(r=>cap136Topic(r)===t).length;return `<button onclick="cap136OpenTopic('${String(t).replace(/'/g,"\\'")}')"><strong>${esc(t)}</strong><small>${n} contenidos</small><i>Consultar →</i></button>`}).join('');
+  cap136RenderActiveFilters();
+}
+function cap136SelectProduct(product){cap136State.producto=product;const rows=cap136Knowledge().filter(r=>cap136Iafa(r)===cap136State.iafa && cap136Product(r)===product);const topics=cap136Unique(rows,cap136Topic);if($('cap136Products'))Array.from($('cap136Products').children).forEach(b=>b.classList.toggle('active',b.textContent.trim()===product));if($('cap136Topics'))$('cap136Topics').innerHTML=topics.map(t=>{const n=rows.filter(r=>cap136Topic(r)===t).length;return `<button onclick="cap136OpenTopic('${String(t).replace(/'/g,"\\'")}')"><strong>${esc(t)}</strong><small>${n} contenidos</small><i>Consultar →</i></button>`}).join('');cap136RenderActiveFilters();}
+function cap136OpenTopic(topic){cap136State.tema=topic;cap136Search(true);}
+function cap136RenderActiveFilters(){const root=$('cap136ActiveFilters');if(!root)return;const chips=[];if(cap136State.iafa!=='ALL')chips.push(cap136State.iafa);if(cap136State.producto!=='ALL')chips.push(cap136State.producto);if(cap136State.tema!=='ALL')chips.push(cap136State.tema);if(cap136State.route!=='ALL'){const r=CAP136_ROUTES.find(x=>x.key===cap136State.route);if(r)chips.push(r.label)};root.innerHTML=chips.length?`<span>Consulta activa:</span>${chips.map(x=>`<b>${esc(x)}</b>`).join('')}`:'';}
+function cap136Reset(){cap136State={iafa:'ALL',producto:'ALL',tema:'ALL',route:'ALL',query:''};cap136Rows=[];if($('cap136Query'))$('cap136Query').value='';if($('cap136Home'))$('cap136Home').hidden=false;if($('cap136Explore'))$('cap136Explore').hidden=true;if($('cap136ResultsArea'))$('cap136ResultsArea').hidden=true;cap136RenderActiveFilters();window.scrollTo({top:0,behavior:'smooth'});}
+function cap136Search(force){
+  const q=($('cap136Query')?.value||'').trim();cap136State.query=q;
+  let scored=cap136Knowledge().map(r=>({r,score:cap136Score(r,q)})).filter(x=>x.score>0);
+  if(cap136State.iafa!=='ALL')scored=scored.filter(x=>cap136Iafa(x.r)===cap136State.iafa);
+  if(cap136State.producto!=='ALL')scored=scored.filter(x=>cap136Product(x.r)===cap136State.producto);
+  if(cap136State.tema!=='ALL')scored=scored.filter(x=>cap136Topic(x.r)===cap136State.tema);
+  if(cap136State.route!=='ALL')scored=scored.filter(x=>cap136RouteMatch(x.r,cap136State.route));
+  scored.sort((a,b)=>b.score-a.score||String(a.r.pregunta||'').localeCompare(String(b.r.pregunta||''),'es'));
+  cap136Rows=scored.slice(0,60).map(x=>x.r);
+  if(!q && cap136State.iafa==='ALL'&&cap136State.tema==='ALL'&&cap136State.route==='ALL'){cap136Reset();return;}
+  if($('cap136Home'))$('cap136Home').hidden=true;if($('cap136Explore'))$('cap136Explore').hidden=true;if($('cap136ResultsArea'))$('cap136ResultsArea').hidden=false;
+  const route=CAP136_ROUTES.find(x=>x.key===cap136State.route);const title=q?`Resultados para “${q}”`:cap136State.tema!=='ALL'?cap136State.tema:route?route.label:cap136State.iafa!=='ALL'?cap136State.iafa:'Información encontrada';
+  if($('cap136ResultsTitle'))$('cap136ResultsTitle').innerText=title;
+  if($('cap136Count'))$('cap136Count').innerText=`${cap136Rows.length} resultado${cap136Rows.length===1?'':'s'}`;
+  if($('cap136ResultsHint'))$('cap136ResultsHint').innerText=cap136Rows.length?'Abre una coincidencia para revisar la respuesta completa y su respaldo.':'No hay información publicada para esa combinación.';
+  cap136RenderActiveFilters();cap136RenderResults();
+}
+function cap136RenderResults(){
+  const root=$('cap136Results');if(!root)return;
+  if(!cap136Rows.length){root.innerHTML='<div class="cap136-empty"><b>No encontré información sustentada</b><p>Prueba con una búsqueda más corta, cambia la IAFA o revisa las fuentes documentales.</p></div>';if($('cap136Detail'))$('cap136Detail').innerHTML='<div class="cap136-empty-detail"><b>Sin respuesta publicada</b><p>El Hub no completará una regla que no esté cargada en la base.</p></div>';return;}
+  root.innerHTML=cap136Rows.map((r,i)=>`<button class="cap136-result" onclick="cap136Show(${i},this)"><div class="cap136-result-meta"><span>${esc(cap136Iafa(r))}</span><em>${esc(cap136Product(r))}</em></div><strong>${esc(r.pregunta||r.tema||'Contenido de capacitación')}</strong><p>${esc(String(r.respuesta||r.resumen||'').slice(0,170))}${String(r.respuesta||r.resumen||'').length>170?'…':''}</p><small>${esc(cap136Topic(r))}${r.pagina?` · p. ${esc(r.pagina)}`:''}</small></button>`).join('');
+  cap136Show(0,root.querySelector('.cap136-result'));
+}
+function cap136Show(i,btn){
+  document.querySelectorAll('#cap136Results .cap136-result').forEach(x=>x.classList.remove('active'));if(btn)btn.classList.add('active');const r=cap136Rows[i];if(!r)return;
+  const answer=(r.respuesta||r.resumen||'').trim();const action=(r.accion||r.decision||'').trim();const review=(r.revisar||'').trim();const alert=(r.alerta||r.alertas||'').trim();const source=[r.fuente,r.pagina?`p. ${r.pagina}`:''].filter(Boolean).join(' · ');const pdf=(r.pdf||'').trim();const page=r.pagelink||String(r.pagina||'').split(' ')[0]||1;
+  const sections=[];
+  if(answer)sections.push(`<section class="cap136-section cap136-answer"><div class="cap136-section-label"><span>1</span><b>Respuesta</b></div><p>${esc(answer)}</p></section>`);
+  if(action)sections.push(`<section class="cap136-section cap136-action"><div class="cap136-section-label"><span>2</span><b>Qué debe hacer el personal</b></div><p>${esc(action)}</p></section>`);
+  if(review)sections.push(`<section class="cap136-section"><div class="cap136-section-label"><span>3</span><b>Qué debe validar</b></div><p>${esc(review)}</p></section>`);
+  if(alert)sections.push(`<section class="cap136-section cap136-alert"><div class="cap136-section-label"><span>!</span><b>Atención / excepción</b></div><p>${esc(alert)}</p></section>`);
+  $('cap136Detail').innerHTML=`<header class="cap136-detail-head"><div class="cap136-detail-tags"><span>${esc(cap136Iafa(r))}</span><span>${esc(cap136Product(r))}</span><span>${esc(cap136Topic(r))}</span></div><h3>${esc(r.pregunta||r.tema||'Capacitación')}</h3><small>Información sustentada en la base de capacitaciones</small></header><div class="cap136-detail-body">${sections.join('')}<section class="cap136-source"><div><b>Fuente</b><p>${esc(source||'Fuente no identificada')}</p>${r.archivo_fuente?`<small>${esc(r.archivo_fuente)}</small>`:''}</div>${pdf?`<a href="${esc(pdf)}#page=${esc(page)}" target="_blank" rel="noopener">Abrir documento</a>`:''}</section></div>`;
+}
+function cap136RenderDocs(){
+  const root=$('cap136Docs');if(!root)return;const q=cap136Norm($('cap136DocQuery')?.value||'');const map=new Map();
+  for(const r of cap136Sources()){const key=[cap136Iafa(r),r.fuente||'',r.archivo_fuente||''].join('|');if(!map.has(key))map.set(key,{iafa:cap136Iafa(r),name:r.fuente||r.archivo_fuente||'Documento',file:r.archivo_fuente||'',year:r.anio||'',pages:new Set(),topics:new Set()});const d=map.get(key);if(r.pagina)d.pages.add(String(r.pagina));if(cap136Topic(r))d.topics.add(cap136Topic(r));}
+  let docs=[...map.values()];if(q)docs=docs.filter(d=>cap136Norm([d.iafa,d.name,d.file,d.year,[...d.topics].join(' ')].join(' ')).includes(q));
+  docs.sort((a,b)=>a.iafa.localeCompare(b.iafa,'es')||a.name.localeCompare(b.name,'es'));
+  root.innerHTML=docs.length?docs.map(d=>`<article class="cap136-doc-card"><div><span>${esc(d.iafa)}${d.year?` · ${esc(d.year)}`:''}</span><strong>${esc(d.name)}</strong><p>${d.pages.size} página${d.pages.size===1?'':'s'}/lámina${d.pages.size===1?'':'s'} indexada${d.pages.size===1?'':'s'}</p></div><div class="cap136-doc-topics">${[...d.topics].slice(0,6).map(t=>`<i>${esc(t)}</i>`).join('')}</div>${d.file?`<small>${esc(d.file)}</small>`:''}</article>`).join(''):'<div class="cap136-empty"><b>No se encontraron documentos</b><p>Prueba con otro nombre o IAFA.</p></div>';
+}
+function cap136Init(){cap136RenderRoutes();cap136RenderIafas();cap136RenderDocs();cap136RenderActiveFilters();if($('cap136Home'))$('cap136Home').hidden=false;if($('cap136Explore'))$('cap136Explore').hidden=true;if($('cap136ResultsArea'))$('cap136ResultsArea').hidden=true;}
+renderCapacitaciones=function(){if(!$('cap136Query'))return;cap136Init();};

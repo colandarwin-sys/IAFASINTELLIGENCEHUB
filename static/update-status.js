@@ -1,1 +1,1 @@
-window.DATA_UPDATE_STATUS={"fecha": "2026-08-26T18:17:17", "archivo": "LISTAS-AB.xlsx", "registros": 676, "companias": {"Pacífico": 371, "Rímac": 305}, "capacitaciones_locales": 0};
+window.DATA_UPDATE_STATUS={"fecha":"2026-09-09T10:44:00-05:00","archivo":"LISTAS-AB.xlsx","registros":837,"companias":{"Pacífico":371,"Rímac":305,"Mapfre":161},"capacitaciones_locales":0};

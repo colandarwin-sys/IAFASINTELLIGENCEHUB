@@ -1,0 +1,21 @@
+CAPACITACIONES IAFAS - ACTUALIZACION CONTINUA
+=============================================
+
+1. Abra MAESTRO-CAPACITACIONES-IAFAS.xlsx.
+2. Para el trabajo diario edite solo:
+   - CAPACITACIONES: 10 columnas simples.
+   - DOCUMENTOS: inventario de las fuentes.
+3. Estados de CAPACITACIONES:
+   - Publicado: aparece en el Hub.
+   - Borrador: no se publica.
+   - Inactivo: deja de mostrarse.
+4. Guarde el Excel.
+5. Abra el Hub con abrir-portal-local.cmd.
+6. Ingrese a Administracion > Gestion de fuentes.
+7. Seleccione "Maestro de Capacitaciones IAFAS".
+8. Cargue el Excel, revise la vista previa y publique.
+
+IMPORTANTE
+- FUENTE_DOCUMENTAL conserva el texto fuente por pagina/diapositiva y esta oculta para no complicar el mantenimiento diario.
+- El panel Capacitaciones y Darbot consumen la misma base publicada.
+- Si una regla cambia, conserve la trazabilidad: desactive la anterior y agregue la nueva con su fuente/pagina.

@@ -618,17 +618,41 @@
     if(intent.key==='cap') return 'La ruta más sólida es revisar la fuente operativa o capacitación relacionada antes de escalar la respuesta.';
     return 'Puedo orientarte con las fuentes cargadas y ordenar qué revisar primero.';
   }
+  const darbotConversation={turns:[],lastSocial:'',lastUser:''};
+  function darbotRemember(role,text){
+    const value=clean(text||''); if(!value)return;
+    darbotConversation.turns.push({role,text:value,at:Date.now()});
+    if(darbotConversation.turns.length>12)darbotConversation.turns.splice(0,darbotConversation.turns.length-12);
+    if(role==='user')darbotConversation.lastUser=value;
+  }
+  function darbotRecentHistory(limit=6){
+    return darbotConversation.turns.slice(-limit).map(x=>({role:x.role,content:x.text}));
+  }
   function darwenSmallTalk(q){
     const n=norm(q).replace(/[,;:]+/g,' ').replace(/\s+/g,' ').trim();
-    // Conversación social básica: debe resolverse ANTES de consultar fuentes del Hub.
-    // Acepta saludos combinados: "hola como estas", "buenas, como te encuentras", etc.
-    const saludo='(?:hola|buenas|buenos dias|buenas tardes|buenas noches|hey|ola)';
-    const bienestar='(?:como estas|como te encuentras|que tal|como vas)';
-    if(new RegExp('^(?:'+saludo+'\\s+)?'+bienestar+'(?:[\\s\\?\\!\\.]*)$').test(n)) return '<p>Estoy bien, listo para ayudarte !</p>';
-    if(new RegExp('^'+saludo+'(?:[\\s\\?\\!\\.]*)$').test(n)) return '<p>Hola, aquí estoy. Cuéntame qué caso quieres revisar y lo ordenamos paso a paso.</p>';
-    if(/quien eres|como te llamas|que eres|tu nombre/.test(n)) return '<p>Soy Darbot, tu asistente del Hub. Te ayudo a revisar consultas de IAFAS con el material cargado y a dejar clara la respuesta antes de escalarla.</p>';
-    if(/^(?:que puedes hacer|ayuda|ayudame|como funcionas|para que sirves)[\s?.!]*$/.test(n)) return '<p>Puedo ayudarte a ubicar sustento, revisar PEAS o Manual, comparar lo que aparece en las fuentes y advertirte si falta validar convenio, póliza, vigencia o tarifario.</p>';
-    if(/gracias|thank/.test(n)) return '<p>De nada. Cuando tengas otro caso, pásamelo y lo revisamos.</p>';
+    // Conversación social básica y continuidad. Se resuelve ANTES de consultar fuentes del Hub.
+    const saludo='(?:hola|holaa+|buenas|buenos dias|buenas tardes|buenas noches|hey|ola|que tal)';
+    const bienestar='(?:como estas|como te encuentras|como vas|como te va|que tal estas|que tal te va|como ha ido|como te ha ido|como estuvo tu dia|como va tu dia|como amaneciste)';
+    const today='(?:hoy|el dia de hoy)?';
+    if(new RegExp('^(?:'+saludo+'\\s+)?'+bienestar+'(?:\\s+'+today+')?(?:[\\s\\?\\!\\.]*)$').test(n)){
+      darbotConversation.lastSocial='bienestar';
+      return '<p>¡Hola! Va muy bien por aquí 😄. Estoy listo para conversar contigo o meternos de frente a revisar un caso del Hub. ¿Cómo va tu día?</p>';
+    }
+    if(new RegExp('^'+saludo+'(?:[\\s\\?\\!\\.]*)$').test(n)){
+      darbotConversation.lastSocial='saludo';
+      return '<p>¡Holaaa! 😄 Qué gusto verte por aquí. ¿Cómo estás? Podemos conversar un rato o revisar cualquier consulta de IAFAS que tengas.</p>';
+    }
+    if(/^(?:bien|muy bien|todo bien|genial|excelente|tranquilo|tranquila|ahi vamos|más o menos|mas o menos|cansado|cansada|estresado|estresada)[\s?.!]*$/.test(n) && darbotConversation.lastSocial){
+      return /cansad|estresad|mas o menos|más o menos/.test(n)
+        ? '<p>Te entiendo. Si quieres, hacemos esto simple: dime qué necesitas resolver primero y lo ordenamos sin recargarte.</p>'
+        : '<p>¡Me alegra! 😄 Entonces estamos listos. ¿Qué quieres revisar hoy?</p>';
+    }
+    if(/que haces|que estas haciendo|en que andas/.test(n)) return '<p>Aquí, pendiente del Hub 😄. Puedo conversar contigo y también ayudarte a analizar coberturas, PEAS, Manual, factores, exclusiones o reglas operativas.</p>';
+    if(/quien eres|como te llamas|que eres|tu nombre/.test(n)) return '<p>Soy Darbot, el asistente del IAFAS Intelligence Hub. Puedo conversar contigo con naturalidad y, cuando el tema es operativo, buscar sustento en las fuentes cargadas antes de responder.</p>';
+    if(/^(?:que puedes hacer|ayuda|ayudame|como funcionas|para que sirves)[\s?.!]*$/.test(n)) return '<p>Puedo conversar contigo, entender consultas escritas de forma natural, revisar varias fuentes del Hub, comparar evidencias y decirte qué está sustentado, qué falta validar y dónde revisarlo.</p>';
+    if(/gracias|muchas gracias|thank/.test(n)) return '<p>¡Con gusto! 😄 Aquí me quedo. Si quieres seguimos con otro caso o con cualquier duda que tengas.</p>';
+    if(/^(?:ok|okay|perfecto|perfecta|listo|lista|dale|de acuerdo|ya)[\s?.!]*$/.test(n)) return '<p>Perfecto 😄. Te sigo. Dime qué hacemos ahora.</p>';
+    if(/hasta luego|nos vemos|chau|chao|adios|adiós/.test(n)) return '<p>¡Nos vemos! Que te vaya muy bien. Cuando vuelvas, seguimos desde donde lo dejamos.</p>';
     return '';
   }
   function relevantSourceLines(text,q){
@@ -1114,7 +1138,7 @@
       score:Math.round(c.score||0)
     }));
     const token=sessionStorage.getItem('iafas_hub_api_token_v1')||'';
-    const res=await fetch('/api/darwen-chat',{method:'POST',headers:{'Content-Type':'application/json','X-Session-Token':token},body:JSON.stringify({message:rq,intent:intent.label,facets,queries:variants,evidence})});
+    const res=await fetch('/api/darwen-chat',{method:'POST',headers:{'Content-Type':'application/json','X-Session-Token':token},body:JSON.stringify({message:rq,intent:intent.label,facets,queries:variants,evidence,history:darbotRecentHistory(8),reasoning:{mode:'deliberate',crossCheck:true,maxEvidence:14,askWhenAmbiguous:true}})});
     const payload=await res.json().catch(()=>({ok:false,error:'Respuesta inválida'}));
     if(!res.ok||payload.ok===false)throw new Error(payload.error||'No se pudo consultar la IA.');
     const rawAnswer=String(payload.answer||'Respuesta no encontrada').replace(/^\s*respuesta\s+directa\s*:\s*/i,'');
@@ -1131,6 +1155,7 @@
     const box=$id('darwenMessages'); if(box)box.innerHTML='';
     window.speechSynthesis?.cancel?.();
     darwenStopTalking();
+    darbotConversation.turns=[];darbotConversation.lastSocial='';darbotConversation.lastUser='';
     darwenEnsureGreeting();
   };
   window.minimizeDarwenChat=function(){
@@ -1143,14 +1168,14 @@
   window.sendDarwenMessage=async function(event){
     if(event)event.preventDefault();
     const input=$id('darwenInput'); const q=clean(input?.value||''); if(!q)return;
-    darwenAddMessage('user',esc2(q)); input.value='';
+    darwenAddMessage('user',esc2(q)); darbotRemember('user',q); input.value='';
     const typing=darwenTyping();
     const delay=Math.min(1500,650+q.length*12);
     setTimeout(async()=>{
       let answer='';
       try{answer=await darwenApiAnswer(q);}catch(_e){answer=darwenAnswer(q);}
       darwenRemoveTyping(typing);
-      darwenAddMessage('bot',answer);
+      darwenAddMessage('bot',answer); darbotRemember('assistant',darwenPlainText(answer));
       darwenSpeak(answer);
     },delay);
   };

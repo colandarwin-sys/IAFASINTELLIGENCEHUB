@@ -1,16 +1,17 @@
-IAFAS INTELLIGENCE HUB - GITHUB + NETLIFY
+IAFAS INTELLIGENCE HUB v4.2.136
 
-1. Descomprime este ZIP.
-2. En GitHub abre tu repositorio.
-3. Usa Add file > Upload files.
-4. Sube TODO EL CONTENIDO que está dentro de esta carpeta, de modo que index.html quede en la raíz del repositorio.
-5. Haz Commit changes.
-6. En Netlify elige Add new project > Import an existing project > GitHub.
-7. Selecciona tu repositorio.
-8. Configuración recomendada:
-   - Framework: Other / Static
-   - Build command: vacío
-   - Publish directory: .
-9. Pulsa Deploy.
+PUBLICACION EN GITHUB
+1. Sube TODO el contenido de esta carpeta a la raiz del repositorio.
+2. Deben quedar index.html, netlify.toml y la carpeta static/ directamente en la raiz.
+3. No subas solamente index.html: el portal necesita static/ y sus archivos de datos.
 
-Después, cada actualización que llegue a GitHub podrá publicarse automáticamente en el mismo sitio de Netlify.
+PUBLICACION EN NETLIFY
+- Si Netlify ya esta conectado al repositorio, al actualizar GitHub se generara el nuevo deploy.
+- Build command: dejar vacio.
+- Publish directory: .
+- El archivo netlify.toml ya esta configurado con publish = ".".
+
+CAPACITACIONES
+- La base publicada esta en static/capacitaciones-maestro.js/json.
+- El Excel maestro esta incluido como MAESTRO-CAPACITACIONES-IAFAS.xlsx.
+- Para actualizar el maestro desde Excel y regenerar la base, usar primero abrir-portal-local.cmd y Centro de Fuentes. Luego publicar los archivos actualizados en GitHub/Netlify.

@@ -1,0 +1,16 @@
+IAFAS INTELLIGENCE HUB - VERSION LOCAL DE TRABAJO
+
+Objetivo:
+Esta carpeta es para revisar y corregir el portal en localhost antes de publicar cambios en GitHub/Netlify.
+
+COMO ABRIRLO
+1. Descomprime la carpeta completa.
+2. Haz doble clic en: abrir-portal-local.cmd
+3. Se abrira el navegador en: http://localhost:8090
+4. Mantén abierta la ventana negra mientras revisas el portal.
+5. Para cerrar el servidor, presiona Ctrl+C en esa ventana.
+
+IMPORTANTE
+- Esta version NO publica nada en GitHub ni Netlify.
+- Las correcciones se revisaran aqui primero.
+- Solo cuando una version quede aprobada prepararemos la version de produccion.
